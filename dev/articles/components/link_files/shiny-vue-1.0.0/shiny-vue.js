@@ -157,6 +157,14 @@
   // path, reported on load and after every navigation that succeeds. It is
   // started in an app of its own, so it runs with no component on the page.
   sv.router = null;
+  // the router as a binding reads it: reactive, so a v_bind() of $route
+  // made before the router follows it once it comes
+  var routerSeen = null;
+  function routerRef() {
+    if (!routerSeen) routerSeen = Vue.shallowRef(null);
+    return routerSeen;
+  }
+  var USES_ROUTER = /\$route\b|\$router\b|router-link|router-view|RouterLink|RouterView/;
   sv.routerId = null;
   sv.createRouter = function(config) {
     if (sv.router) {
@@ -223,6 +231,23 @@
     router.afterEach(function(to, from, failure) { if (!failure) report(to); });
     sv.router = router;
     sv.routerId = config.id;
+    routerRef().value = router;
+    // A component mounted before the router cannot be given it: Vue installs
+    // a plugin at mount, not after. Said for the components whose templates
+    // use the router -- $route, $router, <router-link>, <router-view> -- not
+    // for the others, which lose nothing; a v_bind() reads $route through
+    // the bridge, whenever it is there.
+    var blind = [];
+    Array.prototype.forEach.call(document.querySelectorAll('[data-shiny-vue]'), function(h) {
+      if (!h._shinyVueApp) return;
+      var tpl = h.querySelector(':scope > script[data-shiny-vue-template]');
+      if (tpl && USES_ROUTER.test(tpl.textContent)) blind.push(h.getAttribute('data-shiny-vue-id') || h.id);
+    });
+    if (blind.length) {
+      warn('vue_router("' + config.id + '"): mounted before it, ' + blind.join(', ') +
+        ' will not see $route: give the router to the page before ' +
+        (blind.length === 1 ? 'that component' : 'those components'));
+    }
     var start = function() {
       Vue.createApp({ render: function() { return null; } }).use(router)
         .mount(document.createElement('div'));
@@ -428,7 +453,7 @@
     };
     // read each time, so a watcher follows the route
     Object.defineProperty(s, '$route', {
-      get: function() { return sv.router ? sv.router.currentRoute.value : undefined; },
+      get: function() { var r = routerRef().value; return r ? r.currentRoute.value : undefined; },
       enumerable: true
     });
     Object.defineProperty(s, '$store', {
@@ -453,20 +478,61 @@
     return compiled[key];
   }
   // A binding's value: undefined while what it reads is not on the page yet
-  // (a store drawn later); another error is said once
+  // -- a store or a router drawn later, by renderUI() or a data output -- and
+  // one line in the console when it still cannot be read once the page has
+  // drawn what it starts with: a store the page does not have, a router it
+  // does not have, a misspelt path. Said once per expression, naming what is
+  // missing; the value stays unset either way.
   var failed = {};
+  function unreadable(b) {
+    var m = /^\s*\$vueStore(?:\.([A-Za-z_$][\w$]*)|\[\s*(['"])(.*?)\2\s*\])/.exec(b.expr);
+    if (m) {
+      var id = ((b.scope && b.scope.store) || '') + (m[1] || m[3]);
+      return id in sv.stores() ? null : 'no store "' + id + '" on the page';
+    }
+    if (!sv.router && /\$route\b/.test(b.expr)) {
+      return 'the page has no vue_router()';
+    }
+    return null;
+  }
+  // The page has drawn what it starts with: loaded, and with Shiny, its
+  // first round of outputs sent (the first shiny:idle)
+  var settled = null, idleSeen = false;
+  if (window.jQuery) jQuery(document).one('shiny:idle', function() { idleSeen = true; });
+  function whenSettled(fn) {
+    if (!settled) {
+      settled = new Promise(function(resolve) {
+        var loaded = function() {
+          var shiny = window.Shiny && window.jQuery && Shiny.shinyapp;
+          if (!shiny || idleSeen) { setTimeout(resolve, 0); return; }
+          jQuery(document).one('shiny:idle', function() { setTimeout(resolve, 0); });
+        };
+        if (document.readyState === 'complete') loaded();
+        else window.addEventListener('load', loaded);
+      });
+    }
+    settled.then(fn);
+  }
+  // `check()` reads again: null once it can, else the error
+  function said(b, fn, check, hint) {
+    var key = fn + '\u0000' + b.expr + '\u0000' + JSON.stringify(b.scope || {});
+    if (failed[key]) return;
+    failed[key] = true;
+    whenSettled(function() {
+      var e = check();
+      if (!e) { failed[key] = false; return; } // it arrived meanwhile
+      warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || ''));
+    });
+  }
   function reader(b) {
     var f = compile('read', b.expr);
+    var check = function() {
+      try { f(pageScope(b.scope)); return null; } catch (e) { return e; }
+    };
     return function() {
       if (!f) return undefined;
       try { return f(pageScope(b.scope)); }
-      catch (e) {
-        if (!(e instanceof TypeError) && !failed[b.expr]) {
-          failed[b.expr] = true;
-          warn('v_bind("' + b.expr + '"): ' + e.message);
-        }
-        return undefined;
-      }
+      catch (e) { said(b, 'v_bind', check); return undefined; }
     };
   }
   function writer(b) {
@@ -474,7 +540,10 @@
     return function(v) {
       if (!f) return;
       try { f(pageScope(b.scope), v); }
-      catch (e) { warn('v_model("' + b.expr + '"): ' + e.message + '; the change stays with the component'); }
+      catch (e) {
+        // a write is the user's doing, on a drawn page: said as it fails
+        said(b, 'v_model', function() { return e; }, '; the change stays with the component');
+      }
     };
   }
   // a copy, so a field and the state it follows never share an array

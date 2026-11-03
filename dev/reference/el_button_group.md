@@ -101,8 +101,8 @@ el_button_group(
   el_button("prev", "Previous", icon = "ArrowLeft", type = "primary"),
   el_button("next", "Next", type = "primary")
 )
-#> <div id="el_button_group_b01266fc-aa4a-4363-8a7d-f0a3b5450234" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_button_group_b01266fc-aa4a-4363-8a7d-f0a3b5450234_container" style="display: contents">
+#> <div id="el_button_group_27664b49-6788-45d0-8198-324d8e8c36fb" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_button_group_27664b49-6788-45d0-8198-324d8e8c36fb_container" style="display: contents">
 #>   <el-button-group v-bind="$optional(&#39;button-group&#39;)">
 #>     <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" ref="sv_prev" id="prev">{{label}}</el-button>
 #>     <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_next" id="next">{{el3_label}}</el-button>
