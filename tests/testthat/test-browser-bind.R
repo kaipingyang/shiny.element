@@ -536,3 +536,52 @@ test_that("a table's columns follow a v_bind() of el-table-column props", {
   expect_equal(js(heads), "A,B")
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("vue_app(ns =) narrows its template's names to the module, as conditionalPanel(ns =)", {
+  skip_if_no_browser()
+  panel <- function(id) {
+    ns <- shiny::NS(id)
+    htmltools::tagList(
+      vue_store(ns("ui"), state = list(n = if (id == "m1") 1 else 2)),
+      el_radio_group(
+        ns("size"),
+        choices = c("large", "small"),
+        selected = if (id == "m1") "large" else "small"
+      ),
+      vue_app(
+        ns("show"),
+        shiny::tags$span(
+          class = "out",
+          "{{ $vueStore.ui.n }} {{ $inputs.size }} {{ $find('size') ? 'found' : '' }} {{ String($vueStore.page) }}"
+        ),
+        ns = ns
+      )
+    )
+  }
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store("page", state = list(x = 1))),
+      panel("m1"),
+      panel("m2")
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  out <- function(m) {
+    js(sprintf("document.querySelector('#%s-show .out').textContent", m))
+  }
+  # each its own; the page's store out of reach
+  expect_equal(out("m1"), "1 large found undefined")
+  expect_equal(out("m2"), "2 small found undefined")
+  expect_length(unlist(js("__w")), 0)
+})

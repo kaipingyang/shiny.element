@@ -22,7 +22,8 @@ vue_app(
   use = NULL,
   dependencies = NULL,
   events = NULL,
-  on = NULL
+  on = NULL,
+  ns = NULL
 )
 }
 \arguments{
@@ -84,6 +85,12 @@ dropped. The template must then be one tag.}
 named list of \code{\link[=JS]{JS()}} functions, each called with \code{report} and the
 event's arguments -- \code{report(name, value)} sets \verb{input$<id>_<name>} --
 or of Vue's inline statements, as strings (\code{"$vueStore.ui.open = true"}).}
+
+\item{ns}{In a module, its \code{\link[shiny:NS]{shiny::NS()}} or its id, as
+\code{\link[shiny:conditionalPanel]{shiny::conditionalPanel()}} takes it: the template's \verb{$inputs.size} is
+the module's \code{input$size}, \verb{$vueStore.ui} its \code{vue_store(ns("ui"))},
+\verb{$find("tree")} its \code{ns("tree")} -- and nothing outside the module, as
+Shiny narrows \code{input}. The \code{id} is given as \code{ns("id")}, as ever.}
 }
 \value{
 A tag, with its dependencies.

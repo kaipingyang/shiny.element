@@ -13,6 +13,12 @@
 
 ## New features
 
+* `vue_app(ns =)`: in a module, the template's `$inputs`, `$vueStore`
+  (and `$vueRef` and the rest) and `$find()` are the module's, as Shiny's
+  `conditionalPanel(ns =)` narrows `input` -- strictly, a name outside the
+  module not reached. Template directives take no `ns`: the component
+  owning the template does.
+
 * Data arguments R converts follow `v_bind()` too, in Element's own form,
   as DT's `JS()` beside its R values: `el_select()`, `el_radio_group()`,
   `el_checkbox_group()` `choices`; `el_mention()`, `el_segmented()`,

@@ -43,9 +43,9 @@
 #' `:prop="value"`: functions, `Date`s and components (an icon) included.
 #' Data R converts -- a select's `choices`, a mention's `options` -- has two
 #' rules, as DT's `JS()`: an R value is given in R's terms (a named vector)
-#' and converted; a `v_bind()` gives Element's own form, `[{ value, label
+#' and converted; a `v_bind()` gives the library's own form, `[{ value, label
 #' }]`, as its docs write it, and is not converted. Vue's development build
-#' (`el_page(dev = TRUE)`) says when a bound list is not records.
+#' (the page's `dev = TRUE`) says when a bound list is not records.
 #'
 #' A binding the page cannot read -- a store it does not have, `$route`
 #' with no [vue_router()], a path that runs through nothing -- leaves its
@@ -513,10 +513,8 @@ print.vue_directive <- function(x, ...) {
 .vue_in_template <- function(x) {
   if (!is.null(attr(x, "scope")$store)) {
     stop(
-      "`ns` is for a component's argument; in a template, write the ",
-      "names out: `$vueStore['",
-      sub("-$", "", attr(x, "scope")$store),
-      "-ui']`.",
+      "`ns` is for a component's argument; a template's names are its ",
+      "component's: `vue_app(ns = ns)`, as `conditionalPanel(ns = ns)`.",
       call. = FALSE
     )
   }
@@ -580,6 +578,21 @@ print.vue_binding <- function(x, ...) {
 #' @return The code, classed `c(kind, "vue_binding")`, with `scope`.
 #' @keywords internal
 .vue_binding <- function(code, kind, ns) {
+  structure(code, scope = .vue_scope(ns), class = c(kind, "vue_binding"))
+}
+
+#' The names a module's code is evaluated with
+#'
+#' As Shiny's `conditionalPanel(ns =)` narrows `input` to a module's: the
+#' prefixes the bridge resolves `$inputs`, `$find()` and `$vueStore` (and
+#' the other page state) under -- the module's namespace for both, and the
+#' prefix the package's articles give components' ids (`.vue_ui_id()`)
+#' for the components' too.
+#'
+#' @param ns `NULL`, a namespace function or a module's id.
+#' @return `NULL`, or a list of `inputs` and `store` prefixes.
+#' @keywords internal
+.vue_scope <- function(ns) {
   module <- if (is.null(ns)) {
     ""
   } else if (is.function(ns)) {
@@ -591,11 +604,7 @@ print.vue_binding <- function(x, ...) {
   }
   page <- getOption("shiny.vue.id_prefix", getOption("shiny.element.id_prefix"))
   scope <- Filter(nzchar, list(inputs = paste0(page, module), store = module))
-  structure(
-    code,
-    scope = if (length(scope)) scope,
-    class = c(kind, "vue_binding")
-  )
+  if (length(scope)) scope
 }
 
 # What travels to the browser for a binding: its code, whether it writes

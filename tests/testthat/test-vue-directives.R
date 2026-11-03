@@ -466,11 +466,15 @@ test_that("a slot's template() takes directives", {
   expect_match(html, '<button @click="go(data.id)">Go</button>', fixed = TRUE)
 })
 
-test_that("a host made under the articles' prefix carries it, for $find", {
+test_that("a host's template is scoped as its module's and the articles' ids", {
+  s <- function(...) spec_of(vue_app("c", htmltools::tags$span(), ...))[[1]]
+  expect_null(s()$scope)
+  expect_equal(s(ns = shiny::NS("m"))$scope, list(inputs = "m-", store = "m-"))
+  expect_equal(s(ns = "m")$scope, list(inputs = "m-", store = "m-"))
+  expect_error(s(ns = 1), "NS\\(\\) function or its id")
   withr::local_options(shiny.vue.id_prefix = "ex-")
-  expect_equal(spec_of(vue_app("c", htmltools::tags$span()))[[1]]$prefix, "ex-")
-  withr::local_options(shiny.vue.id_prefix = NULL)
-  expect_null(spec_of(vue_app("c", htmltools::tags$span()))[[1]]$prefix)
+  expect_equal(s()$scope, list(inputs = "ex-"))
+  expect_equal(s(ns = "m")$scope, list(inputs = "ex-m-", store = "m-"))
 })
 
 test_that("a handler is told from a statement as Vue's compiler does", {

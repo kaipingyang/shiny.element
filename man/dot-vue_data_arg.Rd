@@ -22,7 +22,7 @@ development build: \code{"records"}, a list of objects.}
 \description{
 Two rules, as DT's \code{JS()} and Shiny's \code{I()}: an R value is converted from
 R's terms (a named vector, renamed fields) to the component's; a
-\code{\link[=v_bind]{v_bind()}} is the component's own form -- Element's \verb{[\{ value, label \}]}
+\code{\link[=v_bind]{v_bind()}} is the component's own form -- a library's \verb{[\{ value, label \}]}
 -- and goes to it as it is, followed in the browser, its content never
 checked in R. A \code{\link[=v_model]{v_model()}} is refused: the component reads the
 argument, it never sets it.

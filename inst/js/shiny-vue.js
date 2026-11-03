@@ -673,14 +673,14 @@
   // Run when an instance is created, before its first render: each bound
   // field takes its binding's value and follows it, and -- for v_model() --
   // writes the field back when it changes (the component's user, an update)
-  // Vue's development build on the page (el_page(dev = TRUE)): where Vue
+  // Vue's development build on the page (its `dev = TRUE`): where Vue
   // checks props, the bridge checks a bound value's form too
   var devBuild = null;
   function isDevBuild() {
     if (devBuild === null) devBuild = !!document.querySelector('script[src*="vue.global.js"]');
     return devBuild;
   }
-  // A binding R marked as giving records -- Element's [{ value, label }] --
+  // A binding R marked as giving records -- a library's [{ value, label }] --
   // said once when it gives something else; the value is written all the
   // same, as Vue writes a prop it warns about
   var shapeSaid = {};
@@ -976,19 +976,22 @@
     // -- its bindings and state kept, its outputs suspended -- when Vue
     // removes it
     app.component('shiny-island', islandComponent(host));
-    app.config.globalProperties.$vueStore = sv.stores();
-    app.config.globalProperties.$vueRef = sv.vueRefs();
-    app.config.globalProperties.$vueReactive = sv.vueReactives();
-    app.config.globalProperties.$vueComputed = sv.vueComputeds();
-    // a component made under a page's id prefix finds its neighbours by the
-    // ids they were given, as v_on()'s $find does
-    app.config.globalProperties.$find = spec.prefix ? function(id) {
-      return byId(spec.prefix + id) || absorbedBy(spec.prefix + id) ? sv.findComponent(spec.prefix + id) : sv.findComponent(id);
-    } : sv.findComponent;
+    // The page's names, as the template sees them: narrowed to a module's
+    // when its component was given one (vue_app(ns =)), as Shiny's
+    // conditionalPanel(ns =) narrows `input` -- and to the prefix an
+    // article gives its examples' ids. Strictly: a name outside it is not
+    // reached, as input.x outside a module's conditionalPanel is not.
+    var sc = spec.scope || {};
+    var gp = app.config.globalProperties;
+    gp.$vueStore = prefixed(sv.stores(), sc.store);
+    gp.$vueRef = prefixed(sv.vueRefs(), sc.store);
+    gp.$vueReactive = prefixed(sv.vueReactives(), sc.store);
+    gp.$vueComputed = prefixed(sv.vueComputeds(), sc.store);
+    gp.$find = sc.inputs ? function(id) { return sv.findComponent(sc.inputs + id); } : sv.findComponent;
     // $store, as 0.3.1 named it: said once; a plugin that sets its own
     // $store (Vuex) replaces it
-    Object.defineProperty(app.config.globalProperties, '$store', {
-      get: oldStore,
+    Object.defineProperty(gp, '$store', {
+      get: function() { return prefixed(oldStore(), sc.store); },
       set: function(v) {
         Object.defineProperty(this, '$store', { value: v, writable: true, configurable: true, enumerable: true });
       },
@@ -996,7 +999,7 @@
     });
     app.config.globalProperties.$recalculating = sv.recalculating();
     app.config.globalProperties.$errors = sv.errors();
-    app.config.globalProperties.$inputs = Vue.readonly(sv.inputs());
+    gp.$inputs = prefixed(Vue.readonly(sv.inputs()), sc.inputs);
     // a getter, so a template reading $busy follows it
     Object.defineProperty(app.config.globalProperties, '$busy', {
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true

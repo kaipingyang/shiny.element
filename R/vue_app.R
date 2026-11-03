@@ -255,14 +255,10 @@
 ) {
   # fields given v_bind() or v_model(): followed in the browser
   spec <- .vue_bound(spec)
-  # made under a page's id prefix (an article's examples): the template's
-  # $find('id') finds the components made with it
-  prefix <- getOption(
-    "shiny.vue.id_prefix",
-    getOption("shiny.element.id_prefix")
-  )
-  if (!is.null(prefix)) {
-    spec$prefix <- prefix
+  # the names the template is evaluated with: a module's (vue_app(ns =)),
+  # and the prefix an article gives its examples' ids
+  if (is.null(spec$scope)) {
+    spec$scope <- .vue_scope(NULL)
   }
   # The template travels as a script, which the browser does not parse: no
   # flash of raw tags before Vue runs, and camelCase attribute names survive
@@ -436,6 +432,11 @@
 #'   named list of [JS()] functions, each called with `report` and the
 #'   event's arguments -- `report(name, value)` sets `input$<id>_<name>` --
 #'   or of Vue's inline statements, as strings (`"$vueStore.ui.open = true"`).
+#' @param ns In a module, its [shiny::NS()] or its id, as
+#'   [shiny::conditionalPanel()] takes it: the template's `$inputs.size` is
+#'   the module's `input$size`, `$vueStore.ui` its `vue_store(ns("ui"))`,
+#'   `$find("tree")` its `ns("tree")` -- and nothing outside the module, as
+#'   Shiny narrows `input`. The `id` is given as `ns("id")`, as ever.
 #' @return A tag, with its dependencies.
 #' @seealso [vue_component()], [vue_store()], [update_vue()], [call_vue()],
 #'   [render_vue()].
@@ -472,8 +473,10 @@ vue_app <- function(
   use = NULL,
   dependencies = NULL,
   events = NULL,
-  on = NULL
+  on = NULL,
+  ns = NULL
 ) {
+  .vue_scope(ns) # checked here, where it is written
   child_deps <- .vue_components(components)
   # events and handlers on the template's root: a library's component
   # there forwards its events, as the package's own components do
@@ -519,7 +522,8 @@ vue_app <- function(
     rate = rate,
     outputs = outputs,
     use = use,
-    dependencies = c(.vue_as_dependency_list(dependencies), child_deps)
+    dependencies = c(.vue_as_dependency_list(dependencies), child_deps),
+    ns = ns
   )
 }
 
@@ -549,7 +553,8 @@ vue_app <- function(
   rate = NULL,
   optional = NULL,
   store_def = NULL,
-  state = NULL
+  state = NULL,
+  ns = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
@@ -567,7 +572,7 @@ vue_app <- function(
   data <- lapply(data, .vue_rows)
   outputs <- .vue_outputs_arg(outputs)
   options <- .vue_option_aliases(options)
-  spec <- list(options = c(list(data = data), options))
+  spec <- list(options = c(list(data = data), options), scope = .vue_scope(ns))
   # a setup() -- the component's or a store's -- has fields R cannot list
   in_setup <- !is.null(options$setup) ||
     !is.null(store_def$setup) ||

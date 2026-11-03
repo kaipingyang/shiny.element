@@ -149,7 +149,7 @@
 #'
 #' Two rules, as DT's `JS()` and Shiny's `I()`: an R value is converted from
 #' R's terms (a named vector, renamed fields) to the component's; a
-#' [v_bind()] is the component's own form -- Element's `[{ value, label }]`
+#' [v_bind()] is the component's own form -- a library's `[{ value, label }]`
 #' -- and goes to it as it is, followed in the browser, its content never
 #' checked in R. A [v_model()] is refused: the component reads the
 #' argument, it never sets it.

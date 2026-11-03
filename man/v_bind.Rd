@@ -70,8 +70,8 @@ A bound value reaches the component as it is, as upstream's
 \verb{:prop="value"}: functions, \code{Date}s and components (an icon) included.
 Data R converts -- a select's \code{choices}, a mention's \code{options} -- has two
 rules, as DT's \code{JS()}: an R value is given in R's terms (a named vector)
-and converted; a \code{v_bind()} gives Element's own form, \verb{[\{ value, label \}]}, as its docs write it, and is not converted. Vue's development build
-(\code{el_page(dev = TRUE)}) says when a bound list is not records.
+and converted; a \code{v_bind()} gives the library's own form, \verb{[\{ value, label \}]}, as its docs write it, and is not converted. Vue's development build
+(the page's \code{dev = TRUE}) says when a bound list is not records.
 
 A binding the page cannot read -- a store it does not have, \verb{$route}
 with no \code{\link[=vue_router]{vue_router()}}, a path that runs through nothing -- leaves its
