@@ -32,6 +32,10 @@
 #' @return The same list with each `prop` sanitised.
 #' @keywords internal
 .el_table_sanitize_columns <- function(columns) {
+  # a v_bind(): Element's el-table-column props, camelCase, as they are
+  if (inherits(columns, "vue_binding")) {
+    return(.vue_data_arg(columns, name = "columns", shape = "records"))
+  }
   if (!is.list(columns)) {
     stop(
       "`columns` must be a list of column definitions, not ",
@@ -437,14 +441,18 @@
 #'   `columns`).
 #' @keywords internal
 .el_table_prep <- function(data = list(), columns = list()) {
-  cells <- .el_table_cells(.el_table_sanitize_columns(columns))
+  bound <- inherits(columns, "vue_binding")
+  cells <- .el_table_cells(
+    if (bound) list() else .el_table_sanitize_columns(columns)
+  )
   list(
     # rows, not columns: el-table binds :data to an array of row objects and
     # draws a column-wise data.frame as an empty table; and a dot in a name
     # becomes an underscore, as el-table-column's `prop` is a dotted path
     # (getPropByPath) -- `Sepal.Length` would be looked up as Sepal -> Length
     rows = .vue_rows(data),
-    columns = cells$columns,
+    # a binding's columns are Element's props, drawn with default cells
+    columns = if (bound) .el_table_sanitize_columns(columns) else cells$columns,
     auto = .el_table_cells(.el_table_infer_columns(data))$columns,
     cells = cells$cells,
     depths = cells$depths
@@ -477,7 +485,10 @@
 #'   keep it an array: `tags = I("red")`.
 #' @param columns The columns, each an [el_table_column()] -- or a list of
 #'   the same fields, `list(prop =, label =, width =)`.
-#'   Inferred from `data` when omitted. Beyond Element's column attributes, a
+#'   Inferred from `data` when omitted. Or [v_bind()] of an expression giving
+#'   el-table-column's props in Element's camelCase, `[{ prop, label, width
+#'   }]`, as upstream draws columns with `v-for`: followed in the browser,
+#'   drawn with Element's own cells. Beyond Element's column attributes, a
 #'   column may carry:
 #'   * `type` -- `"index"` for row numbers, `"expand"` for a row that opens
 #'     to show its `cell`, or `"selection"`.
@@ -855,7 +866,7 @@ el_table <- function(
   # Group headers nest as deep as the columns given -- and at least two
   # levels below the top, for columns update_el_table() may bring later
   depth_of <- function(columns) {
-    if (!length(columns)) {
+    if (!is.list(columns) || !length(columns)) {
       return(0L)
     }
     max(vapply(

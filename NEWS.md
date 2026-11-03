@@ -20,7 +20,9 @@
   `el_pagination(page_sizes =)`, `el_image_viewer(url_list =)`,
   `el_timeline(items =)`. An R value is converted as before; a binding's
   `[{ value, label }]` reaches Element as it is. Vue's development build
-  says when a bound list is not records.
+  says when a bound list is not records. A table's `columns` too, as
+  el-table-column's props (`[{ prop, label, width }]`), drawn with
+  Element's cells.
 
 * `el_config_provider(locale =)` follows a `v_bind()` of a locale object,
   as upstream's `computed(() => zhCn or en)`:

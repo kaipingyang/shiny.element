@@ -135,7 +135,9 @@ keep it an array: \code{tags = I("red")}.}
 
 \item{columns}{The columns, each an \code{\link[=el_table_column]{el_table_column()}} -- or a list of
 the same fields, \code{list(prop =, label =, width =)}.
-Inferred from \code{data} when omitted. Beyond Element's column attributes, a
+Inferred from \code{data} when omitted. Or \code{\link[=v_bind]{v_bind()}} of an expression giving
+el-table-column's props in Element's camelCase, \verb{[\{ prop, label, width \}]}, as upstream draws columns with \verb{v-for}: followed in the browser,
+drawn with Element's own cells. Beyond Element's column attributes, a
 column may carry:
 \itemize{
 \item \code{type} -- \code{"index"} for row numbers, \code{"expand"} for a row that opens

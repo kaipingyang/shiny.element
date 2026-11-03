@@ -501,3 +501,38 @@ test_that("data arguments and a provider's locale follow v_bind(), as upstream's
   expect_length(w, 1)
   expect_match(w, "the component takes records", fixed = TRUE)
 })
+
+test_that("a table's columns follow a v_bind() of el-table-column props", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store(
+        "cols",
+        state = list(list = list(list(prop = "a", label = "A")))
+      )),
+      el_table(
+        id = "tb",
+        data = data.frame(a = 1:2, b = 3:4),
+        columns = v_bind("$vueStore.cols.list")
+      )
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  heads <- "Array.from(document.querySelectorAll('#tb-el thead th .cell, #tb thead th .cell')).map(function(c){ return c.textContent.trim(); }).filter(Boolean).join(',')"
+  expect_equal(js(heads), "A")
+  js("shinyVue.useStore('cols').list.push({prop: 'b', label: 'B', width: 120})")
+  Sys.sleep(0.4)
+  expect_equal(js(heads), "A,B")
+  expect_length(unlist(js("__w")), 0)
+})
