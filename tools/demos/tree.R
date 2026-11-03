@@ -34,115 +34,88 @@ levels <- list(
 el_tree("basic", data = levels, node_key = "id")
 
 ## selectable
-#' With `lazy = TRUE` each node's children come from the server, asked for
-#' through `input$<id>_load` and answered with `el_load_children()`.
+#' With `lazy = TRUE` a node's children come from `load`, as upstream's
+#' `loadNode`: here a [JS()] function making them up after a moment. With
+#' no `load`, the server answers: `input$<id>_load`, then
+#' `el_load_children()`.
 #| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
-ui <- el_page(el_tree(
-  "zones",
+el_tree(
+  "zones_sel",
+  width = "600px",
+  props = list(label = "name", children = "zones"),
   lazy = TRUE,
-  node_key = "id",
-  show_checkbox = TRUE
-))
-
-server <- function(input, output, session) {
-  observeEvent(input$zones_load, {
-    q <- input$zones_load
-    kids <- if (q$level == 0) {
-      list(
-        list(id = "region1", label = "Region"),
-        list(id = "region2", label = "Region2")
-      )
-    } else if (q$level > 3) {
-      list()
-    } else {
-      lapply(1:2, function(i) {
-        list(id = paste0(q$key, "-", i), label = paste0("zone", i))
-      })
-    }
-    el_load_children(id = "zones", request = q, children = kids)
-  })
-}
-
-shinyApp(ui, server)
+  show_checkbox = TRUE,
+  load = JS(
+    "(function() {",
+    "  var count = 1;",
+    "  return function(node, resolve) {",
+    "    if (node.level === 0) return resolve([{ name: 'Root1' }, { name: 'Root2' }]);",
+    "    if (node.level > 3) return resolve([]);",
+    "    var hasChild = node.data.name === 'region1' ? true :",
+    "      node.data.name === 'region2' ? false : Math.random() > 0.5;",
+    "    setTimeout(function() {",
+    "      resolve(hasChild ? [{ name: 'zone' + count++ }, { name: 'zone' + count++ }] : []);",
+    "    }, 500);",
+    "  };",
+    "})()"
+  ),
+  on = list(
+    check_change = "(data, checked, indeterminate) => console.log(data, checked, indeterminate)"
+  )
+)
 
 ## custom-leaf
 #' `props = list(isLeaf =)` names the field that says a node has no
 #' children, so it draws no expand arrow.
 #| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
-ui <- el_page(el_tree(
-  "zones",
+el_tree(
+  "zones_leaf",
+  width = "600px",
+  props = list(label = "name", children = "zones", isLeaf = "leaf"),
   lazy = TRUE,
-  node_key = "id",
   show_checkbox = TRUE,
-  props = list(isLeaf = "leaf")
-))
-
-server <- function(input, output, session) {
-  observeEvent(input$zones_load, {
-    q <- input$zones_load
-    kids <- if (q$level == 0) {
-      list(list(id = "region", label = "region"))
-    } else {
-      lapply(1:2, function(i) {
-        list(
-          id = paste0(q$key, i),
-          label = paste0("zone", i),
-          leaf = q$level >= 2
-        )
-      })
-    }
-    el_load_children(id = "zones", request = q, children = kids)
-  })
-}
-
-shinyApp(ui, server)
+  load = JS(
+    "function(node, resolve) {",
+    "  if (node.level === 0) return resolve([{ name: 'region' }]);",
+    "  if (node.level > 1) return resolve([]);",
+    "  setTimeout(function() {",
+    "    resolve([{ name: 'leaf', leaf: true }, { name: 'zone' }]);",
+    "  }, 500);",
+    "}"
+  )
+)
 
 ## multiple-times-load
-#' A load can fail: `el_load_children(reject = TRUE)` is Element Plus's
-#' `reject()`, and the node can be expanded again to retry. Here the server
-#' refuses the first three tries.
+#' A load can fail: `reject()`, and the node can be expanded again to retry.
+#' Here the first three tries are refused. From the server it is
+#' `el_load_children(reject = TRUE)`.
 #| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
-ui <- el_page(el_tree("regions", lazy = TRUE, props = list(isLeaf = "leaf")))
-
-server <- function(input, output, session) {
-  tries <- 0
-  observeEvent(input$regions_load, {
-    q <- input$regions_load
-    if (q$level == 0) {
-      el_load_children(
-        id = "regions",
-        request = q,
-        children = list(list(label = "region"))
-      )
-      return()
-    }
-    tries <<- tries + 1
-    later::later(
-      function() {
-        if (tries > 3) {
-          el_load_children(
-            id = "regions",
-            request = q,
-            children = lapply(1:3, function(i) {
-              list(label = paste0("zone", i), leaf = TRUE)
-            }),
-            session = session
-          )
-        } else {
-          el_load_children(
-            id = "regions",
-            request = q,
-            reject = TRUE,
-            session = session
-          )
-        }
-      },
-      3
-    )
-  })
-}
-
-shinyApp(ui, server)
+el_tree(
+  "regions_retry",
+  width = "600px",
+  props = list(label = "name", children = "zones", isLeaf = "leaf"),
+  lazy = TRUE,
+  load = JS(
+    "(function() {",
+    "  var time = 0;",
+    "  return function(node, resolve, reject) {",
+    "    if (node.level === 0) return resolve([{ name: 'region' }]);",
+    "    time++;",
+    "    setTimeout(function() {",
+    "      if (time > 3) {",
+    "        resolve([",
+    "          { name: 'zone1', leaf: true },",
+    "          { name: 'zone2', leaf: true },",
+    "          { name: 'zone3', leaf: true }",
+    "        ]);",
+    "      } else {",
+    "        reject();",
+    "      }",
+    "    }, 3000);",
+    "  };",
+    "})()"
+  )
+)
 
 ## disabled
 el_tree(

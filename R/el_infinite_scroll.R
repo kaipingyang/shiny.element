@@ -29,6 +29,9 @@
 #'   the template with [template()].
 #'
 #' @template on
+#' @details In `on`, `load` is the area's own handler -- Element's infinite
+#'   scroll is a directive and emits nothing -- as upstream's
+#'   `v-infinite-scroll="load"`: `on = list(load = "count += 2")`.
 #' @section Shiny inputs:
 #' `r .el_events_md("el_infinite_scroll")`
 #'
@@ -104,6 +107,19 @@ el_infinite_scroll <- function(
     mounted = NULL,
     dependencies = list()
   )
+  # Element's infinite scroll is a directive, which emits nothing: a `load`
+  # in `on` is the directive's handler, as upstream's
+  # v-infinite-scroll="load", called after the one reporting input$<id>_load
+  if (!is.null(on$load)) {
+    load_on <- .vue_on_bindings(ns_id, on["load"])
+    attrs[["v-infinite-scroll"]] <- .vue_join_handlers(
+      "@load",
+      c("handleLoad", load_on$attrs[["@load"]])
+    )
+    own$methods <- c(own$methods, load_on$methods)
+    on$load <- NULL
+    if (!length(on)) on <- NULL
+  }
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   el_widget(

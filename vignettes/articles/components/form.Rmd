@@ -126,84 +126,61 @@ You can set `label-position` of `el-form-item` separately 2.7.7. If the value is
 
 The `label-position` attribute decides how labels align, it can be `top` or `left`. When set to `top`, labels will be placed at the top of the form field.
 
-The two radio groups are fields with `report = TRUE`: they report as
-`input$align_position` and `input$align_item_position` as they change,
-and the server moves the labels -- the form's with
-`update_el_form(label_position =)`, the fields' by giving the fields
-again with their own `label_position`.
+The form's labels follow one radio group and the items' another, in the
+browser, as upstream's: `el$form()` in a [vue_app()], `label-position`
+bound on the form and on each item. An `el_form()` sets them from R, or
+from the server with `update_el_form(label_position =)`.
 
 ```{r alignment, eval = FALSE, shot = TRUE, shot_js = c("document.querySelectorAll('#align .el-radio-button')[2].click()", "document.querySelectorAll('#align .el-radio-group')[1].querySelectorAll('.el-radio-button')[1].click()"), shot_expect = c("document.querySelector('#align .el-form').classList.contains('el-form--label-top')", "document.querySelectorAll('#align .el-form-item.el-form-item--label-left').length === 3")}
 positions <- c(Left = "left", Right = "right", Top = "top")
-fields <- function(item_position = "") {
-  list(
-    el_form_field(
-      "position",
-      "radio-group",
+item <- function(label, field) {
+  el$form_item(
+    label = label,
+    `:label-position` = "itemLabelPosition",
+    el$input(v_model(paste0("formLabelAlign.", field)))
+  )
+}
+vue_app(
+  "align",
+  el$form(
+    `:label-position` = "labelPosition",
+    `label-width` = "auto",
+    `:model` = "formLabelAlign",
+    style = "max-width: 600px",
+    el$form_item(
       label = "Form Align",
-      label_position = "right",
-      choices = positions,
-      value = "right",
-      button = TRUE,
-      report = TRUE
+      `label-position` = "right",
+      el$radio_group(
+        v_model("labelPosition"),
+        `aria-label` = "label position",
+        lapply(names(positions), function(n) {
+          el$radio_button(value = positions[[n]], n)
+        })
+      )
     ),
-    el_form_field(
-      "item_position",
-      "radio-group",
+    el$form_item(
       label = "Form Item Align",
-      label_position = "right",
-      choices = c(Empty = "", positions),
-      value = item_position,
-      button = TRUE,
-      report = TRUE
+      `label-position` = "right",
+      el$radio_group(
+        v_model("itemLabelPosition"),
+        `aria-label` = "item label position",
+        el$radio_button(value = "", "Empty"),
+        lapply(names(positions), function(n) {
+          el$radio_button(value = positions[[n]], n)
+        })
+      )
     ),
-    el_form_field(
-      "name",
-      "input",
-      label = "Name",
-      label_position = item_position
-    ),
-    el_form_field(
-      "region",
-      "input",
-      label = "Activity zone",
-      label_position = item_position
-    ),
-    el_form_field(
-      "type",
-      "input",
-      label = "Activity form",
-      label_position = item_position
-    )
-  )
-}
-ui <- el_page(
-  do.call(
-    el_form,
-    c(
-      list(
-        id = "align",
-        label_position = "right",
-        label_width = "auto",
-        width = "600px",
-        submit_label = NULL
-      ),
-      fields()
-    )
-  )
+    item("Name", "name"),
+    item("Activity zone", "region"),
+    item("Activity form", "type")
+  ),
+  data = list(
+    labelPosition = "right",
+    itemLabelPosition = "",
+    formLabelAlign = list(name = "", region = "", type = "")
+  ),
+  use = "shinyElement.plugin"
 )
-server <- function(input, output, session) {
-  observeEvent(input$align_position, ignoreInit = TRUE, {
-    update_el_form(session, "align", label_position = input$align_position)
-  })
-  observeEvent(input$align_item_position, ignoreInit = TRUE, {
-    update_el_form(
-      session,
-      "align",
-      fields = fields(input$align_item_position)
-    )
-  })
-}
-shinyApp(ui, server)
 ```
 
 ## Validation
@@ -313,56 +290,77 @@ el_form(
 
 In addition to passing all validation rules at once on the form component, you can also pass the validation rules or delete rules on a single form field dynamically.
 
-```{r form-items, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#more_container button').click()", shot_wait = 1.5}
-domain <- function(i) {
-  el_form_field(
-    paste0("domain", i),
-    "input",
-    label = paste("Domain", i),
-    rules = el_rule(required = TRUE, message = "Domain can not be null")
-  )
-}
+Items added and removed in the browser, as upstream's: `el$form()` in a
+[vue_app()], a `v_for()` over the domains, each with its own rule and a
+`prop` path into the model. An `el_form()` takes its fields from R --
+from the server, `update_el_form(fields =)`.
 
-ui <- el_page(
-  el_form(
-    id = "domains",
-    submit_label = NULL,
-    label_width = "100px",
-    width = "480px",
-    el_form_field(
-      "email",
-      "input",
+```{r form-items, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#domains .el-form-item:last-child button')[1].click()", shot_wait = 1.5}
+vue_app(
+  "domains",
+  el$form(
+    ref = "formRef",
+    style = "max-width: 600px",
+    `:model` = "dynamicValidateForm",
+    `label-width` = "auto",
+    class = "demo-dynamic",
+    el$form_item(
+      prop = "email",
       label = "Email",
-      rules = el_rule(type = "email", message = "Please input a correct email")
+      `:rules` = paste(
+        "[{ required: true, message: 'Please input email address', trigger: 'blur' },",
+        "{ type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }]"
+      ),
+      el$input(v_model("dynamicValidateForm.email"))
     ),
-    domain(1)
-  ),
-  el_button("more", "New domain"),
-  el_button("fewer", "Remove last")
-)
-
-server <- function(input, output, session) {
-  n <- reactiveVal(1)
-  redraw <- function() {
-    update_el_form(
-      id = "domains",
-      fields = c(
-        list(el_form_field("email", "input", label = "Email")),
-        lapply(seq_len(n()), domain)
+    el$form_item(
+      v_for(
+        "(domain, index) in dynamicValidateForm.domains",
+        key = "domain.key"
+      ),
+      `:label` = "'Domain' + index",
+      `:prop` = "'domains.' + index + '.value'",
+      `:rules` = "{ required: true, message: 'domain can not be null', trigger: 'blur' }",
+      el$input(v_model("domain.value")),
+      el$button(
+        class = "mt-2",
+        v_on("click.prevent" = "removeDomain(domain)"),
+        "Delete"
       )
+    ),
+    el$form_item(
+      el$button(type = "primary", v_on(click = "submitForm"), "Submit"),
+      el$button(v_on(click = "addDomain"), "New domain"),
+      el$button(v_on(click = "resetForm"), "Reset")
     )
-  }
-  observeEvent(input$more, {
-    n(n() + 1)
-    redraw()
-  })
-  observeEvent(input$fewer, {
-    n(max(1, n() - 1))
-    redraw()
-  })
-}
-
-shinyApp(ui, server)
+  ),
+  data = list(
+    dynamicValidateForm = list(
+      domains = list(list(key = 1, value = "")),
+      email = ""
+    )
+  ),
+  methods = list(
+    removeDomain = JS(
+      "function(item) {",
+      "  var i = this.dynamicValidateForm.domains.indexOf(item);",
+      "  if (i !== -1) this.dynamicValidateForm.domains.splice(i, 1);",
+      "}"
+    ),
+    addDomain = JS(
+      "function() { this.dynamicValidateForm.domains.push({ key: Date.now(), value: '' }); }"
+    ),
+    submitForm = JS(
+      "function() {",
+      "  this.$refs.formRef.validate(function(valid) {",
+      "    console.log(valid ? 'submit!' : 'error submit!');",
+      "  });",
+      "}"
+    ),
+    resetForm = JS("function() { this.$refs.formRef.resetFields(); }")
+  ),
+  use = "shinyElement.plugin"
+)
 ```
 
 ## Number Validate

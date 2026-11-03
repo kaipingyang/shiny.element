@@ -74,6 +74,11 @@ A scrolling area that asks the server for more as the user nears the
 bottom. Element implements this as a directive rather than a component, so
 the area is a container you put content into.
 }
+\details{
+In \code{on}, \code{load} is the area's own handler -- Element's infinite
+scroll is a directive and emits nothing -- as upstream's
+\code{v-infinite-scroll="load"}: \code{on = list(load = "count += 2")}.
+}
 \section{Shiny inputs}{
 \tabular{lll}{
    Input \tab Reported \tab Value \cr

@@ -1,43 +1,75 @@
 ## basic
-#' Reaching the bottom asks the server for more: `input$<id>_load`.
-ui <- el_page(el_infinite_scroll("feed", height = "300px", uiOutput("rows")))
-
-server <- function(input, output, session) {
-  n <- reactiveVal(10)
-  observeEvent(input$feed_load, n(n() + 5))
-  output$rows <- renderUI(tags$ul(
-    style = "padding: 0; margin: 0",
-    lapply(seq_len(n()), function(i) {
-      tags$li(
-        style = "list-style: none; height: 40px; line-height: 40px; background: #e8f3fe; margin: 6px; color: #7dbcfc; text-align: center",
-        i
-      )
-    })
-  ))
-}
-
-shinyApp(ui, server)
-
-## disable-loading
-#' `update_el_infinite_scroll(disabled = TRUE)` stops asking -- while a load is
-#' under way, and when there is nothing more.
-ui <- el_page(
-  el_infinite_scroll("list", height = "300px", uiOutput("items")),
-  textOutput("note")
+#' Reaching the bottom asks for more: the `load` handler adds to a store's
+#' count, which the list's `v_for()` follows -- upstream's `count += 2`.
+#' The server hears it too, as `input$<id>_load`.
+tags$style(
+  ".infinite-list-item { display: flex; align-items: center;
+     justify-content: center; height: 50px; margin: 10px;
+     background: var(--el-color-primary-light-9);
+     color: var(--el-color-primary); }"
+)
+vue_store("feed_data", state = list(count = 0))
+el_infinite_scroll(
+  "feed",
+  height = "300px",
+  tags$ul(
+    style = "padding: 0; margin: 0; list-style: none",
+    tags$li(
+      class = "infinite-list-item",
+      v_for("i in $vueStore.feed_data.count", key = "i"),
+      "{{ i }}"
+    )
+  ),
+  on = list(load = "$vueStore.feed_data.count += 2")
 )
 
-server <- function(input, output, session) {
-  n <- reactiveVal(10)
-  observeEvent(input$list_load, {
-    if (n() >= 20) {
-      return(update_el_infinite_scroll(id = "list", disabled = TRUE))
-    }
-    n(n() + 2)
-  })
-  output$items <- renderUI(tags$ul(lapply(seq_len(n()), function(i) {
-    tags$li(i)
-  })))
-  output$note <- renderText(if (n() >= 20) "No more" else "")
-}
-
-shinyApp(ui, server)
+## disable-loading
+#' `disabled` follows the store: while a load is under way, and once there
+#' is nothing more -- upstream's `computed(() => loading || noMore)`.
+tags$style(
+  ".list-item { display: flex; align-items: center; justify-content: center;
+     height: 50px; background: var(--el-color-danger-light-9);
+     color: var(--el-color-danger); }
+   .list-item + .list-item { margin-top: 10px; }"
+)
+vue_store(
+  "list_data",
+  state = list(count = 10, loading = FALSE),
+  getters = list(
+    noMore = JS("function(state) { return state.count >= 20; }"),
+    disabled = JS("function() { return this.loading || this.noMore; }")
+  ),
+  actions = list(
+    load = JS(
+      "function() {",
+      "  var self = this;",
+      "  this.loading = true;",
+      "  setTimeout(function() { self.count += 2; self.loading = false; }, 2000);",
+      "}"
+    )
+  )
+)
+el_infinite_scroll(
+  "list",
+  height = "300px",
+  disabled = v_bind("$vueStore.list_data.disabled"),
+  tags$ul(
+    style = "padding: 0; margin: 0; list-style: none; text-align: center",
+    tags$li(
+      class = "list-item",
+      v_for("i in $vueStore.list_data.count", key = "i"),
+      "{{ i }}"
+    )
+  ),
+  tags$p(
+    style = "text-align: center",
+    v_if("$vueStore.list_data.loading"),
+    "Loading..."
+  ),
+  tags$p(
+    style = "text-align: center",
+    v_if("$vueStore.list_data.noMore"),
+    "No more"
+  ),
+  on = list(load = "$vueStore.list_data.load")
+)

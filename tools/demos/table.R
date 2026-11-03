@@ -173,12 +173,12 @@ el_table(
 ## fixed-header-with-fluid-header
 #| shot_js = "document.querySelector('#add_item_container button').click()"
 #| shot_wait = 2
-#' The rows are the server's, rendered from a reactive value: Remove
-#' reports its row as `input$fluid_remove`, Add Item asks for one more, and
-#' the table is rendered again with the rows that are left.
+#' The rows are a store's, which the table follows: Remove takes its row
+#' out, Add Item puts one more in -- in the browser, as upstream's. With a
+#' server, `rowAction()` reports a row and an output renders the rows.
 row <- function(date) {
-  data.frame(
-    date = format(date),
+  list(
+    date = date,
     name = "Tom",
     state = "California",
     city = "Los Angeles",
@@ -186,53 +186,60 @@ row <- function(date) {
     zip = "CA 90036"
   )
 }
-tableData <- do.call(rbind, lapply(as.Date("2016-05-01") + 0:2, row))
-
-ui <- el_page(
-  el_table_output("fluid"),
-  tags$div(
-    style = "margin-top: 12px",
-    el_button("add_item", "Add Item", width = "100%")
+vue_store(
+  "fluid_rows",
+  state = list(
+    rows = list(row("2016-05-01"), row("2016-05-02"), row("2016-05-03")),
+    now = format(Sys.Date())
+  ),
+  actions = list(
+    onAddItem = JS(
+      "function() {",
+      "  var d = new Date(this.now);",
+      "  d.setDate(d.getDate() + 1);",
+      "  this.now = d.toISOString().slice(0, 10);",
+      "  this.rows.push({ date: this.now, name: 'Tom', state: 'California',",
+      "    city: 'Los Angeles', address: 'No. 189, Grove St, Los Angeles', zip: 'CA 90036' });",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  rows <- reactiveVal(tableData)
-  day <- reactiveVal(Sys.Date())
-  output$fluid <- render_el_table(el_table(
-    data = rows(),
-    max_height = 250,
-    columns = list(
-      el_table_column("date", "Date", width = 150, fixed = TRUE),
-      el_table_column("name", "Name", width = 120),
-      el_table_column("state", "State", width = 120),
-      el_table_column("city", "City", width = 120),
-      el_table_column("address", "Address", width = 600),
-      el_table_column("zip", "Zip", width = 120),
-      el_table_column(
-        label = "Operations",
-        fixed = "right",
-        min_width = 120,
-        cell = el$button(
-          link = NA,
-          type = "primary",
-          size = "small",
-          "@click.prevent" = "rowAction('remove', scope)",
-          "Remove"
-        )
+el_table(
+  id = "fluid",
+  data = v_bind("$vueStore.fluid_rows.rows"),
+  max_height = 250,
+  columns = list(
+    el_table_column("date", "Date", width = 150, fixed = TRUE),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("state", "State", width = 120),
+    el_table_column("city", "City", width = 120),
+    el_table_column("address", "Address", width = 600),
+    el_table_column("zip", "Zip", width = 120),
+    el_table_column(
+      label = "Operations",
+      fixed = "right",
+      min_width = 120,
+      cell = el$button(
+        link = NA,
+        type = "primary",
+        size = "small",
+        v_on(
+          "click.prevent" = "$vueStore.fluid_rows.rows.splice(scope.$index, 1)"
+        ),
+        "Remove"
       )
     )
-  ))
-  observeEvent(input$fluid_remove, {
-    rows(rows()[-input$fluid_remove$row_index, ])
-  })
-  observeEvent(input$add_item, {
-    day(day() + 1)
-    rows(rbind(rows(), row(day())))
-  })
-}
-
-shinyApp(ui, server)
+  )
+)
+tags$div(
+  style = "margin-top: 12px",
+  el_button(
+    "add_item",
+    "Add Item",
+    width = "100%",
+    on = list(click = "$vueStore.fluid_rows.onAddItem")
+  )
+)
 
 ## grouping-header
 tableData <- data.frame(
@@ -461,131 +468,120 @@ el_table(
 ## custom-column
 #| shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[1].click()"
 #| shot_wait = 2
-#' Edit and Delete report to the server with `rowAction()`, as
-#' `input$custom_edit` and `input$custom_delete`: the row's number and the
-#' row.
+#' Each column's `cell` is a template with `scope`: an icon and the date, a
+#' popover on the name, and buttons whose handlers have the row -- here
+#' writing it to the console, as upstream's. With a server, `rowAction()`
+#' reports it as `input$<id>_<action>`.
 tableData <- data.frame(
   date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
   name = "Tom",
   address = "No. 189, Grove St, Los Angeles"
 )
-
-ui <- el_page(
-  el_table_output("custom"),
-  verbatimTextOutput("which")
-)
-
-server <- function(input, output, session) {
-  output$custom <- render_el_table(el_table(
-    data = tableData,
-    columns = list(
-      el_table_column(
-        label = "Date",
-        width = 180,
-        cell = tags$div(
-          style = "display: flex; align-items: center",
-          htmltools::tag("el-icon", list(htmltools::tag("timer", list()))),
-          tags$span(style = "margin-left: 10px", "{{ scope.row.date }}")
+el_table(
+  id = "custom",
+  data = tableData,
+  columns = list(
+    el_table_column(
+      label = "Date",
+      width = 180,
+      cell = tags$div(
+        style = "display: flex; align-items: center",
+        htmltools::tag("el-icon", list(htmltools::tag("timer", list()))),
+        tags$span(style = "margin-left: 10px", "{{ scope.row.date }}")
+      )
+    ),
+    el_table_column(
+      label = "Name",
+      width = 180,
+      cell = el$popover(
+        effect = "light",
+        trigger = "hover",
+        placement = "top",
+        width = "auto",
+        tags$template(
+          `v-slot:default` = NA,
+          tags$div("name: {{ scope.row.name }}"),
+          tags$div("address: {{ scope.row.address }}")
+        ),
+        tags$template(
+          `v-slot:reference` = NA,
+          el$tag("{{ scope.row.name }}")
         )
-      ),
-      el_table_column(
-        label = "Name",
-        width = 180,
-        cell = el$popover(
-          effect = "light",
-          trigger = "hover",
-          placement = "top",
-          width = "auto",
-          tags$template(
-            `v-slot:default` = NA,
-            tags$div("name: {{ scope.row.name }}"),
-            tags$div("address: {{ scope.row.address }}")
-          ),
-          tags$template(
-            `v-slot:reference` = NA,
-            el$tag("{{ scope.row.name }}")
-          )
-        )
-      ),
-      el_table_column(
-        label = "Operations",
-        cell = tagList(
-          el$button(
-            size = "small",
-            "@click" = "rowAction('edit', scope)",
-            "Edit"
-          ),
-          el$button(
-            size = "small",
-            type = "danger",
-            "@click" = "rowAction('delete', scope)",
-            "Delete"
-          )
+      )
+    ),
+    el_table_column(
+      label = "Operations",
+      cell = tagList(
+        el$button(
+          size = "small",
+          v_on(click = "console.log(scope.$index, scope.row)"),
+          "Edit"
+        ),
+        el$button(
+          size = "small",
+          type = "danger",
+          v_on(click = "console.log(scope.$index, scope.row)"),
+          "Delete"
         )
       )
     )
-  ))
-  output$which <- renderPrint(list(
-    edit = input$custom_edit$row_index,
-    delete = input$custom_delete$row_index
-  ))
-}
-
-shinyApp(ui, server)
+  )
+)
 
 ## custom-header
 #| shot_js = "var i = document.querySelector('#shot .el-table__header input'); i.value = 'jo'; i.dispatchEvent(new Event('input'))"
 #| shot_wait = 2
-#' The search box is the column's `header` template. What is typed lives in
-#' a store, `$vueStore.search.text`, reported as `input$search`; the table is
-#' rendered again with the rows that match.
-tableData <- data.frame(
-  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
-  name = c("Tom", "John", "Morgan", "Jessy"),
-  address = "No. 189, Grove St, Los Angeles"
+#' The search box is the column's `header` template, its text in a store;
+#' the table's `data` follows the rows that match, in the browser -- as
+#' upstream's `computed()`. With a server, the store reports the text with
+#' `input =`, and an output renders the rows.
+row <- function(date, name) {
+  list(date = date, name = name, address = "No. 189, Grove St, Los Angeles")
+}
+vue_store(
+  "search",
+  state = list(
+    text = "",
+    rows = list(
+      row("2016-05-03", "Tom"),
+      row("2016-05-02", "John"),
+      row("2016-05-04", "Morgan"),
+      row("2016-05-01", "Jessy")
+    )
+  )
 )
-
-ui <- el_page(
-  vue_store("search", state = list(text = ""), input = "text"),
-  el_table_output("searchable")
-)
-
-server <- function(input, output, session) {
-  matches <- reactive({
-    text <- input$search %||% ""
-    !nzchar(text) | grepl(tolower(text), tolower(tableData$name), fixed = TRUE)
-  })
-  output$searchable <- render_el_table(el_table(
-    data = tableData[matches(), ],
-    columns = list(
-      el_table_column("date", "Date"),
-      el_table_column("name", "Name"),
-      el_table_column(
-        align = "right",
-        header = el$input(
-          "v-model" = "$vueStore.search.text",
+el_table(
+  id = "searchable",
+  data = v_bind(paste(
+    "$vueStore.search.rows.filter((data) => !$vueStore.search.text ||",
+    "data.name.toLowerCase().includes($vueStore.search.text.toLowerCase()))"
+  )),
+  columns = list(
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name"),
+    el_table_column(
+      align = "right",
+      header = el$input(
+        v_model("$vueStore.search.text"),
+        size = "small",
+        placeholder = "Type to search"
+      ),
+      cell = tagList(
+        el$button(
           size = "small",
-          placeholder = "Type to search"
+          v_on(click = "console.log(scope.$index, scope.row)"),
+          "Edit"
         ),
-        cell = tagList(
-          el$button(
-            size = "small",
-            "@click" = "rowAction('edit', scope)",
-            "Edit"
-          ),
-          el$button(
-            size = "small",
-            type = "danger",
-            "@click" = "rowAction('delete', scope)",
-            "Delete"
-          )
+        el$button(
+          size = "small",
+          type = "danger",
+          v_on(click = "console.log(scope.$index, scope.row)"),
+          "Delete"
         )
       )
     )
-  ))
-}
-
-shinyApp(ui, server)
+  )
+)
 
 ## expandable-row
 #| shot_js = "document.querySelector('#shot .el-table__expand-icon').click()"

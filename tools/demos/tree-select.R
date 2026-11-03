@@ -181,9 +181,11 @@ nodes[[1]]$children[[1]]$children[[1]]$disabled <- TRUE
 el_tree_select("ts_disabled", data = nodes, width = "240px")
 
 ## filterable
-#' The second filters on the server: its `filter_method` reports the query,
-#' and the server sends back the nodes that match. The third decides node
-#' by node in the browser, with `filter_node_method`.
+#' The three share their data and value, as upstream's: a store holds
+#' them. The second filters with `filter_method`, the store's action
+#' setting the data to the nodes that match; the third decides node by
+#' node, with `filter_node_method`. The server can filter as well, the
+#' query reported from `filter_method`.
 #| shot_js = c("var i = document.querySelector('#ts_filter_server input'); i.focus(); i.value = 'one 2'; i.dispatchEvent(new Event('input', {bubbles: true}));")
 #| shot_wait = 2
 #| shot_sel = ".el-select__popper"
@@ -210,39 +212,46 @@ nodes <- list(
     n("3-2", "Level two 3-2", n("3-2-1", "Level three 3-2-1"))
   )
 )
-ui <- el_page(
-  el_tree_select("ts_filter", data = nodes, filterable = TRUE, width = "240px"),
-  el_divider(),
-  "filter method:",
-  el_tree_select(
-    "ts_filter_server",
-    data = nodes,
-    filterable = TRUE,
-    filter_method = JS(
-      "function(value) { Shiny.setInputValue('ts_filter_query', value, {priority: 'event'}); }"
-    ),
-    width = "240px"
-  ),
-  el_divider(),
-  "filter node method:",
-  el_tree_select(
-    "ts_filter_node",
-    data = nodes,
-    filterable = TRUE,
-    filter_node_method = JS(
-      "function(value, data) { return data.label.includes(value); }"
-    ),
-    width = "240px"
+vue_store(
+  "ts_data",
+  state = list(value = NULL, source = nodes, data = nodes),
+  actions = list(
+    filterMethod = JS(
+      "function(value) {",
+      "  this.data = this.source.filter(function(item) { return item.label.includes(value); });",
+      "}"
+    )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$ts_filter_query, {
-    q <- input$ts_filter_query
-    keep <- Filter(function(x) grepl(q, x$label, fixed = TRUE), nodes)
-    update_el_tree_select(session, "ts_filter_server", data = keep)
-  })
-}
-shinyApp(ui, server)
+el_tree_select(
+  "ts_filter",
+  value = v_model("$vueStore.ts_data.value"),
+  data = v_bind("$vueStore.ts_data.data"),
+  filterable = TRUE,
+  width = "240px"
+)
+el_divider()
+"filter method:"
+el_tree_select(
+  "ts_filter_server",
+  value = v_model("$vueStore.ts_data.value"),
+  data = v_bind("$vueStore.ts_data.data"),
+  filter_method = v_bind("$vueStore.ts_data.filterMethod"),
+  filterable = TRUE,
+  width = "240px"
+)
+el_divider()
+"filter node method:"
+el_tree_select(
+  "ts_filter_node",
+  value = v_model("$vueStore.ts_data.value"),
+  data = v_bind("$vueStore.ts_data.data"),
+  filter_node_method = JS(
+    "function(value, data) { return data.label.includes(value); }"
+  ),
+  filterable = TRUE,
+  width = "240px"
+)
 
 ## slots
 #' The default slot, scoped with `data`, draws each node; the second
@@ -296,49 +305,48 @@ tagList(
 )
 
 ## lazy
-#' `lazy = TRUE` loads a node's children when it opens, from the server:
-#' `input$<id>_load` asks and `el_load_children()` answers. `cache_data`
-#' gives the label of a value whose node is not loaded yet.
+#' `lazy = TRUE` loads a node's children when it opens, from `load`: here
+#' a store's action, shared by both, making them up after a moment, as
+#' upstream's. With no `load`, the server answers: `input$<id>_load`,
+#' then `el_load_children()`. `cache_data` gives the label of a value
+#' whose node is not loaded yet.
 #| shot_js = "document.querySelectorAll('#shot .el-select__wrapper')[1].click()", shot_sel = ".el-popper", shot_wait = 2
-ui <- el_page(
-  el_tree_select(
-    "lazy1",
-    lazy = TRUE,
-    props = list(label = "label", children = "children", isLeaf = "isLeaf"),
-    width = "240px"
-  ),
-  el_divider(),
-  el_tree_select(
-    "lazy2",
-    value = 5,
-    lazy = TRUE,
-    props = list(label = "label", children = "children", isLeaf = "isLeaf"),
-    cache_data = list(list(value = 5, label = "lazy load node5")),
-    width = "240px"
+vue_store(
+  "ts_lazy",
+  state = list(id = 0),
+  actions = list(
+    load = JS(
+      "function(node, resolve) {",
+      "  var self = this;",
+      "  if (node.isLeaf) return resolve([]);",
+      "  setTimeout(function() {",
+      "    resolve([",
+      "      { value: ++self.id, label: 'lazy load node' + self.id },",
+      "      { value: ++self.id, label: 'lazy load node' + self.id, isLeaf: true }",
+      "    ]);",
+      "  }, 400);",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  id <- 0
-  load <- function(q, tree) {
-    if (isTRUE(q$data$isLeaf)) {
-      return(el_load_children(id = tree, request = q))
-    }
-    id <<- id + 2
-    el_load_children(
-      id = tree,
-      request = q,
-      children = list(
-        list(value = id - 1, label = paste0("lazy load node", id - 1)),
-        list(value = id, label = paste0("lazy load node", id), isLeaf = TRUE)
-      )
-    )
-  }
-  observeEvent(input$lazy1_load, load(input$lazy1_load, "lazy1"))
-  observeEvent(input$lazy2_load, load(input$lazy2_load, "lazy2"))
-}
-
-shinyApp(ui, server)
+el_tree_select(
+  "lazy1",
+  lazy = TRUE,
+  load = v_bind("$vueStore.ts_lazy.load"),
+  props = list(label = "label", children = "children", isLeaf = "isLeaf"),
+  width = "240px"
+)
+el_divider()
+"show lazy load label:"
+el_tree_select(
+  "lazy2",
+  value = 5,
+  lazy = TRUE,
+  load = v_bind("$vueStore.ts_lazy.load"),
+  props = list(label = "label", children = "children", isLeaf = "isLeaf"),
+  cache_data = list(list(value = 5, label = "lazy load node5")),
+  width = "240px"
+)
 
 ## node-key
 #' With `node_key`, the value names a node by its key.

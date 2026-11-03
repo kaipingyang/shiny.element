@@ -308,32 +308,50 @@ el_dialog(
 )
 
 ## events
-#' `input$<id>_closed` is reported unasked; `_open`, `_opened`, `_close`,
+#' Each of the dialog's events, as upstream's, in a [vue_app()]: the
+#' browser's console says which came. An `el_dialog()` reports them to the
+#' server -- `input$<id>_closed` unasked; `_open`, `_opened`, `_close`,
 #' `_open_auto_focus` and `_close_auto_focus` when asked for, with
 #' `events`.
-#| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5
-ui <- el_page(
-  el_button("open", "Open the Dialog", plain = TRUE),
-  el_dialog(
-    "ev",
-    title = "Events",
-    width = "500px",
-    events = c("open", "opened", "close"),
-    content = verbatimTextOutput("log")
-  )
+#| shot_js = "document.querySelector('#ev_dialog button').click()", shot_sel = ".el-dialog", shot_wait = 1.5
+vue_app(
+  "ev_dialog",
+  tags$div(
+    el$button(
+      plain = NA,
+      v_on(click = "dialogVisible = true"),
+      "Open the event Dialog"
+    ),
+    el$dialog(
+      v_model("dialogVisible"),
+      `modal-class` = "overide-animation",
+      `:before-close` = "(doneFn) => { console.log('before-close'); doneFn(); }",
+      v_on(
+        open = "console.log('open')",
+        "open-auto-focus" = "console.log('open-auto-focus')",
+        opened = "console.log('opened')",
+        close = "console.log('close')",
+        "close-auto-focus" = "console.log('close-auto-focus')",
+        closed = "console.log('closed')"
+      ),
+      tags$span("It's a event Dialog"),
+      template(
+        slot = "footer",
+        tags$div(
+          class = "dialog-footer",
+          el$button(v_on(click = "dialogVisible = false"), "Cancel"),
+          el$button(
+            type = "primary",
+            v_on(click = "dialogVisible = false"),
+            "Confirm"
+          )
+        )
+      )
+    )
+  ),
+  data = list(dialogVisible = FALSE),
+  use = "shinyElement.plugin"
 )
-server <- function(input, output, session) {
-  seen <- reactiveVal(character())
-  for (e in c("open", "opened", "close", "closed")) {
-    local({
-      e <- e
-      observeEvent(input[[paste0("ev_", e)]], seen(c(seen(), e)))
-    })
-  }
-  output$log <- renderText(paste(seen(), collapse = "\n"))
-  observeEvent(input$open, update_el_dialog(id = "ev", visible = TRUE))
-}
-shinyApp(ui, server)
 
 ## in-shiny
 #' From the server, `update_el_dialog(visible = TRUE)` opens a dialog after

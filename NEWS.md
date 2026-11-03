@@ -127,6 +127,11 @@
 
 ## Bug fixes
 
+* `el_infinite_scroll(on = list(load = ...))` is called: Element's infinite
+  scroll is a directive and emits no `load`, so the handler waited on an
+  event that never came. It is the directive's handler now, after the one
+  reporting `input$<id>_load`, as upstream's `v-infinite-scroll="load"`.
+
 * An `on` handler written as a function expression or a method path --
   `"(pattern, prefix) => ..."`, `"$vueStore.cart.add"` -- is called with
   all the event's arguments, as Vue's compiler does with `@search="..."`;
@@ -200,6 +205,15 @@
   as rows, as `el_tree_select()` does, not as columns.
 
 ## Documentation
+
+* Thirty more of the site's examples run in the page, as upstream's do,
+  instead of being pictures of an app: mention's remote options, infinite
+  scroll, dynamic tabs and tags, a form's items and alignment, the config
+  provider's language, lazy trees and tree selects, a table's search and
+  rows, table-v2's sorting, sticky rows and filter, and upload's (posting
+  to upstream's mock service). Where upstream draws a list of items with
+  `v-for` -- tabs, form items, tags -- the example is a `vue_app()` with
+  `el$` tags, as upstream's template.
 
 * `tools/external-props.csv` lists Element's props that need something
   outside Element to work -- a router, a locale, Day.js's tokens, a Date or

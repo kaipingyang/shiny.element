@@ -64,107 +64,117 @@ el_mention(
 )
 
 ## loading
-#' `input$<id>_search` is the text after the prefix, as it is typed; the
-#' server shows `loading` while it looks, then answers with the options.
+#' A store keeps the options and whether they are loading; its `search`
+#' action, the mention's `search` handler as upstream's `handleSearch`, looks
+#' for a moment, then gives them.
 #| shot_js = "var i = document.querySelector('#mention_load input'); i.focus(); i.value = '@ab'; i.dispatchEvent(new Event('input', {bubbles: true}));"
 #| shot_wait = 3
 #| shot_sel = ".el-mention-dropdown"
 #| shot_expect = "document.querySelector('.el-mention-dropdown').innerText.indexOf('abFuphoenixes') >= 0"
-ui <- el_page(
-  el_mention("mention_load", width = "320px", placeholder = "Please input")
-)
-server <- function(input, output, session) {
-  observeEvent(input$mention_load_search, {
-    pattern <- input$mention_load_search$pattern
-    update_el_mention(session, "mention_load", loading = TRUE)
-    later::later(
-      function() {
-        names <- paste0(
-          pattern,
-          c("Fuphoenixes", "kooriookami", "Jeremy", "btea")
-        )
-        update_el_mention(
-          session,
-          "mention_load",
-          options = stats::setNames(names, names),
-          loading = FALSE
-        )
-      },
-      1.5
+vue_store(
+  "mention_load_data",
+  state = list(options = list(), loading = FALSE),
+  actions = list(
+    search = JS(
+      "function(pattern) {",
+      "  var self = this;",
+      "  clearTimeout(this.timer);",
+      "  this.loading = true;",
+      "  this.timer = setTimeout(function() {",
+      "    self.options = ['Fuphoenixes', 'kooriookami', 'Jeremy', 'btea'].map(",
+      "      function(item) { return { label: pattern + item, value: pattern + item }; }",
+      "    );",
+      "    self.loading = false;",
+      "  }, 1500);",
+      "}"
     )
-  })
-}
-shinyApp(ui, server)
+  )
+)
+el_mention(
+  "mention_load",
+  width = "320px",
+  placeholder = "Please input",
+  options = v_bind("$vueStore.mention_load_data.options"),
+  loading = v_bind("$vueStore.mention_load_data.loading"),
+  on = list(search = "$vueStore.mention_load_data.search")
+)
 
 ## prefix
-#' Which list the server answers with depends on the prefix typed.
+#' Which list the options are depends on the prefix typed: the store's
+#' `search` action is called with the pattern and the prefix, as
+#' upstream's `handleSearch`.
 #| shot_js = "var i = document.querySelector('#mention_prefix input'); i.focus(); i.value = '#'; i.dispatchEvent(new Event('input', {bubbles: true}));"
 #| shot_wait = 2
 #| shot_sel = ".el-mention-dropdown"
 #| shot_expect = "document.querySelector('.el-mention-dropdown').innerText.indexOf('2.0') >= 0"
-mock <- list(
-  "@" = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"),
-  "#" = c("1.0", "2.0", "3.0")
-)
-ui <- el_page(
-  el_mention(
-    "mention_prefix",
-    width = "320px",
-    prefix = c("@", "#"),
-    placeholder = "input @ to mention people, # to mention tag"
+vue_store(
+  "mention_prefix_data",
+  state = list(
+    options = list(),
+    mock = list(
+      "@" = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"),
+      "#" = c("1.0", "2.0", "3.0")
+    )
+  ),
+  actions = list(
+    search = JS(
+      "function(_, prefix) {",
+      "  this.options = (this.mock[prefix] || []).map(function(value) { return { value: value }; });",
+      "}"
+    )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$mention_prefix_search, {
-    update_el_mention(
-      session,
-      "mention_prefix",
-      options = mock[[input$mention_prefix_search$prefix]] %||% character()
-    )
-  })
-}
-shinyApp(ui, server)
+el_mention(
+  "mention_prefix",
+  width = "320px",
+  prefix = c("@", "#"),
+  placeholder = "input @ to mention people, # to mention tag",
+  options = v_bind("$vueStore.mention_prefix_data.options"),
+  on = list(search = "$vueStore.mention_prefix_data.search")
+)
 
 ## whole
 #' With `whole = TRUE` a backspace deletes a mention whole; the second
-#' input's `check_is_whole` decides what counts as one.
+#' input's `check_is_whole` decides what counts as one, and its options
+#' follow the prefix typed, as the one above.
 #| shot_js = c("var i = document.querySelector('#mention_whole input'); i.focus(); i.value = '@Fuphoenixes '; i.dispatchEvent(new Event('input', {bubbles: true}));", "document.querySelector('#mention_whole input').dispatchEvent(new KeyboardEvent('keydown', {key: 'Backspace', code: 'Backspace', bubbles: true}));")
 #| shot_expect = "document.querySelector('#mention_whole input').value === ''"
 mock <- list(
   "@" = c("Fuphoenixes", "kooriookami", "Jeremy", "btea"),
   "#" = c("1.0", "2.0", "3.0")
 )
-ui <- el_page(
-  el_mention(
-    "mention_whole",
-    whole = TRUE,
-    width = "320px",
-    placeholder = "Please input",
-    options = mock[["@"]]
-  ),
-  el_divider(),
-  el_mention(
-    "mention_whole2",
-    prefix = c("@", "#"),
-    whole = TRUE,
-    width = "320px",
-    placeholder = "input @ to mention people, # to mention tag",
-    check_is_whole = JS(sprintf(
-      "function(pattern, prefix) { return (%s[prefix] || []).indexOf(pattern) >= 0; }",
-      jsonlite::toJSON(mock)
-    ))
+vue_store(
+  "mention_whole_data",
+  state = list(options = list(), mock = mock),
+  actions = list(
+    search = JS(
+      "function(_, prefix) {",
+      "  this.options = (this.mock[prefix] || []).map(function(value) { return { value: value }; });",
+      "}"
+    )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$mention_whole2_search, {
-    update_el_mention(
-      session,
-      "mention_whole2",
-      options = mock[[input$mention_whole2_search$prefix]] %||% character()
-    )
-  })
-}
-shinyApp(ui, server)
+el_mention(
+  "mention_whole",
+  whole = TRUE,
+  width = "320px",
+  placeholder = "Please input",
+  options = mock[["@"]]
+)
+el_divider()
+el_mention(
+  "mention_whole2",
+  prefix = c("@", "#"),
+  whole = TRUE,
+  width = "320px",
+  placeholder = "input @ to mention people, # to mention tag",
+  options = v_bind("$vueStore.mention_whole_data.options"),
+  check_is_whole = JS(sprintf(
+    "function(pattern, prefix) { return (%s[prefix] || []).indexOf(pattern) >= 0; }",
+    jsonlite::toJSON(mock)
+  )),
+  on = list(search = "$vueStore.mention_whole_data.search")
+)
 
 ## form
 #| shot_js = "document.querySelector('#mention_form .el-button--primary').click()"
