@@ -152,8 +152,15 @@ test_that("a router added after a component mounted says it will not be seen", {
         # the router that comes next
         shiny::tags$div(vue_app(
           "early",
-          shiny::tags$span(class = "early", "early")
+          # uses the router (not drawn here: reading $route with none warns)
+          shiny::tags$span(
+            class = "early",
+            `v-if` = "false",
+            "{{ $route.path }}"
+          )
         )),
+        # mounted too, but using no router: it loses nothing, and is not named
+        shiny::tags$div(vue_app("plain", shiny::tags$span("plain"))),
         shiny::tags$script(htmltools::HTML("shinyVue.mount(document);")),
         shiny::tags$script(htmltools::HTML(
           "shinyVue.createRouter({ id: 'route', history: 'hash', routes: [] });"
@@ -177,7 +184,7 @@ test_that("a router added after a component mounted says it will not be seen", {
   expect_length(w, 1)
   expect_match(
     w[1],
-    'vue_router("route"): 1 component mounted before it will not see $route',
+    'vue_router("route"): mounted before it, early will not see $route',
     fixed = TRUE
   )
 })

@@ -288,3 +288,57 @@ test_that("a binding the page cannot read says so once", {
   expect_equal(out("good"), "true")
   expect_length(unlist(js("__w")), 3)
 })
+
+test_that("a store or a router drawn later is waited for, not warned about", {
+  skip_if_no_browser()
+  # as renderUI() draws them: after the components that read them mounted
+  late <- htmltools::renderTags(vue_store("late", state = list(open = TRUE)))
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::attachDependencies(
+      htmltools::tagList(
+        use_element(dev = TRUE),
+        shiny::tags$div(vue_app(
+          "follower",
+          shiny::tags$span(class = "out", "{{ String(open) }}"),
+          data = list(open = v_bind("$vueStore.late.open"))
+        )),
+        shiny::tags$div(vue_app(
+          "path",
+          shiny::tags$span(class = "out", "{{ String(path) }}"),
+          data = list(path = v_bind("$route.path"))
+        )),
+        el_button("plain", "Plain"),
+        shiny::tags$div(id = "slot"),
+        shiny::tags$script(htmltools::HTML(sprintf(
+          paste0(
+            "document.addEventListener('DOMContentLoaded', function() {",
+            " var d = document.getElementById('slot'); d.innerHTML = %s;",
+            " shinyVue.mount(d);",
+            " shinyVue.createRouter({ id: 'route', history: 'hash', routes: [] });",
+            " });"
+          ),
+          jsonlite::toJSON(as.character(late$html), auto_unbox = TRUE)
+        )))
+      ),
+      c(list(.vue_router_dependency()), late$dependencies)
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  expect_equal(
+    js("document.querySelector('#follower .out').textContent"),
+    "true"
+  )
+  # a v_bind() of $route follows the router that came after it
+  expect_equal(js("document.querySelector('#path .out').textContent"), "/")
+  expect_length(unlist(js("__w")), 0)
+})

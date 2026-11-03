@@ -108,12 +108,15 @@
   not have, `$route` with no `vue_router()`, a path that runs through
   nothing -- said nothing: the field stayed unset and the page showed
   nothing, which reads as the component's own doing. It now says so once in
-  the console, naming the store or the router that is missing.
+  the console, naming the store or the router that is missing -- once the
+  page has drawn what it starts with, so a store or a router a `renderUI()`
+  draws later is waited for, not reported.
 
-* A `vue_router()` that reaches the page after components have mounted --
-  drawn later than them, inserted on a click -- says so: Vue installs a
-  plugin at mount, so those components never see `$route`, and the router
-  was silent about it.
+* A `vue_router()` that reaches the page after components using it have
+  mounted -- drawn later than them, inserted on a click -- names them: Vue
+  installs a plugin at mount, so their templates never see `$route`, and
+  the router was silent about it. Components using no router are not
+  named, and a `v_bind()` of `$route` follows a router drawn later.
 
 * `v_bind()` given a function -- a tree's `render_content` -- set it: the
   bridge compared the function with the unset field as JSON, where both
