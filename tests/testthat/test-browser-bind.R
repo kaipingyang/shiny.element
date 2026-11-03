@@ -381,6 +381,56 @@ test_that("a store drawn after the page settled is waited for", {
   b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
   b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
   Sys.sleep(4)
-  expect_equal(js("document.querySelector('#follower .out').textContent"), "true")
+  expect_equal(
+    js("document.querySelector('#follower .out').textContent"),
+    "true"
+  )
   expect_length(unlist(js("__w")), 0)
+})
+
+test_that("a module's store drawn long after is named in full, and followed when it comes", {
+  skip_if_no_browser()
+  late <- htmltools::renderTags(vue_store("m-ui", state = list(open = TRUE)))
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::attachDependencies(
+      htmltools::tagList(
+        use_element(dev = TRUE),
+        shiny::tags$div(vue_app(
+          "m-follower",
+          shiny::tags$span(class = "out", "{{ String(open) }}"),
+          data = list(open = v_bind("$vueStore.ui.open", ns = "m"))
+        )),
+        # a store whose name only starts like it: not taken for it
+        shiny::tags$div(vue_store("m-uis", state = list(open = FALSE))),
+        shiny::tags$div(id = "slot"),
+        shiny::tags$script(htmltools::HTML(sprintf(
+          paste0(
+            "window.addEventListener('load', function() { setTimeout(function() {",
+            " var d = document.getElementById('slot'); d.innerHTML = %s;",
+            " shinyVue.mount(d); }, 4000); });"
+          ),
+          jsonlite::toJSON(as.character(late$html), auto_unbox = TRUE)
+        )))
+      ),
+      late$dependencies
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(6)
+  w <- unlist(js("__w"))
+  expect_length(w, 1)
+  expect_match(w, 'no store "m-ui" on the page (yet)', fixed = TRUE)
+  expect_equal(
+    js("document.querySelector('#m-follower .out').textContent"),
+    "true"
+  )
 })

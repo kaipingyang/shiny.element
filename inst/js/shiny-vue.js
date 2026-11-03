@@ -358,9 +358,8 @@
     sv.stores()[id] = store;
     // a store that comes late is watched for by the bindings that waited; what
     // was said about it missing earlier no longer holds
-    for (var k in failed) {
-      if (k.indexOf('$vueStore.' + id) >= 0 || k.indexOf("['" + id + "']") >= 0) failed[k] = false;
-    }
+    (waitingFor[id] || []).forEach(function(k) { failed[k] = false; });
+    delete waitingFor[id];
     return store;
   }
   // What a store's host exposes: its state and getters as refs, its actions
@@ -499,11 +498,19 @@
   // does not have, a misspelt path. Said once per expression, naming what is
   // missing; the value stays unset either way.
   var failed = {};
-  function unreadable(b) {
+  // The store a binding reads, by its full id: the module's prefix and the
+  // name the expression starts with -- or null
+  function storeOf(b) {
     var m = /^\s*\$vueStore(?:\.([A-Za-z_$][\w$]*)|\[\s*(['"])(.*?)\2\s*\])/.exec(b.expr);
-    if (m) {
-      var id = ((b.scope && b.scope.store) || '') + (m[1] || m[3]);
-      return id in sv.stores() ? null : 'no store "' + id + '" on the page';
+    return m ? ((b.scope && b.scope.store) || '') + (m[1] || m[3]) : null;
+  }
+  // the bindings that failed for want of a store, by its id: what was said
+  // about them no longer holds once it comes
+  var waitingFor = {};
+  function unreadable(b) {
+    var id = storeOf(b);
+    if (id !== null) {
+      return id in sv.stores() ? null : 'no store "' + id + '" on the page (yet)';
     }
     if (!sv.router && /\$route\b/.test(b.expr)) {
       return 'the page has no vue_router()';
@@ -546,6 +553,8 @@
     var key = fn + '\u0000' + b.expr + '\u0000' + JSON.stringify(b.scope || {});
     if (failed[key]) return;
     failed[key] = true;
+    var store = storeOf(b);
+    if (store !== null) (waitingFor[store] = waitingFor[store] || []).push(key);
     whenSettled(function() {
       var tries = 0;
       var attempt = function() {
