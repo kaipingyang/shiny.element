@@ -576,10 +576,49 @@
     if (typeof a === 'function' || typeof b === 'function') return false;
     return JSON.stringify(plain(a)) === JSON.stringify(plain(b));
   }
-  // v_on(statement, ns =): an inline statement run with the module's names,
-  // the component's own as a template's, $event the event's first argument
+  // What Vue's compiler takes for a handler rather than a statement (its
+  // isMemberExpression and fnExpRE, compiler-core): a method path, `save`
+  // or `$vueStore.cart.add`, or a function expression, `(a, b) => ...` --
+  // called with all the event's arguments
+  var MEMBER_FIRST = /[A-Za-z_$\xA0-\uFFFF]/, MEMBER_REST = /[\.\?\w$\xA0-\uFFFF]/,
+      MEMBER_WS = /\s+[.[]\s*|\s*[.[]\s+/g;
+  var FN_EXP = /^\s*(?:async\s*)?(?:\([^)]*?\)|[\w$_]+)\s*(?::[^=]+)?=>|^\s*(?:async\s+)?function(?:\s+[\w$]+)?\s*\(/;
+  function isMemberExpression(src) {
+    var t = src.trim().replace(MEMBER_WS, function(m) { return m.trim(); });
+    var state = 0, stack = [], brackets = 0, parens = 0, quote = null;
+    for (var i = 0; i < t.length; i++) {
+      var c = t.charAt(i);
+      switch (state) {
+        case 0:
+          if (c === '[') { stack.push(state); state = 1; brackets++; }
+          else if (c === '(') { stack.push(state); state = 2; parens++; }
+          else if (!(i === 0 ? MEMBER_FIRST : MEMBER_REST).test(c)) return false;
+          break;
+        case 1:
+          if (c === "'" || c === '"' || c === '`') { stack.push(state); state = 3; quote = c; }
+          else if (c === '[') brackets++;
+          else if (c === ']' && !--brackets) state = stack.pop();
+          break;
+        case 2:
+          if (c === "'" || c === '"' || c === '`') { stack.push(state); state = 3; quote = c; }
+          else if (c === '(') parens++;
+          else if (c === ')') {
+            if (i === t.length - 1) return false;
+            if (!--parens) state = stack.pop();
+          }
+          break;
+        case 3:
+          if (c === quote) { state = stack.pop(); quote = null; }
+      }
+    }
+    return !brackets && !parens;
+  }
+  // v_on(statement, ns =), run with the module's names and the component's
+  // own, as a template's: a handler (above) is called with the event's
+  // arguments; a statement runs with $event, the first
   sv.run = function(vm, statement, scope, args) {
-    var f = compile('run', statement);
+    var handler = isMemberExpression(statement) || FN_EXP.test(statement);
+    var f = compile(handler ? 'read' : 'run', statement);
     if (!f) return undefined;
     var page = pageScope(scope);
     var names = new Proxy({}, {
@@ -593,7 +632,9 @@
       },
       set: function(t, k, v) { vm[k] = v; return true; }
     });
-    return f(names);
+    if (!handler) return f(names);
+    var fn = f(names);
+    return typeof fn === 'function' ? fn.apply(null, args || []) : undefined;
   };
   // An element of a binding of its own -- a component drawn as markup --
   // following the bindings in its `data-shiny-vue-bind`, {"<field>":

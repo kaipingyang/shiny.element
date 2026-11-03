@@ -28,6 +28,11 @@ statement run with a module's names, as \code{\link[=v_bind]{v_bind()}} evaluate
 expression: \verb{$vueStore.ui} is \code{vue_store(ns("ui"))}, \verb{$inputs.size} the
 module's input. Outside a module a plain string does the same:
 \code{on = list(click = "$vueStore.ui.open = true")}.
+
+As in Vue, a method path (\code{"save"}, \code{"$vueStore.cart.add"}) or a
+function expression (\code{"(pattern, prefix) => ..."}) is a handler, called
+with all the event's arguments; anything else is a statement, with
+\verb{$event}. Vue's compiler tells them apart, and so do these, by its rule.
 }
 \examples{
 vue_app(

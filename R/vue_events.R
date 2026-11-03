@@ -223,9 +223,15 @@
   events <- gsub("_", "-", names(on), fixed = TRUE)
   names(on) <- events
   # a statement goes in the template, in the arrow function a tag's
-  # handlers are joined in (.vue_join_handlers()), $event its first argument
+  # handlers are joined in (.vue_join_handlers()), $event its first
+  # argument; a handler -- a method path or a function expression, as Vue
+  # tells them apart -- is called with all the event's arguments
   inline <- lapply(on[statement], function(s) {
-    paste0("(...a) => { const $event = a[0]; ", s, "; }")
+    if (.vue_is_handler(s)) {
+      paste0("(...a) => (", s, ")(...a)")
+    } else {
+      paste0("(...a) => { const $event = a[0]; ", s, "; }")
+    }
   })
   on <- on[fun]
   method <- sprintf("svOn%d", seq_along(on))
@@ -366,4 +372,89 @@
   ))
   attr(js, "vue_report") <- bindings
   js
+}
+
+#' Whether Vue takes `@event="<code>"` as a handler rather than a statement
+#'
+#' Vue's compiler (compiler-core, `transformOn`) calls a method path --
+#' `save`, `$vueStore.cart.add` -- or a function expression -- `(a, b) =>
+#' ...`, `function (a) { ... }` -- with all the event's arguments, and runs
+#' anything else as a statement with `$event`. The same test, its
+#' `isMemberExpression` and `fnExpRE`, so a handler in `on` acts as it
+#' would in a template. The bridge has the same for `v_on(ns =)`.
+#'
+#' @param code The code, a string.
+#' @return `TRUE` or `FALSE`.
+#' @keywords internal
+.vue_is_handler <- function(code) {
+  fn <- paste0(
+    "^\\s*(?:async\\s*)?(?:\\([^)]*?\\)|[\\w$_]+)\\s*(?::[^=]+)?=>|",
+    "^\\s*(?:async\\s+)?function(?:\\s+[\\w$]+)?\\s*\\("
+  )
+  if (grepl(fn, code, perl = TRUE)) {
+    return(TRUE)
+  }
+  # spaces around a dot or a bracket dropped, as Vue's compiler does
+  t <- gsub("\\s*([.[])\\s*", "\\1", trimws(code), perl = TRUE)
+  chars <- strsplit(t, "", fixed = TRUE)[[1]]
+  state <- 0L
+  stack <- integer()
+  brackets <- 0L
+  parens <- 0L
+  quote <- NULL
+  for (i in seq_along(chars)) {
+    c <- chars[[i]]
+    if (state == 0L) {
+      if (c == "[") {
+        stack <- c(stack, state)
+        state <- 1L
+        brackets <- brackets + 1L
+      } else if (c == "(") {
+        stack <- c(stack, state)
+        state <- 2L
+        parens <- parens + 1L
+      } else if (
+        !grepl(if (i == 1L) "[A-Za-z_$]" else "[.?\\w$]", c, perl = TRUE) &&
+          utf8ToInt(c) < 0xA0
+      ) {
+        return(FALSE)
+      }
+    } else if (state == 1L) {
+      if (c %in% c("'", "\"", "`")) {
+        stack <- c(stack, state)
+        state <- 3L
+        quote <- c
+      } else if (c == "[") {
+        brackets <- brackets + 1L
+      } else if (c == "]") {
+        brackets <- brackets - 1L
+        if (brackets == 0L) {
+          state <- stack[length(stack)]
+          stack <- stack[-length(stack)]
+        }
+      }
+    } else if (state == 2L) {
+      if (c %in% c("'", "\"", "`")) {
+        stack <- c(stack, state)
+        state <- 3L
+        quote <- c
+      } else if (c == "(") {
+        parens <- parens + 1L
+      } else if (c == ")") {
+        if (i == length(chars)) {
+          return(FALSE)
+        }
+        parens <- parens - 1L
+        if (parens == 0L) {
+          state <- stack[length(stack)]
+          stack <- stack[-length(stack)]
+        }
+      }
+    } else if (c == quote) {
+      state <- stack[length(stack)]
+      stack <- stack[-length(stack)]
+      quote <- NULL
+    }
+  }
+  brackets == 0L && parens == 0L
 }

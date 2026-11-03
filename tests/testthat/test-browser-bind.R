@@ -400,3 +400,54 @@ test_that("a bound value reaches the component as it is; the server's edits stay
   expect_equal(js("shinyVue.useStore('rows').list.length"), 1)
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("an on handler given as a function gets every argument of the event", {
+  skip_if_no_browser()
+  tree_data <- list(list(
+    id = 1,
+    label = "one",
+    children = list(list(id = 2, label = "two"))
+  ))
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store("seen", state = list(a = 0, b = 0))),
+      # inline, and run by the bridge (a module's)
+      el_tree(
+        "t1",
+        data = tree_data,
+        default_expand_all = TRUE,
+        on = list(node_click = "(data, node) => $vueStore.seen.a = node.level")
+      ),
+      el_tree(
+        "m-t2",
+        data = tree_data,
+        default_expand_all = TRUE,
+        on = list(
+          node_click = v_on(
+            "(data, node) => $vueStore.seen.b = node.level",
+            ns = "m"
+          )
+        )
+      ),
+      shiny::tags$div(vue_store("m-seen", state = list(b = 0)))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  js("document.querySelectorAll('#t1 .el-tree-node__content')[1].click()")
+  js("document.querySelectorAll('#m-t2 .el-tree-node__content')[1].click()")
+  Sys.sleep(0.4)
+  expect_equal(js("shinyVue.useStore('seen').a"), 2)
+  expect_equal(js("shinyVue.useStore('m-seen').b"), 2)
+  expect_length(unlist(js("__w")), 0)
+})

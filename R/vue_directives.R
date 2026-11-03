@@ -181,6 +181,11 @@ v_model <- function(path, arg = NULL, modifiers = NULL, ns = NULL) {
 #' module's input. Outside a module a plain string does the same:
 #' `on = list(click = "$vueStore.ui.open = true")`.
 #'
+#' As in Vue, a method path (`"save"`, `"$vueStore.cart.add"`) or a
+#' function expression (`"(pattern, prefix) => ..."`) is a handler, called
+#' with all the event's arguments; anything else is a statement, with
+#' `$event`. Vue's compiler tells them apart, and so do these, by its rule.
+#'
 #' @param ... In a template, handlers by event: `click = "n++"`. As a value
 #'   of `on`, one statement, unnamed.
 #' @inheritParams v_bind

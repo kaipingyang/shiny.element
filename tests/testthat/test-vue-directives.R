@@ -472,3 +472,33 @@ test_that("a host made under the articles' prefix carries it, for $find", {
   withr::local_options(shiny.vue.id_prefix = NULL)
   expect_null(spec_of(vue_app("c", htmltools::tags$span()))[[1]]$prefix)
 })
+
+test_that("a handler is told from a statement as Vue's compiler does", {
+  handler <- c(
+    "save",
+    "$vueStore.cart.add",
+    "a . b",
+    "$find('x').open",
+    "obj['k'].m",
+    "(a, b) => a + b",
+    "async (a) => 1",
+    "x => x",
+    "function (a) { }"
+  )
+  statement <- c("foo()", "n++", "a = 1", "save; other", "a b")
+  for (x in handler) {
+    expect_true(.vue_is_handler(x), info = x)
+  }
+  for (x in statement) {
+    expect_false(.vue_is_handler(x), info = x)
+  }
+  on <- .vue_on_bindings(
+    "t",
+    list(node_click = "(data, node) => last = node.level", click = "n++")
+  )
+  expect_equal(
+    on$attrs[["@node-click"]],
+    "(...a) => ((data, node) => last = node.level)(...a)"
+  )
+  expect_equal(on$attrs[["@click"]], "(...a) => { const $event = a[0]; n++; }")
+})

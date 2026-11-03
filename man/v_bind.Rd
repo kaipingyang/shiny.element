@@ -65,6 +65,12 @@ What can be bound: any of a component's props and its value, and what a
 dialog's, drawer's, tabs' or collapse's \verb{update_*()} can set. An
 argument R reads to draw the component -- a label, the choices, a class
 -- says it cannot be bound.
+
+A binding the page cannot read -- a store it does not have, \verb{$route}
+with no \code{\link[=vue_router]{vue_router()}}, a path that runs through nothing -- leaves its
+field unset and says so once in the browser's console, naming what is
+missing. A field a store simply does not have reads as \code{undefined}, as
+JavaScript does: that one is not said.
 }
 \section{Modules}{
  Give \code{ns}, the module's \code{\link[shiny:NS]{shiny::NS()}} or its id, and

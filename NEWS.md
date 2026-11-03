@@ -104,6 +104,13 @@
 
 ## Bug fixes
 
+* An `on` handler written as a function expression or a method path --
+  `"(pattern, prefix) => ..."`, `"$vueStore.cart.add"` -- is called with
+  all the event's arguments, as Vue's compiler does with `@search="..."`;
+  it was run as a statement, and so never called. The test is Vue's own
+  (`isMemberExpression`, `fnExpRE`), in R for `on` and in the bridge for
+  `v_on(ns =)`.
+
 * A `v_bind()` value reaches the component as it is, as upstream's
   `:prop="value"`: the bridge copied it as it copies what Shiny is sent,
   which dropped functions (a column's formatter), turned a `Date` into
