@@ -342,3 +342,61 @@ test_that("a store or a router drawn later is waited for, not warned about", {
   expect_equal(js("document.querySelector('#path .out').textContent"), "/")
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("a bound value reaches the component as it is; the server's edits stay its own", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store(
+        "rows",
+        state = list(list = list(list(n = 1)))
+      )),
+      shiny::tags$div(vue_app(
+        "as_is",
+        shiny::tags$span(
+          class = "out",
+          "{{ typeof col.fmt }} {{ when instanceof Date }} {{ !!icon.render || !!icon.setup }}"
+        ),
+        data = list(
+          col = v_bind("({ fmt: (v) => v + '!' })"),
+          when = v_bind("new Date(2026, 0, 1)"),
+          icon = v_bind("ElementPlusIconsVue.Edit")
+        )
+      )),
+      shiny::tags$div(vue_app(
+        "follow",
+        shiny::tags$span(class = "out", "{{ list.length }}"),
+        data = list(list = v_bind("$vueStore.rows.list"))
+      ))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  # a function, a Date and a component, as upstream's :prop would give them
+  expect_equal(
+    js("document.querySelector('#as_is .out').textContent"),
+    "function true true"
+  )
+  # the same object as the store's, not a copy
+  expect_true(js(
+    "document.getElementById('follow')._shinyVue.list === shinyVue.useStore('rows').list"
+  ))
+  # the server inserting a row in the follower: its own, the store untouched
+  js(
+    "shinyVue.update('follow', {'.edit': {field: 'list', op: 'insert', rows: [{n: 2}]}})"
+  )
+  Sys.sleep(0.3)
+  expect_equal(js("document.querySelector('#follow .out').textContent"), "2")
+  expect_equal(js("shinyVue.useStore('rows').list.length"), 1)
+  expect_length(unlist(js("__w")), 0)
+})

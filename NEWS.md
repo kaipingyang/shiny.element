@@ -104,6 +104,14 @@
 
 ## Bug fixes
 
+* A `v_bind()` value reaches the component as it is, as upstream's
+  `:prop="value"`: the bridge copied it as it copies what Shiny is sent,
+  which dropped functions (a column's formatter), turned a `Date` into
+  `{}` and a component (an icon) into nothing. The server's in-place
+  changes to a bound field (`update_vue(insert =, set =)`, the table's
+  row edits) change that component's own copy, never the state it
+  follows.
+
 * A `v_bind()` or `v_model()` the page cannot read -- a `$vueStore` it does
   not have, `$route` with no `vue_router()`, a path that runs through
   nothing -- said nothing: the field stayed unset and the page showed

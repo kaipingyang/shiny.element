@@ -546,8 +546,29 @@
       }
     };
   }
-  // a copy, so a field and the state it follows never share an array
+  // a copy, as Shiny is sent a value: what $inputs keeps of a component's
+  // value. A binding's value is never copied -- it reaches the component as
+  // it is, as upstream's :prop="value" (functions, Dates, components kept)
   function copied(v) { return v !== null && typeof v === 'object' ? plain(v) : v; }
+  // A bound field the bridge itself is about to change in place -- a
+  // server's .edit or .set -- is first made the component's own (a shallow
+  // copy), so the change reaches this component and not the state it
+  // follows; a v_model() then writes it back, as the user's change would
+  function ownField(vm, name) {
+    var bound = vm.$options && vm.$options.shinyVueBound;
+    if (!bound || !bound[name]) return vm[name];
+    var v = vm[name];
+    if (Array.isArray(v)) vm[name] = v.slice();
+    else if (v !== null && typeof v === 'object') vm[name] = Object.assign({}, v);
+    return vm[name];
+  }
+  // the same, one level down: a container inside it made its own
+  function ownChild(o, k) {
+    var v = o[k];
+    if (Array.isArray(v)) o[k] = v.slice();
+    else if (v !== null && typeof v === 'object' && Object.getPrototypeOf(v) === Object.prototype) o[k] = Object.assign({}, v);
+    return o[k];
+  }
   function same(a, b) {
     if (a === b) return true;
     // a function (a render function, a validator) is itself: JSON makes
@@ -594,7 +615,7 @@
       stops.push(Vue.watch(read, function(v) {
         if (v === undefined || (isState && same(v, state.get()))) return;
         var d = {};
-        d[field] = copied(v);
+        d[field] = v;
         apply(d);
       }, { immediate: true, deep: true }));
     });
@@ -602,7 +623,7 @@
       changed: function() {
         if (!model) return;
         var v = state.get();
-        if (!same(v, model.read())) model.write(copied(v));
+        if (!same(v, model.read())) model.write(v);
       },
       stop: function() { stops.forEach(function(s) { s(); }); }
     };
@@ -618,12 +639,12 @@
       Object.keys(bound).forEach(function(field) {
         var b = bound[field], read = reader(b);
         vm.$watch(read, function(v) {
-          if (!same(v, vm[field])) vm[field] = copied(v);
+          if (!same(v, vm[field])) vm[field] = v;
         }, { immediate: true, deep: true });
         if (b.model) {
           var write = writer(b);
           vm.$watch(field, function(v) {
-            if (!same(v, read())) write(copied(v));
+            if (!same(v, read())) write(v);
           }, { deep: true });
         }
       });
@@ -1335,7 +1356,7 @@
     var e = data['.edit'];
     if (e) {
       delete data['.edit'];
-      var name = nameOf(e.field), list = name ? vm[name] : null;
+      var name = nameOf(e.field), list = name ? ownField(vm, name) : null;
       if (!Array.isArray(list)) {
         warn('update: "' + e.field + '" is not a list of "' + id + '"; the edit was ignored');
       } else {
@@ -1374,9 +1395,10 @@
         var parts = [].concat(st.path), first = nameOf(parts[0]);
         if (!first) { warn('update: "' + parts[0] + '" is not a field of "' + id + '"; the update was ignored'); return; }
         parts[0] = first;
+        var bound = vm.$options && vm.$options.shinyVueBound && vm.$options.shinyVueBound[first];
         var o = vm;
         for (var i = 0; i < parts.length - 1; i++) {
-          o = o[parts[i]];
+          o = !bound ? o[parts[i]] : i === 0 ? ownField(vm, parts[0]) : ownChild(o, parts[i]);
           if (o === null || typeof o !== 'object') {
             warn('update: "' + st.path.join('.') + '" of "' + id + '" does not exist; the update was ignored');
             return;
