@@ -188,3 +188,46 @@ test_that("a router added after a component mounted says it will not be seen", {
     fixed = TRUE
   )
 })
+
+test_that("a router drawn later names a component whose child uses it", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  capture <- paste0(
+    "window.__w = []; ['warn', 'error'].forEach(function(k) { var o = console[k]; ",
+    "console[k] = function() { __w.push(Array.from(arguments).join(' ')); ",
+    "o.apply(console, arguments); }; });"
+  )
+  htmltools::save_html(
+    htmltools::attachDependencies(
+      htmltools::tagList(
+        use_element(dev = TRUE),
+        # the host names no router: its child does
+        shiny::tags$div(vue_app(
+          "nav",
+          shiny::tags$span(class = "nav", "nav"),
+          components = list(
+            nav_link = vue_component("<router-link to='/'>home</router-link>")
+          )
+        )),
+        shiny::tags$script(htmltools::HTML("shinyVue.mount(document);")),
+        shiny::tags$script(htmltools::HTML(
+          "shinyVue.createRouter({ id: 'route', history: 'hash', routes: [] });"
+        ))
+      ),
+      .vue_router_dependency()
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- function(x) b$Runtime$evaluate(x, returnByValue = TRUE)$result$value
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  w <- unlist(js("__w"))
+  expect_length(w, 1)
+  expect_match(w[1], "mounted before it, nav will not see $route", fixed = TRUE)
+})

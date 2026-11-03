@@ -342,3 +342,45 @@ test_that("a store or a router drawn later is waited for, not warned about", {
   expect_equal(js("document.querySelector('#path .out').textContent"), "/")
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("a store drawn after the page settled is waited for", {
+  skip_if_no_browser()
+  late <- htmltools::renderTags(vue_store("late", state = list(open = TRUE)))
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::attachDependencies(
+      htmltools::tagList(
+        use_element(dev = TRUE),
+        shiny::tags$div(vue_app(
+          "follower",
+          shiny::tags$span(class = "out", "{{ String(open) }}"),
+          data = list(open = v_bind("$vueStore.late.open"))
+        )),
+        shiny::tags$div(id = "slot"),
+        # a second renderUI(), or a click: drawn after the page settled
+        shiny::tags$script(htmltools::HTML(sprintf(
+          paste0(
+            "setTimeout(function () {",
+            " var d = document.getElementById('slot'); d.innerHTML = %s;",
+            " shinyVue.mount(d);",
+            "}, 1000);"
+          ),
+          jsonlite::toJSON(as.character(late$html), auto_unbox = TRUE)
+        )))
+      ),
+      late$dependencies
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(4)
+  expect_equal(js("document.querySelector('#follower .out').textContent"), "true")
+  expect_length(unlist(js("__w")), 0)
+})

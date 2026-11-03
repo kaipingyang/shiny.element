@@ -165,6 +165,15 @@
     return routerSeen;
   }
   var USES_ROUTER = /\$route\b|\$router\b|router-link|router-view|RouterLink|RouterView/;
+  // Whether a component -- or one it registers -- reads the router: the
+  // template it compiles, the templates of its children.
+  function usesRouter(options) {
+    if (!options) return false;
+    if (typeof options.template === 'string' && USES_ROUTER.test(options.template)) return true;
+    var kids = options.components || {};
+    for (var k in kids) if (usesRouter(kids[k])) return true;
+    return false;
+  }
   sv.routerId = null;
   sv.createRouter = function(config) {
     if (sv.router) {
@@ -233,20 +242,21 @@
     sv.routerId = config.id;
     routerRef().value = router;
     // A component mounted before the router cannot be given it: Vue installs
-    // a plugin at mount, not after. Said for the components whose templates
-    // use the router -- $route, $router, <router-link>, <router-view> -- not
+    // a plugin at mount, not after. Said for the components that use the
+    // router -- in their template, or in one of their children's -- and not
     // for the others, which lose nothing; a v_bind() reads $route through
     // the bridge, whenever it is there.
     var blind = [];
     Array.prototype.forEach.call(document.querySelectorAll('[data-shiny-vue]'), function(h) {
-      if (!h._shinyVueApp) return;
-      var tpl = h.querySelector(':scope > script[data-shiny-vue-template]');
-      if (tpl && USES_ROUTER.test(tpl.textContent)) blind.push(h.getAttribute('data-shiny-vue-id') || h.id);
+      if (h._shinyVueApp && h._shinyVueRoutes) {
+        blind.push(h.getAttribute('data-shiny-vue-id') || h.id);
+      }
     });
     if (blind.length) {
       warn('vue_router("' + config.id + '"): mounted before it, ' + blind.join(', ') +
         ' will not see $route: give the router to the page before ' +
-        (blind.length === 1 ? 'that component' : 'those components'));
+        (blind.length === 1 ? 'that component' : 'those components') +
+        ', and before any component library that uses the router');
     }
     var start = function() {
       Vue.createApp({ render: function() { return null; } }).use(router)
@@ -346,6 +356,11 @@
     });
     var store = useStore(p);
     sv.stores()[id] = store;
+    // a store that comes late is watched for by the bindings that waited; what
+    // was said about it missing earlier no longer holds
+    for (var k in failed) {
+      if (k.indexOf('$vueStore.' + id) >= 0 || k.indexOf("['" + id + "']") >= 0) failed[k] = false;
+    }
     return store;
   }
   // What a store's host exposes: its state and getters as refs, its actions
@@ -513,15 +528,36 @@
     }
     settled.then(fn);
   }
-  // `check()` reads again: null once it can, else the error
+  // A quiet moment: the next shiny:idle, or a pause where the page does not
+  // idle -- renderUI() draws a store or a router after one of these
+  function nextQuiet() {
+    return new Promise(function(resolve) {
+      var done = false;
+      var fire = function() { if (!done) { done = true; resolve(); } };
+      if (window.jQuery) jQuery(document).one('shiny:idle', fire);
+      setTimeout(fire, 800);
+    });
+  }
+  // `check()` reads again: null once it can, else the error. A binding that
+  // fails is read again at each quiet moment, a few times, before it is
+  // reported: a store or a router drawn after the page settled -- by a
+  // click, an observer, a second renderUI() -- is waited for too.
   function said(b, fn, check, hint) {
     var key = fn + '\u0000' + b.expr + '\u0000' + JSON.stringify(b.scope || {});
     if (failed[key]) return;
     failed[key] = true;
     whenSettled(function() {
-      var e = check();
-      if (!e) { failed[key] = false; return; } // it arrived meanwhile
-      warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || ''));
+      var tries = 0;
+      var attempt = function() {
+        var e = check();
+        if (!e) { failed[key] = false; return; } // it arrived meanwhile
+        if (++tries >= 3) {
+          warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || ''));
+          return;
+        }
+        nextQuiet().then(attempt);
+      };
+      attempt();
     });
   }
   function reader(b) {
@@ -837,6 +873,9 @@
     if (spec.bound) options.shinyVueBound = spec.bound;
     aliasComponents(options);
     options.template = tpl.textContent;
+    // read when a router comes late: this component, or a child of its, uses
+    // the router, so mounting without it costs it something
+    host._shinyVueRoutes = usesRouter(options);
     // Vue 3: data is a function, and the lifecycle hooks have new names
     var data = options.data || {};
     // A store (vue_store()) is a Pinia store, defined here from its spec:
