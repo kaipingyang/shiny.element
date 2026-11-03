@@ -152,14 +152,18 @@
   nothing -- said nothing: the field stayed unset and the page showed
   nothing, which reads as the component's own doing. It now says so once in
   the console, naming the store or the router that is missing -- once the
-  page has drawn what it starts with, so a store or a router a `renderUI()`
-  draws later is waited for, not reported.
+  page has drawn what it starts with, and at a few quiet moments after, so
+  a store or a router a `renderUI()` draws later is waited for, not
+  reported; one that comes later still is said missing "(yet)", by its full
+  id, a module's prefix included.
 
 * A `vue_router()` that reaches the page after components using it have
   mounted -- drawn later than them, inserted on a click -- names them: Vue
   installs a plugin at mount, so their templates never see `$route`, and
   the router was silent about it. Components using no router are not
-  named, and a `v_bind()` of `$route` follows a router drawn later.
+  named, and a `v_bind()` of `$route` follows a router drawn later. A
+  component whose child uses the router -- `vue_app(components =)` with a
+  `<router-link>` -- is named too.
 
 * `v_bind()` given a function -- a tree's `render_content` -- set it: the
   bridge compared the function with the unset field as JSON, where both
