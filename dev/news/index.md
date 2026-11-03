@@ -225,9 +225,10 @@
   unset and the page showed nothing, which reads as the component’s own
   doing. It now says so once in the console, naming the store or the
   router that is missing – once the page has drawn what it starts with,
-  so a store or a router a
+  and at a few quiet moments after, so a store or a router a
   [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) draws
-  later is waited for, not reported.
+  later is waited for, not reported; one that comes later still is said
+  missing “(yet)”, by its full id, a module’s prefix included.
 
 - A
   [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
@@ -236,7 +237,9 @@
   plugin at mount, so their templates never see `$route`, and the router
   was silent about it. Components using no router are not named, and a
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-  of `$route` follows a router drawn later.
+  of `$route` follows a router drawn later. A component whose child uses
+  the router – `vue_app(components =)` with a `<router-link>` – is named
+  too.
 
 - [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
   given a function – a tree’s `render_content` – set it: the bridge
