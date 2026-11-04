@@ -94,6 +94,35 @@ once in the browser's console, naming what is missing. A field a store
 simply does not have reads as `undefined`, as JavaScript does: that one
 is not said.
 
+## What `expr` becomes
+
+A string – and a
+[`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+– is JavaScript, as Vue's `:size="..."` is: `v_bind("large")` reads a
+name `large`, and the text is `v_bind("'large'")`, quoted, as
+`:size="'large'"`. Any other R value is a constant, its JSON:
+
+|  |  |
+|----|----|
+| Given | In the browser |
+| `"$vueStore.ui.size"` | the store's field, followed |
+| `"1 + 1"` | `2` |
+| `"'large'"` | the text `large` |
+| `"large"` | the name `large` – an error where there is none |
+| `1`, `TRUE` | `1`, `true` |
+| `c(1, 2)` | `[1, 2]` (a vector of one is a scalar: `list(1)` for `[1]`) |
+| `list("a", "b")` | `["a", "b"]` |
+| `list(a = 1)` | `{a: 1}` |
+| a data.frame | its rows, `[{...}, ...]` |
+| `JS("() => 1")` | the function |
+
+A constant needs no binding: an argument takes the R value itself,
+`size = "large"`; `v_bind()` of a constant is for a raw template, whose
+attributes are text (`el$input_number(min = v_bind(1))`). `NULL` and
+`NA` are errors – leaving an argument unset is not giving it – as are
+[`I()`](https://rdrr.io/r/base/AsIs.html), which Shiny gives opposite
+meanings, and a vector of strings, which is data: `list("a", "b")`.
+
 ## Modules
 
 Give `ns`, the module's

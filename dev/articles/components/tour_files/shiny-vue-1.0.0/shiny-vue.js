@@ -549,6 +549,15 @@
   // fails is read again at each quiet moment, a few times, before it is
   // reported: a store or a router drawn after the page settled -- by a
   // click, an observer, a second renderUI() -- is waited for too.
+  // A bare name the page does not have is, as often as not, text meant as
+  // text: v_bind("large") for "large". Said with the way to it -- the
+  // expression is run as written all the same, as Vue runs :size="large"
+  function textHint(b, e) {
+    var name = /^\s*([A-Za-z_$][\w$]*)\s*$/.exec(b.expr);
+    if (!name || !(e instanceof ReferenceError)) return '';
+    return "; for the text itself, quote it, v_bind(\"'" + name[1] + "'\"), " +
+      'or give it with no v_bind()';
+  }
   function said(b, fn, check, hint) {
     var key = fn + '\u0000' + b.expr + '\u0000' + JSON.stringify(b.scope || {});
     if (failed[key]) return;
@@ -561,7 +570,7 @@
         var e = check();
         if (!e) { failed[key] = false; return; } // it arrived meanwhile
         if (++tries >= 3) {
-          warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || ''));
+          warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || '') + textHint(b, e));
           return;
         }
         nextQuiet().then(attempt);
