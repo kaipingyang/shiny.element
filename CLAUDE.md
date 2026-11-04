@@ -446,11 +446,11 @@ Every round of changes ends the same way, without being asked:
    release-level change the full suites, `R CMD check` and the article
    shots);
 2. commit on the working branch, `dev`, and push it. **`main` is not
-   touched without the user's word**: it holds the version submitted to
-   CRAN (0.3.1) while CRAN reviews it, and the released pkgdown site (the
+   touched without the user's word**: it holds the version on CRAN
+   (0.3.1, published 2026-11-04), and the released pkgdown site (the
    root) is built from it. Fixes a reviewer asks for go on `main` when the
    user says so, and `main` is then merged into `dev`; `dev` goes to `main`
-   only once CRAN has answered and the user asks. GitHub Actions run on
+   only when the user asks, with the release it becomes. GitHub Actions run on
    pushes to `main` only, so on `dev` the checks are the local ones --
    except pkgdown, as in the tidyverse: `development: mode: auto` puts a
    version with four components (`0.3.1.9000`, `dev`) at `/dev/`, marked
@@ -480,8 +480,12 @@ CRAN gets whichever version is current when the user decides to submit.
 
 ### CRAN submission
 
-0.3.1 was submitted on 2026-10-12 (`CRAN-SUBMISSION` records it; tag
-`v0.3.1`). Where a submission is in CRAN's queue:
+0.3.1, the first release, was submitted on 2026-10-12, resubmitted after
+review on 2026-10-22, and published on 2026-11-04 (tag `v0.3.1`, its
+GitHub release; https://CRAN.R-project.org/package=shiny.element).
+`devtools::submit_cran()` writes `CRAN-SUBMISSION` while a submission is
+pending; it is deleted once CRAN accepts. Where a submission is in CRAN's
+queue:
 
 ```r
 foghorn::cran_incoming("shiny.element")   # its folder and when it got there

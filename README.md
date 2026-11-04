@@ -1,6 +1,7 @@
 # shiny.element
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/shiny.element)](https://CRAN.R-project.org/package=shiny.element)
 [![R-CMD-check](https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml)
 [![browser tests](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml/badge.svg)](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml)
 [![Codecov test coverage](https://codecov.io/gh/kaipingyang/shiny.element/graph/badge.svg)](https://app.codecov.io/gh/kaipingyang/shiny.element)
@@ -27,8 +28,17 @@ upgrade.
 
 ## Installation
 
+From CRAN:
+
 ``` r
-remotes::install_github("kaipingyang/shiny.element")
+install.packages("shiny.element")
+```
+
+The development version, from GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("kaipingyang/shiny.element", ref = "dev")
 ```
 
 ## Quick start
