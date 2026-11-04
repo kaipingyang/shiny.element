@@ -678,3 +678,35 @@ test_that("a module's store drawn long after is named in full, and followed when
     "true"
   )
 })
+
+test_that("a bare name the page lacks says how to give the text", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_app(
+        "bare",
+        shiny::tags$span(class = "out", "{{ String(size) }}"),
+        data = list(size = v_bind("large"))
+      ))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(5)
+  w <- unlist(js("__w"))
+  expect_length(w, 1)
+  expect_match(w, "v_bind(\"'large'\")", fixed = TRUE)
+  expect_equal(
+    js("document.querySelector('#bare .out').textContent"),
+    "undefined"
+  )
+})

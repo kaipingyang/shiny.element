@@ -2,6 +2,14 @@
 
 ## Breaking changes
 
+* `v_bind()` of `NULL` or `NA` is an error: it gave JavaScript's `null`,
+  where everywhere else in the package an unset argument is one not given.
+  So are `v_bind(I("..."))` -- `I()` means "as it is" in R and "code" in
+  selectize's options, so it means neither -- and a vector of strings,
+  which is data: `v_bind(list("a", "b"))`. Each message says what to
+  write. A bare name the page lacks, `v_bind("large")`, says in the console
+  how to give the text: `v_bind("'large'")`, or no `v_bind()`.
+
 * `vue_store(data =)` is deprecated, for `state`, Pinia's name: it still
   works, with a warning, and goes in the version after.
 

@@ -79,6 +79,33 @@ field unset and says so once in the browser's console, naming what is
 missing. A field a store simply does not have reads as \code{undefined}, as
 JavaScript does: that one is not said.
 }
+\section{What \code{expr} becomes}{
+ A string -- and a \code{\link[=JS]{JS()}} -- is
+JavaScript, as Vue's \verb{:size="..."} is: \code{v_bind("large")} reads a
+name \code{large}, and the text is \code{v_bind("'large'")}, quoted, as
+\verb{:size="'large'"}. Any other R value is a constant, its JSON:\tabular{ll}{
+   Given \tab In the browser \cr
+   \code{"$vueStore.ui.size"} \tab the store's field, followed \cr
+   \code{"1 + 1"} \tab \code{2} \cr
+   \code{"'large'"} \tab the text \code{large} \cr
+   \code{"large"} \tab the name \code{large} -- an error where there is none \cr
+   \code{1}, \code{TRUE} \tab \code{1}, \code{true} \cr
+   \code{c(1, 2)} \tab \verb{[1, 2]} (a vector of one is a scalar: \code{list(1)} for \verb{[1]}) \cr
+   \code{list("a", "b")} \tab \verb{["a", "b"]} \cr
+   \code{list(a = 1)} \tab \code{{a: 1}} \cr
+   a data.frame \tab its rows, \verb{[\{...\}, ...]} \cr
+   \code{JS("() => 1")} \tab the function \cr
+}
+
+
+A constant needs no binding: an argument takes the R value itself,
+\code{size = "large"}; \code{v_bind()} of a constant is for a raw template,
+whose attributes are text (\code{el$input_number(min = v_bind(1))}).
+\code{NULL} and \code{NA} are errors -- leaving an argument unset is not giving
+it -- as are \code{I()}, which Shiny gives opposite meanings, and a vector
+of strings, which is data: \code{list("a", "b")}.
+}
+
 \section{Modules}{
  Give \code{ns}, the module's \code{\link[shiny:NS]{shiny::NS()}} or its id, and
 the expression is left as written while its names are the module's:

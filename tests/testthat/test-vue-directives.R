@@ -54,9 +54,8 @@ test_that("v_bind() takes an expression, v_model() a path", {
       "writes back to a store's field"
     )
   }
-  for (e in list("", NA_character_, c("a", "b"))) {
-    expect_error(v_bind(e), "one JavaScript expression")
-  }
+  # an empty string; NA and a vector of strings have their own messages
+  expect_error(v_bind(""), "one JavaScript expression")
   for (e in list("", NA_character_, 1)) {
     expect_error(v_on(e), "handlers by event")
   }
@@ -581,4 +580,24 @@ test_that("a config provider's locale follows a v_bind() of a locale object", {
     el_config_provider(id = "cp", locale = v_model("$vueStore.s.l")),
     "never set by it"
   )
+})
+
+test_that("v_bind(): a string is code, any other R value a constant", {
+  expr <- function(x) unclass(v_bind(x))[1]
+  expect_equal(expr("large"), "large")
+  expect_equal(expr("'large'"), "'large'")
+  expect_equal(expr(1), "1")
+  expect_equal(expr(TRUE), "true")
+  expect_equal(expr(c(1, 2)), "[1,2]")
+  expect_equal(expr(list(1)), "[1]")
+  expect_equal(expr(list("a", "b")), "[\"a\",\"b\"]")
+  expect_equal(expr(list(a = 1)), "{\"a\":1}")
+  expect_equal(expr(data.frame(x = 1:2)), "[{\"x\":1},{\"x\":2}]")
+  expect_equal(expr(JS("() => 1")), "() => 1")
+  # unset is no argument; I() and a vector of strings say what to write
+  expect_error(v_bind(NULL), "do not give it")
+  expect_error(v_bind(NA), "do not give it")
+  expect_error(v_bind(NA_character_), "do not give it")
+  expect_error(v_bind(I("large")), "write it quoted")
+  expect_error(v_bind(c("a", "b")), "list\\(\"a\", \"b\"\\)")
 })

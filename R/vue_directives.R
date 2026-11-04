@@ -53,6 +53,31 @@
 #' missing. A field a store simply does not have reads as `undefined`, as
 #' JavaScript does: that one is not said.
 #'
+#' @section What `expr` becomes: A string -- and a [JS()] -- is
+#'   JavaScript, as Vue's `:size="..."` is: `v_bind("large")` reads a
+#'   name `large`, and the text is `v_bind("'large'")`, quoted, as
+#'   `:size="'large'"`. Any other R value is a constant, its JSON:
+#'
+#'   | Given | In the browser |
+#'   |---|---|
+#'   | `"$vueStore.ui.size"` | the store's field, followed |
+#'   | `"1 + 1"` | `2` |
+#'   | `"'large'"` | the text `large` |
+#'   | `"large"` | the name `large` -- an error where there is none |
+#'   | `1`, `TRUE` | `1`, `true` |
+#'   | `c(1, 2)` | `[1, 2]` (a vector of one is a scalar: `list(1)` for `[1]`) |
+#'   | `list("a", "b")` | `["a", "b"]` |
+#'   | `list(a = 1)` | `{a: 1}` |
+#'   | a data.frame | its rows, `[{...}, ...]` |
+#'   | `JS("() => 1")` | the function |
+#'
+#'   A constant needs no binding: an argument takes the R value itself,
+#'   `size = "large"`; `v_bind()` of a constant is for a raw template,
+#'   whose attributes are text (`` el$input_number(min = v_bind(1)) ``).
+#'   `NULL` and `NA` are errors -- leaving an argument unset is not giving
+#'   it -- as are `I()`, which Shiny gives opposite meanings, and a vector
+#'   of strings, which is data: `list("a", "b")`.
+#'
 #' @section Modules: Give `ns`, the module's [shiny::NS()] or its id, and
 #'   the expression is left as written while its names are the module's:
 #'   `$inputs.size` is `input$size` of the module, `$vueStore.ui` the store
@@ -114,6 +139,32 @@
 #' }
 #' @export
 v_bind <- function(expr, ns = NULL) {
+  # unset is no argument at all, as everywhere in the package
+  if (is.null(expr) || (is.atomic(expr) && length(expr) == 1L && is.na(expr))) {
+    stop(
+      "`v_bind()` of NULL or NA: to leave the argument unset, do not give ",
+      "it; for JavaScript's null, `v_bind(\"null\")` or `JS(\"null\")`.",
+      call. = FALSE
+    )
+  }
+  # I() means opposite things in Shiny -- R's \"as it is\", selectize's
+  # \"this is code\" -- so it means neither here
+  if (inherits(expr, "AsIs")) {
+    stop(
+      "`I()` has no meaning in `v_bind()`: a string is an expression. For ",
+      "the text itself, write it quoted, `v_bind(\"'large'\")`, or give ",
+      "\"large\" with no `v_bind()`.",
+      call. = FALSE
+    )
+  }
+  if (is.character(expr) && !inherits(expr, "json") && length(expr) > 1L) {
+    stop(
+      "`v_bind()` takes one expression; strings in a vector are data: ",
+      "`v_bind(list(\"a\", \"b\"))` for an array, or give the vector ",
+      "with no `v_bind()`.",
+      call. = FALSE
+    )
+  }
   # an R value, not an expression: its JSON is the expression
   if (!is.character(expr) || inherits(expr, "json")) {
     expr <- .vue_literal(expr)
