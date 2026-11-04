@@ -595,6 +595,7 @@ test_that("v_bind(): a string is code, any other R value a constant", {
   expect_equal(expr(data.frame(x = 1:2)), "[{\"x\":1},{\"x\":2}]")
   expect_equal(expr(JS("() => 1")), "() => 1")
   # unset is no argument; I() and a vector of strings say what to write
+  expect_error(v_bind(), "needs an expression or a value")
   expect_error(v_bind(NULL), "do not give it")
   expect_error(v_bind(NA), "do not give it")
   expect_error(v_bind(NA_character_), "do not give it")

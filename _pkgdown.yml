@@ -1,5 +1,12 @@
 url: https://kaipingyang.github.io/shiny.element/
 
+# the in-development site (dev, at /dev/), found from the released one's
+# home page, as the CRAN and GitHub links are
+home:
+  links:
+  - text: Development version docs
+    href: https://kaipingyang.github.io/shiny.element/dev/
+
 development:
   mode: auto
 

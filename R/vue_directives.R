@@ -139,6 +139,9 @@
 #' }
 #' @export
 v_bind <- function(expr, ns = NULL) {
+  if (missing(expr)) {
+    stop("`v_bind()` needs an expression or a value.", call. = FALSE)
+  }
   # unset is no argument at all, as everywhere in the package
   if (is.null(expr) || (is.atomic(expr) && length(expr) == 1L && is.na(expr))) {
     stop(
