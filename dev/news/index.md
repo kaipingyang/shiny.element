@@ -10,9 +10,9 @@
   are `v_bind(I("..."))` – [`I()`](https://rdrr.io/r/base/AsIs.html)
   means “as it is” in R and “code” in selectize’s options, so it means
   neither – and a vector of strings, which is data:
-  `v_bind(list("a", "b"))`. Each message says what to write. A bare name
-  the page lacks, `v_bind("large")`, says in the console how to give the
-  text: `v_bind("'large'")`, or no
+  `v_bind(list("a", "b"))`, and no argument at all. Each message says
+  what to write. A bare name the page lacks, `v_bind("large")`, says in
+  the console how to give the text: `v_bind("'large'")`, or no
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
 
 - `vue_store(data =)` is deprecated, for `state`, Pinia’s name: it still
