@@ -20,9 +20,19 @@ goes with the next upgrade.
 
 ## Installation
 
+From CRAN:
+
 ``` r
 
-remotes::install_github("kaipingyang/shiny.element")
+install.packages("shiny.element")
+```
+
+The development version, from GitHub:
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("kaipingyang/shiny.element", ref = "dev")
 ```
 
 ## Quick start

@@ -191,13 +191,18 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>From CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"kaipingyang/shiny.element"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"shiny.element"</span><span class="op">)</span></span></code></pre></div>
+<p>The development version, from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"kaipingyang/shiny.element"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
 <span></span>
@@ -219,7 +224,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="reference/el_page.html">el_page()</a></code> sets up the Vue root and loads the dependencies. Inside an existing layout — a <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage()</a></code>, or bslib’s <code>page_sidebar()</code> — call <code><a href="reference/use_element.html">use_element()</a></code> once at the top instead:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">page_sidebar</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="reference/el_theme.html">el_theme</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="reference/use_element.html">use_element</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -310,6 +315,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=shiny.element" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/kaipingyang/shiny.element/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/kaipingyang/shiny.element/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -342,6 +348,7 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=shiny.element" class="external-link"><img src="https://www.r-pkg.org/badges/version/shiny.element" alt="CRAN status"></a></li>
 <li><a href="https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml" class="external-link"><img src="https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml/badge.svg" alt="browser tests"></a></li>
 <li><a href="https://app.codecov.io/gh/kaipingyang/shiny.element" class="external-link"><img src="https://codecov.io/gh/kaipingyang/shiny.element/graph/badge.svg" alt="Codecov test coverage"></a></li>
