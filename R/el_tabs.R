@@ -87,26 +87,31 @@ el_tabs <- function(
   session = NULL
 ) {
   # R reads these to draw the component
-  .vue_unbound(
-    editable = editable,
-    before_leave = before_leave,
-    add_icon = add_icon
-  )
+  .vue_unbound(before_leave = before_leave, add_icon = add_icon)
+  # Element's editable is closable and addable together: a bound one binds
+  # both, as an update's editable sets both
+  if (inherits(editable, "vue_binding")) {
+    closable <- editable
+    addable <- editable
+    editable <- FALSE
+  }
   selected <- .vue_alias(selected, value, "selected", "value")
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
-    environment(),
-    formals(el_tabs),
-    c(
+    mget(c(
       "selected",
       "type",
       "tab_position",
       "closable",
       "addable",
       "stretch"
-    )
+    )),
+    formals(el_tabs)
   )
+  # a bound argument is drawn with its default until its expression is
+  # read in the browser
+  list2env(bind$values, environment())
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())
   if (is.null(id)) {
@@ -206,7 +211,7 @@ el_tabs <- function(
       id = ns_id,
       class = root_class,
       `data-el-tabs` = "true",
-      `data-shiny-vue-bind` = bind,
+      `data-shiny-vue-bind` = bind$json,
       # in a component's template, kept out of Vue's compiling (.vue_islands())
       `data-shiny-island` = NA,
       # the events it reports: its defaults and those asked for

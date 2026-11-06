@@ -710,3 +710,52 @@ test_that("a bare name the page lacks says how to give the text", {
     "undefined"
   )
 })
+
+test_that("tabs' editable and collapse's before_collapse follow v_bind()", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store("s", state = list(edit = TRUE, allow = FALSE))),
+      el_tabs(
+        "tb",
+        editable = v_bind("$vueStore.s.edit"),
+        tabs = list(el_tab_pane("A", "a", name = "a"))
+      ),
+      el_collapse(
+        "cl",
+        items = list(list(name = "p", title = "P", content = "body")),
+        # a function, as upstream's :before-collapse
+        before_collapse = v_bind("() => $vueStore.s.allow")
+      )
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  # editable: closable and addable together, following the store
+  expect_true(js("!!document.querySelector('#tb .el-tabs__new-tab')"))
+  expect_true(js("!!document.querySelector('#tb .is-icon-close')"))
+  js("shinyVue.useStore('s').edit = false")
+  Sys.sleep(0.3)
+  expect_false(js("!!document.querySelector('#tb .el-tabs__new-tab')"))
+  # before_collapse: the guard refuses, then lets the panel open
+  open <- "document.querySelector('#cl .el-collapse-item').classList.contains('is-active')"
+  js("document.querySelector('#cl .el-collapse-item__header').click()")
+  Sys.sleep(0.4)
+  expect_false(js(open))
+  js("shinyVue.useStore('s').allow = true")
+  Sys.sleep(0.2)
+  js("document.querySelector('#cl .el-collapse-item__header').click()")
+  Sys.sleep(0.4)
+  expect_true(js(open))
+  expect_length(unlist(js("__w")), 0)
+})

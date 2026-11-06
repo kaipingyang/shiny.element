@@ -602,3 +602,42 @@ test_that("v_bind(): a string is code, any other R value a constant", {
   expect_error(v_bind(I("large")), "write it quoted")
   expect_error(v_bind(c("a", "b")), "list\\(\"a\", \"b\"\\)")
 })
+
+test_that("what a container's update_*() can set, its argument can bind", {
+  # the containers drawn as markup: every argument their update sets
+  # follows a v_bind() too, as ?v_bind says -- one list, checked here
+  make <- list(
+    dialog = function(...) el_dialog("x", ...),
+    drawer = function(...) el_drawer("x", ...),
+    tabs = function(...) el_tabs("x", tabs = list(el_tab_pane("A", "a")), ...),
+    collapse = function(...) {
+      el_collapse("x", items = list(list(name = "a", title = "A")), ...)
+    }
+  )
+  # Element's editable is closable and addable together; value is
+  # selected's other name
+  stands_for <- list(editable = c("closable", "addable"), value = "selected")
+  for (comp in names(make)) {
+    args <- setdiff(
+      names(formals(get(paste0("update_el_", comp)))),
+      c("session", "id")
+    )
+    for (a in args) {
+      given <- stats::setNames(list(v_bind("$vueStore.s.f")), a)
+      html <- paste(as.character(do.call(make[[comp]], given)), collapse = "")
+      fields <- if (comp == "tabs" && a %in% names(stands_for)) {
+        stands_for[[a]]
+      } else {
+        a
+      }
+      for (field in vapply(fields, .vue_camel, "")) {
+        expect_match(
+          html,
+          sprintf("&quot;%s&quot;:{&quot;expr&quot;", field),
+          fixed = TRUE,
+          info = sprintf("el_%s(%s = v_bind())", comp, a)
+        )
+      }
+    }
+  }
+})

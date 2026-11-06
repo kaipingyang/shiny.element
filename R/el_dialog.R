@@ -142,9 +142,7 @@ el_dialog <- function(
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
-    environment(),
-    formals(el_dialog),
-    c(
+    mget(c(
       "visible",
       "title",
       "width",
@@ -159,8 +157,12 @@ el_dialog <- function(
       "draggable",
       "overflow",
       "align_center"
-    )
+    )),
+    formals(el_dialog)
   )
+  # a bound argument is drawn with its default until its expression is
+  # read in the browser
+  list2env(bind$values, environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_dialog")
   }
@@ -214,7 +216,7 @@ el_dialog <- function(
       # the events it reports: its defaults and those asked for
       `data-el-events` = .el_events_attr("el_dialog", events),
       `data-visible` = tolower(as.character(visible)),
-      `data-shiny-vue-bind` = bind,
+      `data-shiny-vue-bind` = bind$json,
       `data-modal` = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),
       `data-esc-close` = tolower(as.character(close_on_press_escape)),

@@ -95,7 +95,7 @@ vue_reactive <- function(id, value = list(), input = FALSE) {
 #' @rdname vue_reactivity
 #' @export
 vue_computed <- function(id, expr, ns = NULL, input = FALSE) {
-  b <- v_bind(expr, ns)
+  b <- .vue_binding(.vue_expr(expr, "expr", "vue_computed"), "v_bind", ns)
   .vue_state_host(
     id,
     list(kind = "computed", expr = .vue_binding_spec(b)),
@@ -113,7 +113,7 @@ vue_watch <- function(
   ns = NULL,
   use = NULL
 ) {
-  b <- v_bind(source, ns)
+  b <- .vue_binding(.vue_expr(source, "source", "vue_watch"), "v_bind", ns)
   if (
     !inherits(handler, "JS_EVAL") &&
       !(is.character(handler) && length(handler) == 1L && !is.na(handler))

@@ -136,7 +136,10 @@ all of this says which part and why, in its plan, before any code.
 file named for no job collects whatever fits nowhere else. A helper one
 component uses lives in that component's file; one several use, in a file
 named for its topic -- the Vue layer's `vue_props.R` (unset props),
-`vue_args.R` (ids, aliases, choices, camelCase, bookmarks), `vue_markup.R`
+`vue_args.R` (ids, aliases, choices, camelCase, bookmarks),
+`vue_bindings.R` (a component's arguments given `v_bind()`/`v_model()`:
+which may be bound, how a bound field travels, the data arguments' two
+rules; the bindings themselves are made in `vue_directives.R`), `vue_markup.R`
 (slots, `v-html` strings, the mount point's style), `vue_json.R` (what
 travels as JSON), `vue_send.R` (the session check and the queue the
 server's messages wait in), `vue_dependencies.R` (the scripts, the

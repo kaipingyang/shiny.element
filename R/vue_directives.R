@@ -150,8 +150,8 @@ v_bind <- function(expr, ns = NULL) {
       call. = FALSE
     )
   }
-  # I() means opposite things in Shiny -- R's \"as it is\", selectize's
-  # \"this is code\" -- so it means neither here
+  # I() means opposite things in Shiny -- R's "as it is", selectize's
+  # "this is code" -- so it means neither here
   if (inherits(expr, "AsIs")) {
     stop(
       "`I()` has no meaning in `v_bind()`: a string is an expression. For ",
@@ -172,10 +172,7 @@ v_bind <- function(expr, ns = NULL) {
   if (!is.character(expr) || inherits(expr, "json")) {
     expr <- .vue_literal(expr)
   }
-  if (length(expr) != 1L || is.na(expr) || !nzchar(expr)) {
-    stop("`expr` must be one JavaScript expression, a string.", call. = FALSE)
-  }
-  .vue_binding(expr, "v_bind", ns)
+  .vue_binding(.vue_expr(expr), "v_bind", ns)
 }
 
 # An R value written as a JavaScript literal: a data.frame as rows
@@ -192,7 +189,6 @@ v_bind <- function(expr, ns = NULL) {
   }
   as.character(json)
 }
-
 
 #' @rdname v_bind
 #' @export
@@ -211,12 +207,7 @@ v_model <- function(path, arg = NULL, modifiers = NULL, ns = NULL) {
     )
   }
   for (x in list(arg, modifiers)) {
-    if (
-      !is.null(x) &&
-        (!is.character(x) ||
-          anyNA(x) ||
-          !all(grepl("^[A-Za-z][A-Za-z0-9_-]*$", x)))
-    ) {
+    if (!is.null(x) && !.vue_is_name(x)) {
       stop(
         "`arg` and `modifiers` are names, as Vue writes them.",
         call. = FALSE
@@ -275,7 +266,7 @@ v_model <- function(path, arg = NULL, modifiers = NULL, ns = NULL) {
 v_on <- function(..., ns = NULL) {
   args <- list(...)
   named <- !is.null(names(args)) && all(nzchar(names(args)))
-  ok <- function(x) is.character(x) && length(x) == 1L && !is.na(x) && nzchar(x)
+  ok <- .vue_is_expr
   if (length(args) == 1L && !named && ok(args[[1]])) {
     return(.vue_binding(args[[1]], "v_on", ns))
   }
@@ -409,12 +400,7 @@ v_memo <- function(deps) {
 #' @export
 v_directive <- function(name, value = NULL, arg = NULL, modifiers = NULL) {
   for (x in list(name, arg, modifiers)) {
-    if (
-      !is.null(x) &&
-        (!is.character(x) ||
-          anyNA(x) ||
-          !all(grepl("^[A-Za-z][A-Za-z0-9_-]*$", x)))
-    ) {
+    if (!is.null(x) && !.vue_is_name(x)) {
       stop(
         "`name`, `arg` and `modifiers` are names, as Vue writes them.",
         call. = FALSE
@@ -441,12 +427,26 @@ v_directive <- function(name, value = NULL, arg = NULL, modifiers = NULL) {
   structure(list(attrs = attrs), class = "vue_directive")
 }
 
-.vue_expr <- function(x, arg = "expr") {
-  if (!is.character(x) || length(x) != 1L || is.na(x) || !nzchar(x)) {
+# One JavaScript expression: a string, not empty
+.vue_is_expr <- function(x) {
+  is.character(x) && length(x) == 1L && !is.na(x) && nzchar(x)
+}
+
+# Names as Vue writes a directive's, its argument and modifiers
+.vue_is_name <- function(x) {
+  is.character(x) && !anyNA(x) && all(grepl("^[A-Za-z][A-Za-z0-9_-]*$", x))
+}
+
+# `x`, checked to be one expression; `fn` names the function the user
+# called, for the message
+.vue_expr <- function(x, arg = "expr", fn = NULL) {
+  if (!.vue_is_expr(x)) {
     stop(
       "`",
       arg,
-      "` must be one JavaScript expression, a string.",
+      "`",
+      if (!is.null(fn)) paste0(" of ", fn, "()"),
+      " must be one JavaScript expression, a string.",
       call. = FALSE
     )
   }
@@ -597,29 +597,6 @@ print.vue_binding <- function(x, ...) {
   "\\[\"([^\"\\\\]|\\\\.)*\"\\]|\\[[0-9]+\\])*$"
 )
 
-# On a component's argument a v_model() writes back to the page's state,
-# which only a store's field is: $vueStore, its store, a field
-.vue_store_field <- function(x) {
-  if (!inherits(x, "v_model")) {
-    return(invisible(NULL))
-  }
-  ok <- grepl(
-    "^\\$vueStore(\\.[A-Za-z_$][A-Za-z0-9_$]*|\\[[^]]+\\]){2,}",
-    unclass(x)[1],
-    perl = TRUE
-  )
-  if (!ok) {
-    stop(
-      "v_model(\"",
-      unclass(x)[1],
-      "\") on a component's argument writes ",
-      "back to a store's field: \"$vueStore.<id>.<field>\".",
-      call. = FALSE
-    )
-  }
-  invisible(NULL)
-}
-
 #' A binding: an expression, its kind and the names it is evaluated with
 #'
 #' `scope` holds the prefixes the bridge resolves `$inputs` and `$vueStore`
@@ -656,117 +633,7 @@ print.vue_binding <- function(x, ...) {
   } else {
     stop("`ns` must be a module's NS() function or its id.", call. = FALSE)
   }
-  page <- getOption("shiny.vue.id_prefix", getOption("shiny.element.id_prefix"))
+  page <- .vue_id_prefix()
   scope <- Filter(nzchar, list(inputs = paste0(page, module), store = module))
   if (length(scope)) scope
-}
-
-# What travels to the browser for a binding: its code, whether it writes
-# back, and its scope
-.vue_binding_spec <- function(x) {
-  Filter(
-    Negate(is.null),
-    list(
-      expr = unclass(x)[1],
-      model = if (inherits(x, "v_model")) TRUE,
-      scope = attr(x, "scope"),
-      shape = attr(x, "shape")
-    )
-  )
-}
-
-#' The fields of a component's data given v_bind() or v_model()
-#'
-#' A bound field keeps a placeholder (`NA`) in the data and its binding in
-#' the spec's `bound`, which the bridge follows. Only whole fields are
-#' bound.
-#'
-#' @param spec A host's spec, as [.vue_host()] receives it.
-#' @return The spec, with `bound` when a field is.
-#' @keywords internal
-.vue_bound <- function(spec) {
-  data <- spec$options$data
-  if (!length(data) || !is.list(data)) {
-    return(spec)
-  }
-  is_bound <- vapply(data, inherits, logical(1), c("v_bind", "v_model"))
-  inner <- vapply(
-    data[!is_bound],
-    function(v) is.list(v) && .vue_has_binding(v),
-    logical(1)
-  )
-  if (any(inner)) {
-    stop(
-      "v_bind() and v_model() bind a whole field; ",
-      paste(sQuote(names(data)[!is_bound][inner], FALSE), collapse = ", "),
-      " holds one inside.",
-      call. = FALSE
-    )
-  }
-  if (!any(is_bound)) {
-    return(spec)
-  }
-  lapply(data[is_bound], .vue_store_field)
-  spec$bound <- lapply(data[is_bound], .vue_binding_spec)
-  spec$options$data[is_bound] <- list(NA)
-  spec
-}
-
-#' Arguments R reads to draw a component, which cannot follow state
-#'
-#' Called with the arguments by name; an error names those given
-#' [v_bind()] or [v_model()].
-#'
-#' @param ... The arguments, named.
-#' @return `NULL`, invisibly.
-#' @keywords internal
-.vue_unbound <- function(...) {
-  args <- list(...)
-  hit <- names(args)[vapply(args, inherits, logical(1), "vue_binding")]
-  if (length(hit)) {
-    stop(
-      paste(sQuote(hit, FALSE), collapse = ", "),
-      " cannot follow v_bind() or v_model(): R reads ",
-      if (length(hit) == 1L) "it" else "them",
-      " to draw the component.",
-      call. = FALSE
-    )
-  }
-  invisible(NULL)
-}
-
-#' Arguments of a component drawn as markup, given v_bind() or v_model()
-#'
-#' A component drawn as markup with a binding of its own (a dialog, tabs)
-#' is no Vue app: the binding follows the expressions itself, from
-#' `data-shiny-vue-bind`, `{"<field>": {expr, model, scope}}`, applying
-#' each value as an update of that field would. Each bound argument is
-#' drawn with its default meanwhile.
-#'
-#' @param env The component function's environment.
-#' @param defaults The function's formals, for the defaults.
-#' @param args The arguments an update can set: those that may be bound.
-#' @return The attribute's JSON, or `NULL` when none is bound.
-#' @keywords internal
-.vue_bound_markup <- function(env, defaults, args) {
-  values <- mget(args, envir = env)
-  bound <- vapply(values, inherits, logical(1), c("v_bind", "v_model"))
-  if (!any(bound)) {
-    return(NULL)
-  }
-  lapply(values[bound], .vue_store_field)
-  for (a in names(values)[bound]) {
-    assign(a, eval(defaults[[a]], env), envir = env)
-  }
-  specs <- lapply(values[bound], .vue_binding_spec)
-  names(specs) <- vapply(names(specs), .vue_camel, "")
-  as.character(jsonlite::toJSON(specs, auto_unbox = TRUE))
-}
-
-# Whether a list holds a binding anywhere
-.vue_has_binding <- function(x) {
-  if (inherits(x, "vue_binding")) {
-    return(TRUE)
-  }
-  is.list(x) && any(vapply(x, .vue_has_binding, logical(1)))
 }

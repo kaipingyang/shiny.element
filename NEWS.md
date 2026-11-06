@@ -12,13 +12,14 @@
   `v_bind("'large'")`, or no `v_bind()`.
 
 * `vue_store(data =)` is deprecated, for `state`, Pinia's name: it still
-  works, with a warning, and goes in the version after.
+  works, with a warning, and goes in 0.5.0 -- a minor release after the
+  one that deprecates it, as the README's lifecycle says.
 
 * A store is `$vueStore.<id>` in templates, no longer `$store.<id>`: the
   name follows the function that makes it, as `vue_ref()` and the rest
   will, and leaves `$store` to Vuex. `$store` still works this version,
-  saying once in the console that it is `$vueStore` now; it goes in the
-  next.
+  saying once in the console that it is `$vueStore` now; it goes in
+  0.5.0.
 
 ## New features
 
@@ -135,6 +136,24 @@
     0.6 s, from 1.6 s.
 
 ## Bug fixes
+
+* `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
+  `v_bind()`, as `?v_bind` promised of what a container's `update_*()`
+  sets: they said R read them to draw the component. A bound `editable`
+  binds closable and addable together, as an update's does; a bound
+  `before_collapse` is the function itself, as upstream's
+  `:before-collapse`. A test now holds every container's `update_*()`
+  arguments to being bindable.
+
+* `vue_watch()` and `vue_computed()` check their own `source` and `expr`
+  and say so by those names; they were checked as `v_bind()`'s, and took
+  an R value, a constant to watch.
+
+* A bound argument no longer deep-watches and compares the value as JSON
+  on every change: the value is the state's own object, so the component
+  sees what changes inside it, and the bridge follows what the expression
+  reads -- a table bound to thousands of rows costs no copy per change. A
+  binding's names are made once, not at every evaluation.
 
 * `el_infinite_scroll(on = list(load = ...))` is called: Element's infinite
   scroll is a directive and emits no `load`, so the handler waited on an

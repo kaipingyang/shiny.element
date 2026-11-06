@@ -47,10 +47,7 @@
   generated <- attr(id, "generated")
   # Set by the package's own articles, which render many examples on one page:
   # two that both use "city" would otherwise share one id.
-  prefix <- getOption(
-    "shiny.vue.id_prefix",
-    getOption("shiny.element.id_prefix")
-  )
+  prefix <- .vue_id_prefix()
   if (!is.null(prefix)) {
     id <- paste0(prefix, id)
   }
@@ -145,37 +142,6 @@
   )
 }
 
-#' A data argument: an R value converted, a binding passed as it is
-#'
-#' Two rules, as DT's `JS()` and Shiny's `I()`: an R value is converted from
-#' R's terms (a named vector, renamed fields) to the component's; a
-#' [v_bind()] is the component's own form -- a library's `[{ value, label }]`
-#' -- and goes to it as it is, followed in the browser, its content never
-#' checked in R. A [v_model()] is refused: the component reads the
-#' argument, it never sets it.
-#'
-#' @param x The argument.
-#' @param convert The conversion of an R value.
-#' @param name The argument's name, for the message.
-#' @param shape What a binding gives, for the bridge's check in Vue's
-#'   development build: `"records"`, a list of objects.
-#' @return `convert(x)`, or the binding.
-#' @keywords internal
-.vue_data_arg <- function(x, convert = identity, name = "", shape = NULL) {
-  if (inherits(x, "v_model")) {
-    stop(
-      sQuote(name, FALSE),
-      " is read by the component, never set by it: give it v_bind().",
-      call. = FALSE
-    )
-  }
-  if (inherits(x, "vue_binding")) {
-    attr(x, "shape") <- shape
-    return(x)
-  }
-  convert(x)
-}
-
 #' A value restored from a bookmark, an array kept an array
 #'
 #' @param id The input's id.
@@ -191,4 +157,11 @@
     return(if (is.null(value)) list() else as.list(value))
   }
   value
+}
+
+# The prefix the package's own articles give components' ids, so two
+# examples on one page that both use "city" do not share one: its option,
+# under the Vue layer's name or the older, library-named one
+.vue_id_prefix <- function() {
+  getOption("shiny.vue.id_prefix", getOption("shiny.element.id_prefix"))
 }

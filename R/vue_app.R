@@ -797,7 +797,7 @@ vue_store <- function(
   if (!is.null(data)) {
     warning(
       "`data` is deprecated in vue_store(): give the store's `state`, as ",
-      "Pinia names it.",
+      "Pinia names it. `data` goes in 0.5.0.",
       call. = FALSE
     )
     if (length(state)) {
