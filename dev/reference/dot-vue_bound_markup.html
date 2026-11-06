@@ -3,11 +3,11 @@
 is no Vue app: the binding follows the expressions itself, from
 data-shiny-vue-bind, {"&amp;lt;field&amp;gt;": {expr, model, scope}}, applying
 each value as an update of that field would. Each bound argument is
-drawn with its default meanwhile.'><meta property="og:description" content='A component drawn as markup with a binding of its own (a dialog, tabs)
+drawn with its default meanwhile: the caller takes values back.'><meta property="og:description" content='A component drawn as markup with a binding of its own (a dialog, tabs)
 is no Vue app: the binding follows the expressions itself, from
 data-shiny-vue-bind, {"&amp;lt;field&amp;gt;": {expr, model, scope}}, applying
 each value as an update of that field would. Each bound argument is
-drawn with its default meanwhile.'><meta name="robots" content="noindex"></head><body>
+drawn with its default meanwhile: the caller takes values back.'><meta name="robots" content="noindex"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -161,7 +161,7 @@ drawn with its default meanwhile.'><meta name="robots" content="noindex"></head>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Arguments of a component drawn as markup, given v_bind() or v_model()</h1>
-      <small class="dont-index">Source: <a href="https://github.com/kaipingyang/shiny.element/blob/dev/R/vue_directives.R" class="external-link"><code>R/vue_directives.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kaipingyang/shiny.element/blob/dev/R/vue_bindings.R" class="external-link"><code>R/vue_bindings.R</code></a></small>
       <div class="d-none name"><code>dot-vue_bound_markup.Rd</code></div>
     </div>
 
@@ -170,33 +170,31 @@ drawn with its default meanwhile.'><meta name="robots" content="noindex"></head>
 is no Vue app: the binding follows the expressions itself, from
 <code>data-shiny-vue-bind</code>, <code>{"&lt;field&gt;": {expr, model, scope}}</code>, applying
 each value as an update of that field would. Each bound argument is
-drawn with its default meanwhile.</p>
+drawn with its default meanwhile: the caller takes <code>values</code> back.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_bound_markup</span><span class="op">(</span><span class="va">env</span>, <span class="va">defaults</span>, <span class="va">args</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_bound_markup</span><span class="op">(</span><span class="va">values</span>, <span class="va">defaults</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-env">env<a class="anchor" aria-label="anchor" href="#arg-env"></a></dt>
-<dd><p>The component function's environment.</p></dd>
+<dl><dt id="arg-values">values<a class="anchor" aria-label="anchor" href="#arg-values"></a></dt>
+<dd><p>The arguments an update can set, by name: those that may
+be bound.</p></dd>
 
 
 <dt id="arg-defaults">defaults<a class="anchor" aria-label="anchor" href="#arg-defaults"></a></dt>
-<dd><p>The function's formals, for the defaults.</p></dd>
-
-
-<dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
-<dd><p>The arguments an update can set: those that may be bound.</p></dd>
+<dd><p>The component function's formals, for the defaults.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The attribute's JSON, or <code>NULL</code> when none is bound.</p>
+    <p>A list: <code>values</code>, the bound ones replaced by their defaults, and
+<code>json</code>, the attribute's value, or <code>NULL</code> when none is bound.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

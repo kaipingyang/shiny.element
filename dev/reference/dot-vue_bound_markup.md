@@ -4,28 +4,25 @@ A component drawn as markup with a binding of its own (a dialog, tabs)
 is no Vue app: the binding follows the expressions itself, from
 `data-shiny-vue-bind`, `{"<field>": {expr, model, scope}}`, applying
 each value as an update of that field would. Each bound argument is
-drawn with its default meanwhile.
+drawn with its default meanwhile: the caller takes `values` back.
 
 ## Usage
 
 ``` r
-.vue_bound_markup(env, defaults, args)
+.vue_bound_markup(values, defaults)
 ```
 
 ## Arguments
 
-- env:
+- values:
 
-  The component function's environment.
+  The arguments an update can set, by name: those that may be bound.
 
 - defaults:
 
-  The function's formals, for the defaults.
-
-- args:
-
-  The arguments an update can set: those that may be bound.
+  The component function's formals, for the defaults.
 
 ## Value
 
-The attribute's JSON, or `NULL` when none is bound.
+A list: `values`, the bound ones replaced by their defaults, and `json`,
+the attribute's value, or `NULL` when none is bound.

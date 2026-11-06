@@ -16,14 +16,15 @@
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
 
 - `vue_store(data =)` is deprecated, for `state`, Pinia’s name: it still
-  works, with a warning, and goes in the version after.
+  works, with a warning, and goes in 0.5.0 – a minor release after the
+  one that deprecates it, as the README’s lifecycle says.
 
 - A store is `$vueStore.<id>` in templates, no longer `$store.<id>`: the
   name follows the function that makes it, as
   [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
   and the rest will, and leaves `$store` to Vuex. `$store` still works
   this version, saying once in the console that it is `$vueStore` now;
-  it goes in the next.
+  it goes in 0.5.0.
 
 ### New features
 
@@ -202,6 +203,30 @@
 
 ### Bug fixes
 
+- `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+  as
+  [`?v_bind`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  promised of what a container’s `update_*()` sets: they said R read
+  them to draw the component. A bound `editable` binds closable and
+  addable together, as an update’s does; a bound `before_collapse` is
+  the function itself, as upstream’s `:before-collapse`. A test now
+  holds every container’s `update_*()` arguments to being bindable.
+
+- [`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  and
+  [`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  check their own `source` and `expr` and say so by those names; they
+  were checked as
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)’s,
+  and took an R value, a constant to watch.
+
+- A bound argument no longer deep-watches and compares the value as JSON
+  on every change: the value is the state’s own object, so the component
+  sees what changes inside it, and the bridge follows what the
+  expression reads – a table bound to thousands of rows costs no copy
+  per change. A binding’s names are made once, not at every evaluation.
+
 - `el_infinite_scroll(on = list(load = ...))` is called: Element’s
   infinite scroll is a directive and emits no `load`, so the handler
   waited on an event that never came. It is the directive’s handler now,
@@ -339,6 +364,8 @@
   own theme with its `app_cache/sass`.
 
 ## shiny.element 0.3.1
+
+CRAN release: 2026-11-04
 
 A smaller package, ready for CRAN, and the fixes and additions since
 0.3.0: each level of a cascader’s path as an input, `on` on any event,

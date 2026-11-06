@@ -442,7 +442,7 @@
   function oldStore() {
     if (!storeRenamed) {
       storeRenamed = true;
-      warn('$store is $vueStore now; $store goes in the next version');
+      warn('$store is $vueStore now; $store goes in 0.5.0');
     }
     return sv.stores();
   }
@@ -578,14 +578,22 @@
       attempt();
     });
   }
+  // A binding's names, made once: the registries they read are the page's
+  // own, live, so the same names serve every evaluation
+  function scopeOf(b) {
+    if (!b._names) {
+      Object.defineProperty(b, '_names', { value: pageScope(b.scope), enumerable: false });
+    }
+    return b._names;
+  }
   function reader(b) {
     var f = compile('read', b.expr);
     var check = function() {
-      try { f(pageScope(b.scope)); return null; } catch (e) { return e; }
+      try { f(scopeOf(b)); return null; } catch (e) { return e; }
     };
     return function() {
       if (!f) return undefined;
-      try { return f(pageScope(b.scope)); }
+      try { return f(scopeOf(b)); }
       catch (e) { said(b, 'v_bind', check); return undefined; }
     };
   }
@@ -593,7 +601,7 @@
     var f = compile('write', b.expr);
     return function(v) {
       if (!f) return;
-      try { f(pageScope(b.scope), v); }
+      try { f(scopeOf(b), v); }
       catch (e) {
         // a write is the user's doing, on a drawn page: said as it fails
         said(b, 'v_model', function() { return e; }, '; the change stays with the component');
@@ -750,17 +758,21 @@
     created: function() {
       var bound = this.$options.shinyVueBound, vm = this;
       if (!bound) return;
+      // The value is the state's own object (passed as it is), so what
+      // changes inside it the component sees by itself, as a prop given an
+      // object does: the watchers follow what the expression reads and the
+      // field being reassigned -- no deep traversal, no copies compared
       Object.keys(bound).forEach(function(field) {
         var b = bound[field], read = reader(b);
         vm.$watch(read, function(v) {
           checkShape(b, field, v);
-          if (!same(v, vm[field])) vm[field] = v;
-        }, { immediate: true, deep: true });
+          if (!Object.is(v, vm[field])) vm[field] = v;
+        }, { immediate: true });
         if (b.model) {
           var write = writer(b);
           vm.$watch(field, function(v) {
-            if (!same(v, read())) write(v);
-          }, { deep: true });
+            if (!Object.is(v, read())) write(v);
+          });
         }
       });
     }

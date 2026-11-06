@@ -118,6 +118,12 @@
       el._svBound = window.shinyVue && shinyVue.bindElement &&
         shinyVue.bindElement(el, function(d) {
           if (d.hasOwnProperty('value')) d.value = [].concat(d.value);
+          // a bound before-collapse is the function itself, as upstream's
+          // :before-collapse; an update's is its source
+          if (d.hasOwnProperty('beforeCollapse') && typeof d.beforeCollapse === 'function') {
+            el._boundGuard = d.beforeCollapse;
+            delete d.beforeCollapse;
+          }
           binding.receiveMessage(el, d);
         }, { field: 'value', get: function() { return openNames(el); } });
       var notify = callback;
@@ -144,7 +150,7 @@
           el._guardSrc = src;
           el._guard = src ? eval('(' + src + ')') : null;
         }
-        var guard = el._guard;
+        var guard = el._boundGuard || el._guard;
         if (!guard) return flip(panel);
         var r = guard(panel.getAttribute('data-el-name'));
         if (r === false) return;
