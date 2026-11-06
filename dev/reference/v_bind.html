@@ -185,8 +185,8 @@ the data and the decisions.</p>
 
 
 <dl><dt id="arg-expr">expr<a class="anchor" aria-label="anchor" href="#arg-expr"></a></dt>
-<dd><p>A JavaScript expression over <code>$vueStore</code>, <code>$inputs</code> and
-<code>$route</code>, a string.</p></dd>
+<dd><p>One Vue expression, a string: over <code>$vueStore</code>, <code>$inputs</code>,
+<code>$route</code>, and in a template the component's own names.</p></dd>
 
 
 <dt id="arg-ns">ns<a class="anchor" aria-label="anchor" href="#arg-ns"></a></dt>
@@ -246,16 +246,20 @@ missing. A field a store simply does not have reads as <code>undefined</code>, a
 JavaScript does: that one is not said.</p>
     </div>
     <div class="section level2">
-    <h2 id="what-expr-becomes">What <code>expr</code> becomes<a class="anchor" aria-label="anchor" href="#what-expr-becomes"></a></h2>
-    <p>A string – and a <code><a href="JS.html">JS()</a></code> – is
-JavaScript, as Vue's <code>:size="..."</code> is: <code>v_bind("large")</code> reads a
-name <code>large</code>, and the text is <code>v_bind("'large'")</code>, quoted, as
-<code>:size="'large'"</code>. Any other R value is a constant, its JSON:</p><table class="table table"><tr><td>Given</td><td>In the browser</td></tr><tr><td><code>"$vueStore.ui.size"</code></td><td>the store's field, followed</td></tr><tr><td><code>"1 + 1"</code></td><td><code>2</code></td></tr><tr><td><code>"'large'"</code></td><td>the text <code>large</code></td></tr><tr><td><code>"large"</code></td><td>the name <code>large</code> – an error where there is none</td></tr><tr><td><code>1</code>, <code>TRUE</code></td><td><code>1</code>, <code>true</code></td></tr><tr><td><code>c(1, 2)</code></td><td><code>[1, 2]</code> (a vector of one is a scalar: <code>list(1)</code> for <code>[1]</code>)</td></tr><tr><td><code>list("a", "b")</code></td><td><code>["a", "b"]</code></td></tr><tr><td><code>list(a = 1)</code></td><td><code>{a: 1}</code></td></tr><tr><td>a data.frame</td><td>its rows, <code>[{...}, ...]</code></td></tr><tr><td><code>JS("() =&gt; 1")</code></td><td>the function</td></tr></table><p>A constant needs no binding: an argument takes the R value itself,
-<code>size = "large"</code>; <code>v_bind()</code> of a constant is for a raw template,
-whose attributes are text (<code>el$input_number(min = v_bind(1))</code>).
-<code>NULL</code> and <code>NA</code> are errors – leaving an argument unset is not giving
-it – as are <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, which Shiny gives opposite meanings, and a vector
-of strings, which is data: <code>list("a", "b")</code>.</p>
+    <h2 id="what-expr-is">What <code>expr</code> is<a class="anchor" aria-label="anchor" href="#what-expr-is"></a></h2>
+    <p>One string, the Vue expression written between
+the quotes of <code>:prop="..."</code> – as every <code>v_*()</code> takes one, <code><a href="directives.html">v_if()</a></code>'s
+as <code>v-if</code>'s. <code>v_bind("$vueStore.ui.size")</code> is <code>:size="$vueStore.ui.size"</code>;
+<code>v_bind("large")</code> reads a name <code>large</code>, and the text is
+<code>v_bind("'large'")</code>, as <code>:size="'large'"</code>; <code>v_bind("1")</code> the number,
+as <code>:min="1"</code>. A <code><a href="JS.html">JS()</a></code> is a string too, and so is
+<code><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">jsonlite::toJSON()</a></code>'s result, a JavaScript literal: R's data in a
+raw template is <code>v_bind(jsonlite::toJSON(df))</code> (with
+<code>auto_unbox = TRUE</code> for a single value).</p>
+<p>A constant needs no binding: an argument takes the R value itself,
+<code>size = "large"</code>, as Shiny's do. Anything but a string – a number,
+a list, <code>NULL</code>, <code>NA</code>, <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> – is an error saying what to write, as
+htmlwidgets' <code><a href="JS.html">JS()</a></code> takes strings only.</p>
     </div>
     <div class="section level2">
     <h2 id="modules">Modules<a class="anchor" aria-label="anchor" href="#modules"></a></h2>

@@ -18,8 +18,8 @@ v_model(path, arg = NULL, modifiers = NULL, ns = NULL)
 
 - expr:
 
-  A JavaScript expression over `$vueStore`, `$inputs` and `$route`, a
-  string.
+  One Vue expression, a string: over `$vueStore`, `$inputs`, `$route`,
+  and in a template the component's own names.
 
 - ns:
 
@@ -94,34 +94,28 @@ once in the browser's console, naming what is missing. A field a store
 simply does not have reads as `undefined`, as JavaScript does: that one
 is not said.
 
-## What `expr` becomes
+## What `expr` is
 
-A string – and a
+One string, the Vue expression written between the quotes of
+`:prop="..."` – as every `v_*()` takes one,
+[`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)'s
+as `v-if`'s. `v_bind("$vueStore.ui.size")` is
+`:size="$vueStore.ui.size"`; `v_bind("large")` reads a name `large`, and
+the text is `v_bind("'large'")`, as `:size="'large'"`; `v_bind("1")` the
+number, as `:min="1"`. A
 [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
-– is JavaScript, as Vue's `:size="..."` is: `v_bind("large")` reads a
-name `large`, and the text is `v_bind("'large'")`, quoted, as
-`:size="'large'"`. Any other R value is a constant, its JSON:
-
-|  |  |
-|----|----|
-| Given | In the browser |
-| `"$vueStore.ui.size"` | the store's field, followed |
-| `"1 + 1"` | `2` |
-| `"'large'"` | the text `large` |
-| `"large"` | the name `large` – an error where there is none |
-| `1`, `TRUE` | `1`, `true` |
-| `c(1, 2)` | `[1, 2]` (a vector of one is a scalar: `list(1)` for `[1]`) |
-| `list("a", "b")` | `["a", "b"]` |
-| `list(a = 1)` | `{a: 1}` |
-| a data.frame | its rows, `[{...}, ...]` |
-| `JS("() => 1")` | the function |
+is a string too, and so is
+[`jsonlite::toJSON()`](https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html)'s
+result, a JavaScript literal: R's data in a raw template is
+`v_bind(jsonlite::toJSON(df))` (with `auto_unbox = TRUE` for a single
+value).
 
 A constant needs no binding: an argument takes the R value itself,
-`size = "large"`; `v_bind()` of a constant is for a raw template, whose
-attributes are text (`el$input_number(min = v_bind(1))`). `NULL` and
-`NA` are errors – leaving an argument unset is not giving it – as are
-[`I()`](https://rdrr.io/r/base/AsIs.html), which Shiny gives opposite
-meanings, and a vector of strings, which is data: `list("a", "b")`.
+`size = "large"`, as Shiny's do. Anything but a string – a number, a
+list, `NULL`, `NA`, [`I()`](https://rdrr.io/r/base/AsIs.html) – is an
+error saying what to write, as htmlwidgets'
+[`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+takes strings only.
 
 ## Modules
 

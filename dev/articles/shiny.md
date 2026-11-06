@@ -832,7 +832,7 @@ vue_app(
 
 | Vue | R |
 |----|----|
-| `:title="expr"`, `v-bind="obj"` | `title = v_bind("expr")`, `v_bind("obj")`; an R value is a literal: `options = v_bind(df)` |
+| `:title="expr"`, `v-bind="obj"` | `title = v_bind("expr")`, `v_bind("obj")`; the expression as Vue writes it, a string – R’s data is `v_bind(jsonlite::toJSON(df))` |
 | `v-model.trim="text"`, `v-model:title="t"` | `v_model("text", modifiers = "trim")`, `title = v_model("t")` |
 | `@click="n++"` | `v_on(click = "n++")` |
 | `v-if`, `v-else-if`, `v-else`, `v-show` | [`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_else_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_else()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_show()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md) |
