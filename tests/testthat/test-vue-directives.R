@@ -25,9 +25,11 @@ render_vue_html <- function(tag) {
 test_that("v_bind() takes an expression, v_model() a path", {
   expect_s3_class(v_bind("$inputs.fold === 'collapse'"), "v_bind")
   expect_s3_class(v_bind("$route.params.id"), "vue_binding")
-  # an R value is a literal
-  expect_equal(unclass(v_bind(1:2))[1], "[1,2]")
-  expect_equal(unclass(v_bind(data.frame(a = 1:2)))[1], '[{"a":1},{"a":2}]')
+  # R's data is a string too once jsonlite has written it
+  expect_equal(
+    unclass(v_bind(jsonlite::toJSON(data.frame(a = 1:2))))[1],
+    '[{"a":1},{"a":2}]'
+  )
   for (p in c(
     "$vueStore.ui.open",
     "$vueStore.ui.items[0].done",
@@ -54,8 +56,7 @@ test_that("v_bind() takes an expression, v_model() a path", {
       "writes back to a store's field"
     )
   }
-  # an empty string; NA and a vector of strings have their own messages
-  expect_error(v_bind(""), "one JavaScript expression")
+  expect_error(v_bind(""), "one Vue expression")
   for (e in list("", NA_character_, 1)) {
     expect_error(v_on(e), "handlers by event")
   }
@@ -582,25 +583,32 @@ test_that("a config provider's locale follows a v_bind() of a locale object", {
   )
 })
 
-test_that("v_bind(): a string is code, any other R value a constant", {
+test_that("v_bind() takes one Vue expression, a string, and says what else to write", {
   expr <- function(x) unclass(v_bind(x))[1]
+  # as written between :prop="..."'s quotes
   expect_equal(expr("large"), "large")
   expect_equal(expr("'large'"), "'large'")
-  expect_equal(expr(1), "1")
-  expect_equal(expr(TRUE), "true")
-  expect_equal(expr(c(1, 2)), "[1,2]")
-  expect_equal(expr(list(1)), "[1]")
-  expect_equal(expr(list("a", "b")), "[\"a\",\"b\"]")
-  expect_equal(expr(list(a = 1)), "{\"a\":1}")
-  expect_equal(expr(data.frame(x = 1:2)), "[{\"x\":1},{\"x\":2}]")
+  expect_equal(expr("1"), "1")
   expect_equal(expr(JS("() => 1")), "() => 1")
-  # unset is no argument; I() and a vector of strings say what to write
-  expect_error(v_bind(), "needs an expression or a value")
+  expect_equal(expr(jsonlite::toJSON("a", auto_unbox = TRUE)), "\"a\"")
+  # anything else: an error naming the way
+  expect_error(v_bind(), "needs an expression")
+  for (x in list(
+    1,
+    TRUE,
+    c(1, 2),
+    list("a", "b"),
+    data.frame(x = 1),
+    factor("a")
+  )) {
+    expect_error(v_bind(x), "A constant needs no binding")
+  }
+  expect_error(v_bind(c("a", "b")), "A constant needs no binding")
   expect_error(v_bind(NULL), "do not give it")
   expect_error(v_bind(NA), "do not give it")
   expect_error(v_bind(NA_character_), "do not give it")
-  expect_error(v_bind(I("large")), "write it quoted")
-  expect_error(v_bind(c("a", "b")), "list\\(\"a\", \"b\"\\)")
+  expect_error(v_bind(I("large")), "`I\\(\\)` has no meaning")
+  expect_error(v_bind(""), "An empty one is none")
 })
 
 test_that("what a container's update_*() can set, its argument can bind", {

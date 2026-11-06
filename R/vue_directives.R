@@ -53,30 +53,20 @@
 #' missing. A field a store simply does not have reads as `undefined`, as
 #' JavaScript does: that one is not said.
 #'
-#' @section What `expr` becomes: A string -- and a [JS()] -- is
-#'   JavaScript, as Vue's `:size="..."` is: `v_bind("large")` reads a
-#'   name `large`, and the text is `v_bind("'large'")`, quoted, as
-#'   `:size="'large'"`. Any other R value is a constant, its JSON:
-#'
-#'   | Given | In the browser |
-#'   |---|---|
-#'   | `"$vueStore.ui.size"` | the store's field, followed |
-#'   | `"1 + 1"` | `2` |
-#'   | `"'large'"` | the text `large` |
-#'   | `"large"` | the name `large` -- an error where there is none |
-#'   | `1`, `TRUE` | `1`, `true` |
-#'   | `c(1, 2)` | `[1, 2]` (a vector of one is a scalar: `list(1)` for `[1]`) |
-#'   | `list("a", "b")` | `["a", "b"]` |
-#'   | `list(a = 1)` | `{a: 1}` |
-#'   | a data.frame | its rows, `[{...}, ...]` |
-#'   | `JS("() => 1")` | the function |
+#' @section What `expr` is: One string, the Vue expression written between
+#'   the quotes of `:prop="..."` -- as every `v_*()` takes one, `v_if()`'s
+#'   as `v-if`'s. `v_bind("$vueStore.ui.size")` is `:size="$vueStore.ui.size"`;
+#'   `v_bind("large")` reads a name `large`, and the text is
+#'   `v_bind("'large'")`, as `:size="'large'"`; `v_bind("1")` the number,
+#'   as `:min="1"`. A [JS()] is a string too, and so is
+#'   `jsonlite::toJSON()`'s result, a JavaScript literal: R's data in a
+#'   raw template is `v_bind(jsonlite::toJSON(df))` (with
+#'   `auto_unbox = TRUE` for a single value).
 #'
 #'   A constant needs no binding: an argument takes the R value itself,
-#'   `size = "large"`; `v_bind()` of a constant is for a raw template,
-#'   whose attributes are text (`` el$input_number(min = v_bind(1)) ``).
-#'   `NULL` and `NA` are errors -- leaving an argument unset is not giving
-#'   it -- as are `I()`, which Shiny gives opposite meanings, and a vector
-#'   of strings, which is data: `list("a", "b")`.
+#'   `size = "large"`, as Shiny's do. Anything but a string -- a number,
+#'   a list, `NULL`, `NA`, `I()` -- is an error saying what to write, as
+#'   htmlwidgets' `JS()` takes strings only.
 #'
 #' @section Modules: Give `ns`, the module's [shiny::NS()] or its id, and
 #'   the expression is left as written while its names are the module's:
@@ -85,8 +75,8 @@
 #'   [shiny::moduleServer()]. Without `ns`, the names are the page's, and a
 #'   store named the same in two instances of a module is one store.
 #'
-#' @param expr A JavaScript expression over `$vueStore`, `$inputs` and
-#'   `$route`, a string.
+#' @param expr One Vue expression, a string: over `$vueStore`, `$inputs`,
+#'   `$route`, and in a template the component's own names.
 #' @param path A store's field, `$vueStore.<id>.<field>`, going on with
 #'   `.<name>`, `['<name>']` or `[<index>]`.
 #' @param ns In a module, its namespace: the function [shiny::NS()] gives,
@@ -140,54 +130,44 @@
 #' @export
 v_bind <- function(expr, ns = NULL) {
   if (missing(expr)) {
-    stop("`v_bind()` needs an expression or a value.", call. = FALSE)
-  }
-  # unset is no argument at all, as everywhere in the package
-  if (is.null(expr) || (is.atomic(expr) && length(expr) == 1L && is.na(expr))) {
     stop(
-      "`v_bind()` of NULL or NA: to leave the argument unset, do not give ",
-      "it; for JavaScript's null, `v_bind(\"null\")` or `JS(\"null\")`.",
+      "`v_bind()` needs an expression: `v_bind(\"$vueStore.ui.size\")`.",
       call. = FALSE
     )
   }
-  # I() means opposite things in Shiny -- R's "as it is", selectize's
-  # "this is code" -- so it means neither here
-  if (inherits(expr, "AsIs")) {
-    stop(
-      "`I()` has no meaning in `v_bind()`: a string is an expression. For ",
-      "the text itself, write it quoted, `v_bind(\"'large'\")`, or give ",
-      "\"large\" with no `v_bind()`.",
-      call. = FALSE
-    )
+  if (!.vue_is_expr(expr) || inherits(expr, "AsIs")) {
+    stop(.vue_bind_misuse(expr), call. = FALSE)
   }
-  if (is.character(expr) && !inherits(expr, "json") && length(expr) > 1L) {
-    stop(
-      "`v_bind()` takes one expression; strings in a vector are data: ",
-      "`v_bind(list(\"a\", \"b\"))` for an array, or give the vector ",
-      "with no `v_bind()`.",
-      call. = FALSE
-    )
-  }
-  # an R value, not an expression: its JSON is the expression
-  if (!is.character(expr) || inherits(expr, "json")) {
-    expr <- .vue_literal(expr)
-  }
-  .vue_binding(.vue_expr(expr), "v_bind", ns)
+  .vue_binding(expr, "v_bind", ns)
 }
 
-# An R value written as a JavaScript literal: a data.frame as rows
-.vue_literal <- function(x) {
-  json <- .vue_rows(x)
-  if (!inherits(json, "json")) {
-    json <- jsonlite::toJSON(
-      json,
-      auto_unbox = TRUE,
-      null = "null",
-      na = "null",
-      digits = NA
-    )
+# What to write instead, for what v_bind() was given: it takes one Vue
+# expression, a string, as `:prop="..."` writes it, and nothing else
+.vue_bind_misuse <- function(x) {
+  constant <- paste0(
+    "A constant needs no binding: give the value itself, `size = \"large\"`; ",
+    "in a raw template, its JavaScript, `v_bind(\"1\")`, or R's data as ",
+    "`v_bind(jsonlite::toJSON(x, auto_unbox = TRUE))`."
+  )
+  head <- "`v_bind()` takes one Vue expression, a string, as `:prop=\"...\"` writes it. "
+  if (is.null(x) || (is.atomic(x) && length(x) == 1L && is.na(x))) {
+    return(paste0(
+      head,
+      "To leave an argument unset, do not give it; JavaScript's null is ",
+      "`v_bind(\"null\")`."
+    ))
   }
-  as.character(json)
+  if (inherits(x, "AsIs")) {
+    return(paste0(
+      head,
+      "`I()` has no meaning here: the text itself is quoted, ",
+      "`v_bind(\"'large'\")`, or given with no `v_bind()`."
+    ))
+  }
+  if (is.character(x) && length(x) == 1L) {
+    return(paste0(head, "An empty one is none."))
+  }
+  paste0(head, constant)
 }
 
 #' @rdname v_bind

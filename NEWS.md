@@ -2,15 +2,6 @@
 
 ## Breaking changes
 
-* `v_bind()` of `NULL` or `NA` is an error: it gave JavaScript's `null`,
-  where everywhere else in the package an unset argument is one not given.
-  So are `v_bind(I("..."))` -- `I()` means "as it is" in R and "code" in
-  selectize's options, so it means neither -- and a vector of strings,
-  which is data: `v_bind(list("a", "b"))`, and no argument at all. Each
-  message says what to write. A bare name the page lacks,
-  `v_bind("large")`, says in the console how to give the text:
-  `v_bind("'large'")`, or no `v_bind()`.
-
 * `vue_store(data =)` is deprecated, for `state`, Pinia's name: it still
   works, with a warning, and goes in 0.5.0 -- a minor release after the
   one that deprecates it, as the README's lifecycle says.
@@ -57,7 +48,13 @@
   `input$<id>` and may update a bound field. `$inputs` is now filled by
   the components themselves, at once and with no Shiny on the page. An
   argument R reads to draw a component -- a label, the choices, a class --
-  says it cannot be bound rather than drop the binding.
+  says it cannot be bound rather than drop the binding. Like every
+  `v_*()`, `v_bind()` takes one Vue expression, a string, as written
+  between `:prop="..."`'s quotes -- `v_bind("'large'")` for the text,
+  `v_bind("1")` for the number; a constant is the R value itself, given
+  with no `v_bind()`, and anything but a string is an error saying what
+  to write. A bare name the page lacks, `v_bind("large")`, says in the
+  console how to give the text.
 
 * Vue's template syntax as R functions, as htmltools has its tags:
   `v_if()`, `v_else_if()`, `v_else()`, `v_show()`, `v_for(expr, key =)`,

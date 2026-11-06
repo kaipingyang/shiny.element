@@ -10,8 +10,8 @@ v_bind(expr, ns = NULL)
 v_model(path, arg = NULL, modifiers = NULL, ns = NULL)
 }
 \arguments{
-\item{expr}{A JavaScript expression over \verb{$vueStore}, \verb{$inputs} and
-\verb{$route}, a string.}
+\item{expr}{One Vue expression, a string: over \verb{$vueStore}, \verb{$inputs},
+\verb{$route}, and in a template the component's own names.}
 
 \item{ns}{In a module, its namespace: the function \code{\link[shiny:NS]{shiny::NS()}} gives,
 \code{session$ns}, or the module's id.}
@@ -79,31 +79,21 @@ field unset and says so once in the browser's console, naming what is
 missing. A field a store simply does not have reads as \code{undefined}, as
 JavaScript does: that one is not said.
 }
-\section{What \code{expr} becomes}{
- A string -- and a \code{\link[=JS]{JS()}} -- is
-JavaScript, as Vue's \verb{:size="..."} is: \code{v_bind("large")} reads a
-name \code{large}, and the text is \code{v_bind("'large'")}, quoted, as
-\verb{:size="'large'"}. Any other R value is a constant, its JSON:\tabular{ll}{
-   Given \tab In the browser \cr
-   \code{"$vueStore.ui.size"} \tab the store's field, followed \cr
-   \code{"1 + 1"} \tab \code{2} \cr
-   \code{"'large'"} \tab the text \code{large} \cr
-   \code{"large"} \tab the name \code{large} -- an error where there is none \cr
-   \code{1}, \code{TRUE} \tab \code{1}, \code{true} \cr
-   \code{c(1, 2)} \tab \verb{[1, 2]} (a vector of one is a scalar: \code{list(1)} for \verb{[1]}) \cr
-   \code{list("a", "b")} \tab \verb{["a", "b"]} \cr
-   \code{list(a = 1)} \tab \code{{a: 1}} \cr
-   a data.frame \tab its rows, \verb{[\{...\}, ...]} \cr
-   \code{JS("() => 1")} \tab the function \cr
-}
-
+\section{What \code{expr} is}{
+ One string, the Vue expression written between
+the quotes of \verb{:prop="..."} -- as every \verb{v_*()} takes one, \code{v_if()}'s
+as \verb{v-if}'s. \code{v_bind("$vueStore.ui.size")} is \verb{:size="$vueStore.ui.size"};
+\code{v_bind("large")} reads a name \code{large}, and the text is
+\code{v_bind("'large'")}, as \verb{:size="'large'"}; \code{v_bind("1")} the number,
+as \verb{:min="1"}. A \code{\link[=JS]{JS()}} is a string too, and so is
+\code{jsonlite::toJSON()}'s result, a JavaScript literal: R's data in a
+raw template is \code{v_bind(jsonlite::toJSON(df))} (with
+\code{auto_unbox = TRUE} for a single value).
 
 A constant needs no binding: an argument takes the R value itself,
-\code{size = "large"}; \code{v_bind()} of a constant is for a raw template,
-whose attributes are text (\code{el$input_number(min = v_bind(1))}).
-\code{NULL} and \code{NA} are errors -- leaving an argument unset is not giving
-it -- as are \code{I()}, which Shiny gives opposite meanings, and a vector
-of strings, which is data: \code{list("a", "b")}.
+\code{size = "large"}, as Shiny's do. Anything but a string -- a number,
+a list, \code{NULL}, \code{NA}, \code{I()} -- is an error saying what to write, as
+htmlwidgets' \code{JS()} takes strings only.
 }
 
 \section{Modules}{
