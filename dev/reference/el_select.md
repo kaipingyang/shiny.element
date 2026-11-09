@@ -531,6 +531,20 @@ server mode does: `input$<id>_query` is the text typed, and
 `update_el_select()` with the matching `choices` answers it – the select
 shows Element's loading text until then, or for 30 seconds at most.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `multiple` (one value or an array picks the template); `label`,
+`label_position`, `label_width`, `label_suffix`, `required`, `error`,
+`show_message`, `inline_message` (the form item around the component,
+drawn by R); `width` (the mount point's style); `option_template` (drawn
+into each option by R); `props` (renames the options' fields in R).
+Given a binding, `choices` takes Element's records,
+`[{ value, label }]`, as it is; an R value is converted.
+
 ## Updating from the server
 
 Server-side update for `el_select()`. Sends a custom message to update

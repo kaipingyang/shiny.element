@@ -58,6 +58,12 @@ Element's container styles are plain CSS, so no Vue instance is needed –
 and none is wanted: one mounted over the container would recompile the
 components placed inside it and detach them.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a layout drawn as markup by R.
+
 ## Examples
 
 ``` r

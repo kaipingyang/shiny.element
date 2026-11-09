@@ -243,6 +243,16 @@ counts: 0 on load, and only while neither `disabled` nor `loading` is
 [`req()`](https://rdrr.io/pkg/shiny/man/req.html) treat 0 as not yet
 clicked.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `circle` (drawn by R as the button's shape); `task` (makes it a
+task button, bslib's protocol); `class`, `style` (the root's attribute,
+drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_button()`. Supports all visual states

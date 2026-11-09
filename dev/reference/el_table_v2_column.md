@@ -87,6 +87,13 @@ el_table_v2_column(
 
 A column, for `el_table_v2(columns =)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## See also
 
 Other items:

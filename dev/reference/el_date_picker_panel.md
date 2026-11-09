@@ -259,6 +259,16 @@ A Shiny UI element.
 The same list as `el_events("el_date_picker_panel")`, which says how an
 event's arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `label`, `label_position`, `label_width`, `label_suffix`,
+`required`, `error`, `show_message`, `inline_message` (the form item
+around the component, drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_date_picker_panel()`.
@@ -278,7 +288,7 @@ el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="day_container" style="display: contents">
 #>   <el-date-picker-panel v-bind="$optional(&#39;date-picker-panel&#39;)" v-model="value"></el-date-picker-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-11-06","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-11-09","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"evals":["options.watch.value"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

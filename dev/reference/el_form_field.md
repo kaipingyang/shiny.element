@@ -93,6 +93,12 @@ el_form_field(
 A field declaration, for
 [`el_form()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_form.md).
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a field is drawn into its form by R.
+
 ## Examples
 
 ``` r

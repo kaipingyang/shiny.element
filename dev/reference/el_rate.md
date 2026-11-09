@@ -257,6 +257,16 @@ An `htmltools` tagList with a Vue-managed rate component.
 The same list as `el_events("el_rate")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `label`, `label_position`, `label_width`, `label_suffix`,
+`required`, `error`, `show_message`, `inline_message` (the form item
+around the component, drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_rate()`.

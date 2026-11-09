@@ -176,6 +176,15 @@ Callable with
 
 - `setActiveItem()` – Manually switch slide
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `items` (the slides, drawn by R); `initial_index` (read by R as
+the slides are drawn); `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_carousel()` changes the component from the server.

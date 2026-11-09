@@ -35,6 +35,13 @@ el_collapse_item(title, ..., name = title, icon = NULL, disabled = NULL)
 
 A panel, for `el_collapse(items =)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## See also
 
 Other items:

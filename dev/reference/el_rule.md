@@ -87,6 +87,12 @@ A rule, for
 [`el_form_field()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_form_field.md)'s
 `rules` argument.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a rule goes to Element's validator as R writes it.
+
 ## Examples
 
 ``` r

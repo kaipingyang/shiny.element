@@ -31,6 +31,12 @@ el_carousel_item(..., name = NULL, label = NULL, style = NULL, class = NULL)
 
 A slide, for `el_carousel(items =)`.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a slide is drawn by el_carousel() from R.
+
 ## See also
 
 Other items:

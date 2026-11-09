@@ -106,6 +106,13 @@ update_el_badge(
 
 An `htmltools` tag, or with an `id` a Shiny UI element.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## Updating from the server
 
 Server-side update for an `el_badge()` given an `id`.

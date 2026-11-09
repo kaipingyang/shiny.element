@@ -108,6 +108,14 @@ server. See `.claude/docs/lessons.md`.
 The same list as `el_events("el_collapse")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `items` (the panels, drawn by R).
+
 ## Updating from the server
 
 Server-side update for `el_collapse()`: the open panels, `accordion`,

@@ -121,6 +121,14 @@ An `htmltools` tagList with a Vue-managed alert component.
 The same list as `el_events("el_alert")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_alert()`.

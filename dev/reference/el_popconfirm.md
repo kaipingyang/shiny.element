@@ -161,6 +161,15 @@ A Shiny UI element.
 The same list as `el_events("el_popconfirm")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `reference` (content drawn by R); `width` (the mount point's
+style).
+
 ## Updating from the server
 
 Server-side update for `el_popconfirm()`.

@@ -31,6 +31,12 @@ el_footer(..., height = "60px", style = NULL, class = NULL)
 
 A Shiny UI element.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a layout drawn as markup by R.
+
 ## Examples
 
 ``` r

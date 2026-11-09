@@ -31,6 +31,12 @@ el_step(title = NULL, description = NULL, icon = NULL, status = NULL)
 
 A step, for `el_steps(steps =)`.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a step is drawn by el_steps() from R.
+
 ## See also
 
 Other items:

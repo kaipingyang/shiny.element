@@ -47,6 +47,12 @@ el_divider(
 
 An `htmltools` tag.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a divider is drawn as markup by R.
+
 ## Examples
 
 ``` r

@@ -120,6 +120,15 @@ Observe `input$<id>_load`, fetch the next page, and render it into a
 [`shiny::uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html)
 inside the area.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `height` (the scrolling area's style); `width` (the mount point's
+style).
+
 ## Updating from the server
 
 Server-side update for `el_infinite_scroll()`. Setting `disabled` is how

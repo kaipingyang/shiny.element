@@ -28,6 +28,13 @@ el_breadcrumb_item(label, to = NULL, replace = NULL)
 
 A step, for `el_breadcrumb(items =)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## See also
 
 Other items:

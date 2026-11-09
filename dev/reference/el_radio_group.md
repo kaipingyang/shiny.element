@@ -209,6 +209,19 @@ An `htmltools` tagList containing the Vue-managed radio group.
 The same list as `el_events("el_radio_group")`, which says how an
 event's arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `button` (picks el-radio or el-radio-button); `label`,
+`label_position`, `label_width`, `label_suffix`, `required`, `error`,
+`show_message`, `inline_message` (the form item around the component,
+drawn by R); `width` (the mount point's style). Given a binding,
+`choices` takes Element's records, `[{ value, label }]`, as it is; an R
+value is converted.
+
 ## Updating from the server
 
 Server-side update for `el_radio_group()`. Sends a custom message to

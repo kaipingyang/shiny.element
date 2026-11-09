@@ -320,6 +320,15 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md):
 `scrollTo()`, `scrollToLeft()`, `scrollToTop()`, `scrollToRow()`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style); `methods` (functions R places
+on the component); `auto_resize` (picks the template).
+
 ## Updating from the server
 
 Server-side update for `el_table_v2()`: every argument that can change

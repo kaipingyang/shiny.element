@@ -267,6 +267,16 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md):
 `focus()`, `blur()`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `label`, `label_position`, `label_width`, `label_suffix`,
+`required`, `error`, `show_message`, `inline_message` (the form item
+around the component, drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_tree_select()` changes the component from the server.

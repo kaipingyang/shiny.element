@@ -96,6 +96,14 @@ arguments travel.
 Steps without a `to` are reported too, so a breadcrumb can drive
 navigation inside a Shiny app without any routing.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_breadcrumb()`.

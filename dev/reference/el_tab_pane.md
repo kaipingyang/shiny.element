@@ -49,6 +49,13 @@ el_tab_pane(
 
 A tab, for `el_tabs(tabs =)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## See also
 
 Other items:

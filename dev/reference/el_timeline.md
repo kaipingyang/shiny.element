@@ -104,6 +104,16 @@ Entries are rendered with `v-for` from a data field, so
 Content given as tags – `el_card(...)` – is drawn as markup; a string is
 text unless `html = TRUE`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `html` (picks how entries are drawn); `width` (the mount point's
+style). Given a binding, `items` takes Element's records,
+`[{ value, label }]`, as it is; an R value is converted.
+
 ## Updating from the server
 
 `update_el_timeline()` changes the component from the server.

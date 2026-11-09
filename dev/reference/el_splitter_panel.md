@@ -101,6 +101,14 @@ A Shiny UI element.
 
 None: it reports nothing.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_splitter_panel()` changes a panel's settings: one inside an

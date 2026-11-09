@@ -101,6 +101,12 @@ Element Plus's icons are SVG components (`@element-plus/icons-vue`,
 bundled): the tag is an `<i class="el-icon">` naming its icon, drawn by
 the page wherever it lands – inside a component or not.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+an icon is drawn by R.
+
 ## Examples
 
 ``` r

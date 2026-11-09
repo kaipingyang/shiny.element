@@ -160,6 +160,14 @@ A Shiny UI element.
 The same list as `el_events("el_countdown")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_statistic()` and `el_countdown()`.
@@ -216,7 +224,7 @@ el_countdown(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
 #>   <el-countdown v-bind="$optional(&#39;countdown&#39;)" :value="value" @finish="svEmitFinish"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1793969124715.5579,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"countdown":{"title":"title","prefix":"prefix","suffix":"suffix","format":"format","value-style":"valueStyle"}},"evals":["options.methods.svEmitFinish"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1794197630577.9468,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"countdown":{"title":"title","prefix":"prefix","suffix":"suffix","format":"format","value-style":"valueStyle"}},"evals":["options.methods.svEmitFinish"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

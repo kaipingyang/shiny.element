@@ -136,6 +136,15 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md):
 `scrollTo(href)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `links` (the links, drawn by R); `width` (the mount point's
+style).
+
 ## Updating from the server
 
 `update_el_anchor()` changes the component from the server: every

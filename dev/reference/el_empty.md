@@ -79,6 +79,14 @@ update_el_empty(
 
 A Shiny UI element.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_empty()`.

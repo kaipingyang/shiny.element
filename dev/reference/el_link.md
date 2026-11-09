@@ -107,6 +107,14 @@ An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
 The same list as `el_events("el_link")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `underline` (drawn by R as the link's class).
+
 ## Updating from the server
 
 Server-side update for an `el_link()` given an `id`.

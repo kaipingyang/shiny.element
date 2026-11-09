@@ -111,20 +111,28 @@ bridge evaluates it with `with` over the page’s names and keeps field
 and state in step; containers bind what their update can set,
 [`.vue_bound_markup()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.md)
 writing `data-shiny-vue-bind` and their bindings applying it through
-`shinyVue.bindElement()`; an argument R reads to draw with says so,
-[`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md),
-and `test-vue-directives.R` fails on any argument of any component that
-drops a binding). Template names follow the function that made them:
-`$vueStore` (was `$store`, kept a version),
+`shinyVue.bindElement()`; what each argument is – a prop, R’s markup,
+data, an alias – is the arguments registry, `R/el_args_registry.R`, read
+first in each component by `.el_check_bindings()` through the Vue
+layer’s
+[`.vue_check_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_bindings.md),
+and `test-args-registry.R` holds every component to it). Template names
+follow the function that made them: `$vueStore` (was `$store`, kept a
+version),
 [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
 (`R/vue_state.R`: hosts with no markup whose `state` the bridge makes in
 `setup()`, read as `$vueRef` and the rest, mounted first with the
 stores), `$find(id)` (a component, as
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
 finds it); plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`. And the
-`.vue_*` helpers. `test-vue-layer.R` fails if any of it names Element;
-`test-browser-pure-vue.R` runs it with no Element Plus on the page. The
-**Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on it:
+`.vue_*` helpers. A registry follows the same split: the facts are the
+component library’s (the Element layer’s `R/el_events_registry.R`,
+`R/el_args_registry.R`), the mechanism that reads them the Vue layer’s
+(`R/vue_events.R`, `R/vue_bindings.R`), so another library brings its
+facts and reuses the rest. `test-vue-layer.R` fails if any of it names
+Element; `test-browser-pure-vue.R` runs it with no Element Plus on the
+page. The **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on
+it:
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)
 builds through
 [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
@@ -492,12 +500,15 @@ Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 4.  Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
     [`.el_check_choices()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_check_choices.md)
     first in the function; arguments R reads to draw the markup (not
-    fields of the component) in
-    [`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md)
-    after it, so a
+    fields of the component) in the arguments registry,
+    `R/el_args_registry.R` (`markup: <why>`), with
+    `.el_check_bindings("el_<name>", environment())` first in the
+    function, so a
     [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-    given them is an error (`test-vue-directives.R` checks). A field
-    keeps a binding through its conversions:
+    given them is refused with the why (`test-args-registry.R` checks
+    every argument against it; the help page’s “Binding” section is
+    written from it, `` `r .el_args_md()` ``). A field keeps a binding
+    through its conversions:
     [`.vue_array()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.md),
     [`.vue_flag()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_flag.md)
     rather than [`as.list()`](https://rdrr.io/r/base/list.html),

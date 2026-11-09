@@ -221,14 +221,18 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_upload_js.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_wrap_widget.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_alias.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_arg_kind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_auto_id.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bind_optional.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bindable.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_binding.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bindings_md.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bridge_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_camel.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_session.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.html</loc></url>
@@ -274,7 +278,6 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_slot.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_tags_as_html.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_ui_id.html</loc></url>
-<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_use.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/el.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/el_affix.html</loc></url>

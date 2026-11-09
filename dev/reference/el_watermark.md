@@ -127,6 +127,14 @@ A Shiny UI element.
 
 None: it reports nothing.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_watermark()` changes the component from the server: every
@@ -141,8 +149,8 @@ invisibly.
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_90c3967d-dd4d-475e-b401-0bd354ed0c76" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_90c3967d-dd4d-475e-b401-0bd354ed0c76_container" style="display: contents">
+#> <div id="el_watermark_63838eb3-0017-40ec-94d5-c6b25a4a1a61" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_63838eb3-0017-40ec-94d5-c6b25a4a1a61_container" style="display: contents">
 #>   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>

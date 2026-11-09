@@ -311,6 +311,19 @@ Callable with
 
 - `focus()` – focus the input
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `remote`, `fetch_suggestions` (picks how suggestions are
+fetched); `label`, `label_position`, `label_width`, `label_suffix`,
+`required`, `error`, `show_message`, `inline_message` (the form item
+around the component, drawn by R); `width` (the mount point's style).
+Given a binding, `suggestions` takes Element's records,
+`[{ value, label }]`, as it is; an R value is converted.
+
 ## Updating from the server
 
 Server-side update for `el_autocomplete()`.

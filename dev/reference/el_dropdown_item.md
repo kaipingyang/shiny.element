@@ -40,6 +40,13 @@ el_dropdown_item(
 
 An entry, for `el_dropdown(items =)`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## See also
 
 Other items:

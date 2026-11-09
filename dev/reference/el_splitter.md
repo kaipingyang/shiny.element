@@ -97,6 +97,14 @@ A Shiny UI element.
 The same list as `el_events("el_splitter")`, which says how an event's
 arguments travel.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_splitter()` changes the component from the server: every
@@ -111,13 +119,13 @@ invisibly.
 
 ``` r
 el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
-#> <div id="el_splitter_7d613ced-5793-489a-be05-28ebbcceaf25" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_7d613ced-5793-489a-be05-28ebbcceaf25_container" style="display: contents">
+#> <div id="el_splitter_31c0f150-8b3a-4776-a068-5048f08fb3ff" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_31c0f150-8b3a-4776-a068-5048f08fb3ff_container" style="display: contents">
 #>   <el-splitter v-bind="$optional(&#39;splitter&#39;)" @resize-end="svEmitResizeEnd" @collapse="svEmitCollapse">
-#>     <el-splitter-panel v-bind="$optional(&#39;splitter-panel&#39;)" ref="sv_el_splitter_panel_3ab7ff2e_6df2_4840_a4c0_f6dc0ac153bb" id="el_splitter_panel_3ab7ff2e-6df2-4840-a4c0-f6dc0ac153bb">Left</el-splitter-panel>
-#>     <el-splitter-panel v-bind="$optional(&#39;el3_splitter-panel&#39;)" ref="sv_el_splitter_panel_822feae7_94ee_4697_9f26_5804485f40ec" id="el_splitter_panel_822feae7-94ee-4697-9f26-5804485f40ec">Right</el-splitter-panel>
+#>     <el-splitter-panel v-bind="$optional(&#39;splitter-panel&#39;)" ref="sv_el_splitter_panel_08910810_3bc3_4ddd_a8fa_e3c1754681a7" id="el_splitter_panel_08910810-3bc3-4ddd-a8fa-e3c1754681a7">Left</el-splitter-panel>
+#>     <el-splitter-panel v-bind="$optional(&#39;el3_splitter-panel&#39;)" ref="sv_el_splitter_panel_7a561c43_7fa6_412d_ba81_47ea91e04c9e" id="el_splitter_panel_7a561c43-7fa6-412d-ba81-47ea91e04c9e">Right</el-splitter-panel>
 #>   </el-splitter>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"svEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_7d613ced-5793-489a-be05-28ebbcceaf25', 'resize_end', arguments); }","svEmitCollapse":"function() { window.shinyVue.emit('el_splitter_7d613ced-5793-489a-be05-28ebbcceaf25', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"splitter":{"layout":"layout","lazy":"lazy"},"splitter-panel":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"el3_splitter-panel":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"}},"absorbed":{"el_splitter_panel_3ab7ff2e-6df2-4840-a4c0-f6dc0ac153bb":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_3ab7ff2e_6df2_4840_a4c0_f6dc0ac153bb"},"el_splitter_panel_822feae7-94ee-4697-9f26-5804485f40ec":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_822feae7_94ee_4697_9f26_5804485f40ec"}},"generated":true,"evals":["options.methods.svEmitResizeEnd","options.methods.svEmitCollapse"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"svEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_31c0f150-8b3a-4776-a068-5048f08fb3ff', 'resize_end', arguments); }","svEmitCollapse":"function() { window.shinyVue.emit('el_splitter_31c0f150-8b3a-4776-a068-5048f08fb3ff', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"splitter":{"layout":"layout","lazy":"lazy"},"splitter-panel":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"el3_splitter-panel":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"}},"absorbed":{"el_splitter_panel_08910810-3bc3-4ddd-a8fa-e3c1754681a7":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_08910810_3bc3_4ddd_a8fa_e3c1754681a7"},"el_splitter_panel_7a561c43-7fa6-412d-ba81-47ea91e04c9e":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_7a561c43_7fa6_412d_ba81_47ea91e04c9e"}},"generated":true,"evals":["options.methods.svEmitResizeEnd","options.methods.svEmitCollapse"]}</script>
 #> </div>
 ```

@@ -81,6 +81,12 @@ el_tour_step(
 
 A step, for `el_tour(steps =)`.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a step is drawn by el_tour() from R.
+
 ## See also
 
 Other items:

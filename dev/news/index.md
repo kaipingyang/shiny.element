@@ -200,6 +200,17 @@
 
 ### Bug fixes
 
+- An argument R draws with – a select’s `multiple`, a dialog’s `footer`,
+  a carousel’s `items` – refuses a
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  with its reason, named with its function: “‘multiple’ of el_select()
+  cannot follow v_bind() or v_model(): one value or an array picks the
+  template.” Twenty-three arguments failed instead with an unrelated
+  error further on (a carousel’s `initial_index`: “non-numeric argument
+  to binary operator”). What each argument is, is one registry now, and
+  each help page has a “Binding” section written from it, naming the
+  arguments that do not bind and why.
+
 - `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
   as

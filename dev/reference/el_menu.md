@@ -260,6 +260,15 @@ Callable with
 - [`open()`](https://rdrr.io/r/base/connections.html) – Open a specific
   sub-menu
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `items` (the items, drawn by R); `class`, `style` (the root's
+attribute, drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_menu()` changes the component from the server.

@@ -248,6 +248,19 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md):
 `resetPosition()` puts a dragged dialog back.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `content`, `footer` (content drawn by R); `custom_class`,
+`append_to_body`, `destroy_on_close`, `before_close`,
+`modal_penetrable`, `close_icon`, `modal_class`, `header_class`,
+`body_class`, `footer_class`, `append_to`, `open_delay`, `close_delay`,
+`z_index`, `header_aria_level`, `transition` (set once, as the overlay
+is drawn).
+
 ## Updating from the server
 
 Server-side update for `el_dialog()`: whether it shows, its title and

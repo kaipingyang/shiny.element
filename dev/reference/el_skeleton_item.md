@@ -25,6 +25,12 @@ el_skeleton_item(variant = NULL, ...)
 
 A tag.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+drawn by R.
+
 ## See also
 
 Other items:
@@ -54,8 +60,8 @@ el_skeleton(
     )
   )
 )
-#> <div id="el_skeleton_697a2a3f-227f-4aa4-a2aa-2eed1382954c" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_697a2a3f-227f-4aa4-a2aa-2eed1382954c_container" style="display: contents">
+#> <div id="el_skeleton_8e1d3835-1e01-4a7b-9bc7-88cbebd91b90" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_8e1d3835-1e01-4a7b-9bc7-88cbebd91b90_container" style="display: contents">
 #>   <el-skeleton v-bind="$optional(&#39;skeleton&#39;)" :loading="skLoading">
 #>     <template v-slot:template>
 #>       <el-skeleton-item variant="image" style="width: 240px; height: 240px"></el-skeleton-item>

@@ -377,6 +377,16 @@ The text is debounced by 250 ms, as
 [`shiny::textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html)'s
 is, and reported after an `update_el_input()` too.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `label`, `label_position`, `label_width`, `label_suffix`,
+`required`, `error`, `show_message`, `inline_message` (the form item
+around the component, drawn by R); `width` (the mount point's style).
+
 ## Updating from the server
 
 Server-side update for `el_input()`. Sends a custom message to update

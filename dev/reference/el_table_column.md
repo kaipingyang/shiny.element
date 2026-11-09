@@ -231,6 +231,12 @@ el_table_column(
 
 A column, for `el_table(columns =)`.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a column is drawn from R; bind the table's `columns` instead.
+
 ## See also
 
 Other items:

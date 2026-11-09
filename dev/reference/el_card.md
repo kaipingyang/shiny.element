@@ -58,6 +58,12 @@ el_card(
 
 An `htmltools` tag.
 
+## Binding
+
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+content drawn by R.
+
 ## Examples
 
 ``` r

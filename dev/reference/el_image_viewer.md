@@ -171,6 +171,15 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md):
 `setActiveItem()`.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `width` (the mount point's style). Given a binding, `url_list`
+takes Element's own form, as it is; an R value is converted.
+
 ## Updating from the server
 
 Open or close an `el_image_viewer()`, or give it other images.

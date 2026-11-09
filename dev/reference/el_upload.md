@@ -340,6 +340,18 @@ Callable with
 
 - `submit()` – Upload the file list manually
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+except `name` (the field files travel under); `tip` (drawn by R);
+`action` (picks how files travel); `label`, `label_position`,
+`label_width`, `label_suffix`, `required`, `error`, `show_message`,
+`inline_message` (the form item around the component, drawn by R);
+`width` (the mount point's style).
+
 ## Updating from the server
 
 `update_el_upload()` changes the component from the server.

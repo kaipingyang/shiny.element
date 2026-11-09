@@ -145,6 +145,13 @@ update_el_progress(
 
 An `htmltools` tagList with a Vue-managed progress component.
 
+## Binding
+
+Every argument can follow
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+or
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+
 ## Updating from the server
 
 Server-side update for `el_progress()`.
