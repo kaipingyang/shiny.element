@@ -66,11 +66,19 @@ cat(sprintf(
   "%d components, %d arguments: %s\n\n",
   length(unique(d$fn)),
   nrow(d),
-  paste(names(table(substr(d$outcome, 1, 7))), table(substr(d$outcome, 1, 7)), collapse = ", ")
+  paste(
+    names(table(substr(d$outcome, 1, 7))),
+    table(substr(d$outcome, 1, 7)),
+    collapse = ", "
+  )
 ))
 for (fn in unique(d$fn)) {
   x <- d[d$fn == fn & d$outcome != "bound", ]
-  if (!nrow(x)) next
+  if (!nrow(x)) {
+    next
+  }
   cat(fn, "\n")
-  for (i in seq_len(nrow(x))) cat(sprintf("  %-26s %s\n", x$arg[i], substr(x$outcome[i], 1, 100)))
+  for (i in seq_len(nrow(x))) {
+    cat(sprintf("  %-26s %s\n", x$arg[i], substr(x$outcome[i], 1, 100)))
+  }
 }

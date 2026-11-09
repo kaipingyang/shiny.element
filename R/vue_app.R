@@ -476,6 +476,7 @@ vue_app <- function(
   on = NULL,
   ns = NULL
 ) {
+  .vue_check_bindings("vue_app", environment(), .vue_arg_registry[["vue_app"]])
   .vue_scope(ns) # checked here, where it is written
   child_deps <- .vue_components(components)
   # events and handlers on the template's root: a library's component
@@ -686,6 +687,11 @@ vue_component <- function(
   ...,
   dependencies = NULL
 ) {
+  .vue_check_bindings(
+    "vue_component",
+    environment(),
+    .vue_arg_registry[["vue_component"]]
+  )
   tpl <- .vue_template(template)
   opts <- c(
     list(template = tpl$html),
@@ -794,6 +800,11 @@ vue_store <- function(
   outputs = NULL,
   data = NULL
 ) {
+  .vue_check_bindings(
+    "vue_store",
+    environment(),
+    .vue_arg_registry[["vue_store"]]
+  )
   if (!is.null(data)) {
     warning(
       "`data` is deprecated in vue_store(): give the store's `state`, as ",

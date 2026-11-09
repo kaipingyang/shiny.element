@@ -87,7 +87,8 @@ applying it through `shinyVue.bindElement()`; what each argument is --
 a prop, R's markup, data, an alias -- is the arguments registry,
 `R/el_args_registry.R`, read first in each component by
 `.el_check_bindings()` through the Vue layer's `.vue_check_bindings()`,
-and `test-args-registry.R` holds every component to it). Template names follow
+and `test-args-registry.R` holds every component to it; the Vue layer's
+own functions have theirs, `.vue_arg_registry`). Template names follow
 the function that made them: `$vueStore` (was `$store`, kept a version),
 `vue_ref()`/`vue_reactive()`/`vue_computed()`/`vue_watch()` (`R/vue_state.R`: hosts with
 no markup whose `state` the bridge makes in `setup()`, read as `$vueRef`

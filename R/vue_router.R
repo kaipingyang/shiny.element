@@ -76,6 +76,11 @@ vue_router <- function(
   routes = NULL,
   guard = NULL
 ) {
+  .vue_check_bindings(
+    "vue_router",
+    environment(),
+    .vue_arg_registry[["vue_router"]]
+  )
   history <- match.arg(history)
   id <- .vue_ui_id(id)
   if (length(routes)) {

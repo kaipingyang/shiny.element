@@ -142,7 +142,11 @@
   carousel's `initial_index`: "non-numeric argument to binary operator").
   What each argument is, is one registry now, and each help page has a
   "Binding" section written from it, naming the arguments that do not
-  bind and why.
+  bind and why. The Vue layer's own functions refuse likewise: a
+  `vue_app()` template or a `vue_store()` state given `v_bind()` was
+  drawn with the binding dropped, saying nothing; a `vue_ref()` value
+  followed it, where Vue's `ref()` holds a value and following an
+  expression is `vue_computed()`.
 
 * `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
   `v_bind()`, as `?v_bind` promised of what a container's `update_*()`

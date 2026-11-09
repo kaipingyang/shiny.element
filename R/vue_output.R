@@ -68,6 +68,11 @@
 #' }
 #' @export
 vue_output <- function(id) {
+  .vue_check_bindings(
+    "vue_output",
+    environment(),
+    .vue_arg_registry[["vue_output"]]
+  )
   htmltools::attachDependencies(
     htmltools::tags$div(id = id, class = "shiny-vue-output"),
     .vue_host_dependencies()
@@ -333,6 +338,11 @@ render_vue_data <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @rdname render_vue_data
 #' @export
 vue_data_output <- function(outputId) {
+  .vue_check_bindings(
+    "vue_data_output",
+    environment(),
+    .vue_arg_registry[["vue_data_output"]]
+  )
   htmltools::attachDependencies(
     htmltools::tags$span(id = outputId, class = "shiny-vue-data-output"),
     .vue_host_dependencies()

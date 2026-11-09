@@ -301,3 +301,21 @@
   }
   convert(x)
 }
+
+# The Vue layer's own functions, by the same kinds: what they take is a
+# definition -- a template, options, a store's shape, an expression -- read
+# in R, never a value following state. A field of a component's data is
+# what binds (`vue_app(data = list(x = v_bind(...)))`); a ref holds a value,
+# as Vue's ref() does, and following an expression is vue_computed().
+.vue_arg_registry <- list(
+  vue_app = "markup: the component's definition; bind a field of its `data`",
+  vue_component = "markup: the component's definition; bind a field of its `data`",
+  vue_store = "markup: the store's definition; bindings read a store",
+  vue_router = "markup: the router's definition",
+  vue_output = "markup: an output's place",
+  vue_data_output = "markup: an output's place",
+  vue_ref = "markup: a ref holds a value; to follow an expression, vue_computed()",
+  vue_reactive = "markup: a reactive holds values; to follow an expression, vue_computed()",
+  vue_computed = "markup: `expr` is the expression already, a string",
+  vue_watch = "markup: `source` is the expression already, a string"
+)

@@ -568,3 +568,34 @@ test_that("a renamed absorbed component reports its renamed field", {
   expect_match(m, 'Shiny.setInputValue("s1", self.value)', fixed = TRUE)
   expect_match(m, 'setInputValue[(]"s2", self[.]el[0-9]+_value[)]')
 })
+
+test_that("the Vue layer's own functions refuse a binding, saying why", {
+  # each is checked first, so the argument bound is all a call needs
+  ns <- asNamespace("shiny.element")
+  for (fn in names(.vue_arg_registry)) {
+    f <- get(fn, envir = ns)
+    why <- .vue_arg_kind(.vue_arg_registry[[fn]], "x")$detail
+    for (a in setdiff(names(formals(f)), "...")) {
+      args <- stats::setNames(list(v_bind("$vueStore.s.f")), a)
+      expect_error(
+        do.call(f, args),
+        paste0(
+          "'",
+          a,
+          "' of ",
+          fn,
+          "() cannot follow v_bind() or v_model(): ",
+          why
+        ),
+        fixed = TRUE,
+        info = paste0(fn, "(", a, ")")
+      )
+    }
+  }
+  # a field of a component's data is what binds
+  expect_no_error(vue_app(
+    "a",
+    htmltools::tags$span("{{ n }}"),
+    data = list(n = v_bind("$vueStore.s.n"))
+  ))
+})

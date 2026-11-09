@@ -70,6 +70,7 @@ NULL
 #' @rdname vue_reactivity
 #' @export
 vue_ref <- function(id, value = NULL, input = FALSE) {
+  .vue_check_bindings("vue_ref", environment(), .vue_arg_registry[["vue_ref"]])
   .vue_state_host(
     id,
     list(kind = "ref"),
@@ -81,6 +82,11 @@ vue_ref <- function(id, value = NULL, input = FALSE) {
 #' @rdname vue_reactivity
 #' @export
 vue_reactive <- function(id, value = list(), input = FALSE) {
+  .vue_check_bindings(
+    "vue_reactive",
+    environment(),
+    .vue_arg_registry[["vue_reactive"]]
+  )
   if (!is.list(value) || (length(value) && is.null(names(value)))) {
     stop("`value` must be a named list: the object's fields.", call. = FALSE)
   }
@@ -95,6 +101,11 @@ vue_reactive <- function(id, value = list(), input = FALSE) {
 #' @rdname vue_reactivity
 #' @export
 vue_computed <- function(id, expr, ns = NULL, input = FALSE) {
+  .vue_check_bindings(
+    "vue_computed",
+    environment(),
+    .vue_arg_registry[["vue_computed"]]
+  )
   b <- .vue_binding(.vue_expr(expr, "expr", "vue_computed"), "v_bind", ns)
   .vue_state_host(
     id,
@@ -113,6 +124,11 @@ vue_watch <- function(
   ns = NULL,
   use = NULL
 ) {
+  .vue_check_bindings(
+    "vue_watch",
+    environment(),
+    .vue_arg_registry[["vue_watch"]]
+  )
   b <- .vue_binding(.vue_expr(source, "source", "vue_watch"), "v_bind", ns)
   if (
     !inherits(handler, "JS_EVAL") &&
