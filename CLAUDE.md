@@ -66,7 +66,7 @@ how mature Shiny packages do it; the closer to upstream wins.
 ### Two layers
 
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no component
-library and is to become the shiny.vue package: `vue_app()`,
+library and is to become the shinyvue package (no dot, as Posit's shinyreact; its future plans in `.claude/plans/shinyvue-sfc-future-2026-11-09.md`): `vue_app()`,
 `vue_component()`, `vue_store()` (a Pinia 4.1.0 store, `inst/pinia`:
 `state`/`getters`/`actions` or `setup`, `$vueStore.<id>` in every template,
 its host exposing the store so updates, calls and outputs reach it),
@@ -110,7 +110,7 @@ an `.el_*` helper exists only where the Element layer adds something of
 its own (Element's names, its plugin, its defaults), never as a one-line
 forwarder or a copy -- one job, one function. A forwarder also breaks
 helpers that name their caller (`.vue_check_session()` reads
-`sys.call(-1)` for its message). When the Vue layer becomes shiny.vue,
+`sys.call(-1)` for its message). When the Vue layer becomes shinyvue,
 the helpers the Element layer uses are exported there as its API for
 library authors (as htmlwidgets exports `createWidget()`), not reached
 with `:::`. A helper moved between layers moves with every caller in the
@@ -180,7 +180,7 @@ element -- one `Vue.createApp()` each, Element Plus installed on each by
 </div>
 ```
 
-`inst/js/shiny-vue.js` (generic, Element-free -- meant to become shiny.vue)
+`inst/js/shiny-vue.js` (generic, Element-free -- meant to become shinyvue)
 compiles the template off-page and appends it to the host, and registers one
 Shiny InputBinding, `shiny.vue`, on every host with a value (`input` names
 the reported field; `type` an input handler such as `shiny.element.date` or
