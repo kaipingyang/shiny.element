@@ -93,6 +93,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_button")`
+#'
 #' @export
 el_button <- function(
   id = NULL,
@@ -124,9 +127,8 @@ el_button <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_button", environment())
   .el_check_choices("el_button", environment())
-  # R reads these to draw the component
-  .vue_unbound(circle = circle, task = task, class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_button")
   }

@@ -68,6 +68,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_progress")`
+#'
 #' @export
 el_progress <- function(
   id = NULL,

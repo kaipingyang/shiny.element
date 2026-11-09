@@ -35,6 +35,9 @@
 #' @examples
 #' el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 #' el_alert("al2", "Warning!", description = "Please review.", type = "warning")
+#' @section Binding:
+#' `r .el_args_md("el_alert")`
+#'
 #' @export
 el_alert <- function(
   id = NULL,
@@ -51,6 +54,7 @@ el_alert <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_alert", environment())
   .el_check_choices("el_alert", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_alert")

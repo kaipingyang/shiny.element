@@ -82,6 +82,11 @@ A styled hyperlink that follows Element Plus's design language.
 The same list as \code{el_events("el_link")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{underline} (drawn by R as the link's class).
+}
+
 \section{Updating from the server}{
 
 Server-side update for an \code{\link[=el_link]{el_link()}} given an \code{id}.

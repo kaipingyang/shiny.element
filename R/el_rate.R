@@ -60,6 +60,9 @@
 #' @examples
 #' el_rate("rate1", value = 3)
 #' el_rate("rate2", allow_half = TRUE, show_score = TRUE)
+#' @section Binding:
+#' `r .el_args_md("el_rate")`
+#'
 #' @export
 el_rate <- function(
   id = NULL,
@@ -96,6 +99,7 @@ el_rate <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_rate", environment())
   .el_check_choices("el_rate", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_rate")

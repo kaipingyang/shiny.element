@@ -31,6 +31,9 @@
 #'   el_button("c", "Three"),
 #'   size = 20
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_space")`
+#'
 #' @export
 el_space <- function(
   ...,
@@ -46,6 +49,7 @@ el_space <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_space", environment())
   .el_check_choices("el_space", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_space")

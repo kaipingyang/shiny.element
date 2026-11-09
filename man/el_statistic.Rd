@@ -127,6 +127,11 @@ A headline number with a title, and an optional prefix and suffix.
 The same list as \code{el_events("el_countdown")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_statistic]{el_statistic()}} and \code{\link[=el_countdown]{el_countdown()}}.

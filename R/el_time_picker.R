@@ -78,6 +78,9 @@
 #'
 #' # Every half hour between nine and six
 #' el_time_select("slot", start = "09:00", step = "00:30", end = "18:00")
+#' @section Binding:
+#' `r .el_args_md("el_time_picker")`
+#'
 #' @export
 el_time_picker <- function(
   id = NULL,
@@ -126,6 +129,7 @@ el_time_picker <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_time_picker", environment())
   .el_check_choices("el_time_picker", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_time_picker")
@@ -231,6 +235,7 @@ el_time_select <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_time_select", environment())
   .el_check_choices("el_time_select", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_time_select")

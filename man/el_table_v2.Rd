@@ -232,6 +232,11 @@ The same list as \code{el_events("el_table_v2")}, which says how an event's argu
 Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo()}, \code{scrollToLeft()}, \code{scrollToTop()}, \code{scrollToRow()}.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style); \code{methods} (functions R places on the component); \code{auto_resize} (picks the template).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_table_v2]{el_table_v2()}}: every argument that can change

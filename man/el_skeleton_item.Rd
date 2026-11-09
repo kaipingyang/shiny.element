@@ -19,6 +19,11 @@ A tag.
 Element Plus's \code{el-skeleton-item}, for the \code{template} slot of
 \code{\link[=el_skeleton]{el_skeleton()}}, which draws a custom placeholder while loading.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: drawn by R.
+}
+
 \examples{
 el_skeleton(
   slots = list(

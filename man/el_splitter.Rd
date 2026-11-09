@@ -72,6 +72,11 @@ between them. Give it \code{\link[=el_splitter_panel]{el_splitter_panel()}}s.
 The same list as \code{el_events("el_splitter")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_splitter()} changes the component from the server: every argument of

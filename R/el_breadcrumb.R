@@ -45,6 +45,9 @@
 #'   items = list(list(label = "Home"), list(label = "Detail")),
 #'   separator_icon = "ArrowRight"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_breadcrumb")`
+#'
 #' @export
 el_breadcrumb <- function(
   id = NULL,
@@ -56,6 +59,7 @@ el_breadcrumb <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_breadcrumb", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_breadcrumb")
   }

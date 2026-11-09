@@ -143,6 +143,11 @@ Element Plus's \code{el-table-column}, for \code{el_table(columns =)} and
 \code{\link[=update_el_table]{update_el_table()}}. A column with columns of its own in \code{...} is a group
 header, nested as deep as you like.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a column is drawn from R; bind the table's \code{columns} instead.
+}
+
 \examples{
 el_table(
   "t",

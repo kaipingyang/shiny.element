@@ -29,6 +29,9 @@
 #' @section Shiny inputs:
 #' `r .el_events_md("el_steps")`
 #'
+#' @section Binding:
+#' `r .el_args_md("el_steps")`
+#'
 #' @export
 #' @examples
 #' # Basic usage
@@ -76,6 +79,7 @@ el_steps <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_steps", environment())
   .el_check_items(steps, "steps", c("title", "description"))
   if (is.null(id)) {
     id <- .vue_auto_id("el_steps")

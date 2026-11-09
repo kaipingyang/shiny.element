@@ -19,6 +19,9 @@
 #' el_divider()
 #' el_divider("Title Text", content_position = "left")
 #' el_divider(direction = "vertical")
+#' @section Binding:
+#' `r .el_args_md("el_divider")`
+#'
 #' @export
 el_divider <- function(
   content = NULL,
@@ -28,16 +31,8 @@ el_divider <- function(
   class = NULL,
   style = NULL
 ) {
+  .el_check_bindings("el_divider", environment())
   .el_check_choices("el_divider", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    content = content,
-    direction = direction,
-    content_position = content_position,
-    border_style = border_style,
-    class = class,
-    style = style
-  )
   direction <- match.arg(direction, c("horizontal", "vertical"))
   content_position <- match.arg(content_position, c("center", "left", "right"))
 

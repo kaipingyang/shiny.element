@@ -46,6 +46,11 @@ never be compiled and would render as an unstyled inline element; the
 Element Plus stylesheet is already loaded, so the class name is all that is
 needed.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 # Two equal columns with a 20px gutter
 el_row(

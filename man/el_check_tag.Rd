@@ -62,6 +62,11 @@ A tag that toggles on and off when clicked, as a checkbox does.
 The same list as \code{el_events("el_check_tag")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \section{Updating from the server}{
 
 \code{update_el_check_tag()} changes the component from the server.

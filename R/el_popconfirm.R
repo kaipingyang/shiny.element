@@ -69,6 +69,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_popconfirm")`
+#'
 #' @export
 el_popconfirm <- function(
   id = NULL,
@@ -93,9 +96,8 @@ el_popconfirm <- function(
   session = NULL,
   placement = NULL
 ) {
+  .el_check_bindings("el_popconfirm", environment())
   .el_check_choices("el_popconfirm", environment())
-  # R reads these to draw the component
-  .vue_unbound(reference = reference)
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {

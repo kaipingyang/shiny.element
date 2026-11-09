@@ -83,16 +83,22 @@ bound field to the spec's `bound` (`{expr, model, scope}`), the bridge
 evaluates it with `with` over the page's names and keeps field and state
 in step; containers bind what their update can set,
 `.vue_bound_markup()` writing `data-shiny-vue-bind` and their bindings
-applying it through `shinyVue.bindElement()`; an argument R reads to draw
-with says so, `.vue_unbound()`, and `test-vue-directives.R` fails on any
-argument of any component that drops a binding). Template names follow
+applying it through `shinyVue.bindElement()`; what each argument is --
+a prop, R's markup, data, an alias -- is the arguments registry,
+`R/el_args_registry.R`, read first in each component by
+`.el_check_bindings()` through the Vue layer's `.vue_check_bindings()`,
+and `test-args-registry.R` holds every component to it). Template names follow
 the function that made them: `$vueStore` (was `$store`, kept a version),
 `vue_ref()`/`vue_reactive()`/`vue_computed()`/`vue_watch()` (`R/vue_state.R`: hosts with
 no markup whose `state` the bridge makes in `setup()`, read as `$vueRef`
 and the rest, mounted first with the stores), `$find(id)` (a component, as
 `call_el()` finds it); plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`.
 And the `.vue_*` helpers.
-`test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
+A registry follows the same split: the facts are the component library's
+(the Element layer's `R/el_events_registry.R`, `R/el_args_registry.R`),
+the mechanism that reads them the Vue layer's (`R/vue_events.R`,
+`R/vue_bindings.R`), so another library brings its facts and reuses the
+rest. `test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
 runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,
 `inst/js/el-*.js`) is built on it: `el_widget()` builds through `.vue_host()`
 with `use = "shinyElement.plugin"` (Element Plus, its icons, `$elRef`,
@@ -374,8 +380,12 @@ records: `.claude/plans/shiny-style-components-2026-10-06.md`,
    binding's value.
 4. Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
    `.el_check_choices()` first in the function; arguments R reads to draw
-   the markup (not fields of the component) in `.vue_unbound()` after it,
-   so a `v_bind()` given them is an error (`test-vue-directives.R` checks).
+   the markup (not fields of the component) in the arguments registry,
+   `R/el_args_registry.R` (`markup: <why>`), with
+   `.el_check_bindings("el_<name>", environment())` first in the
+   function, so a `v_bind()` given them is refused with the why
+   (`test-args-registry.R` checks every argument against it; the help
+   page's "Binding" section is written from it, `` `r .el_args_md()` ``).
    A field keeps a binding through its conversions: `.vue_array()`,
    `.vue_flag()` rather than `as.list()`, `isTRUE()`.
 5. `roxygen2::roxygenise(".")`, then tests: unit, the browser fixture, and

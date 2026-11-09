@@ -273,6 +273,11 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{props} (renames the nodes' fields in R); \code{label}, \code{label_position}, \code{label_width}, \code{label_suffix}, \code{required}, \code{error}, \code{show_message}, \code{inline_message} (the form item around the component, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_tree()} changes the component from the server.

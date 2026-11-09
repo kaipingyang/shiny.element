@@ -146,6 +146,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_date_picker")`
+#'
 #' @export
 el_date_picker <- function(
   id = NULL,
@@ -206,6 +209,7 @@ el_date_picker <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_date_picker", environment())
   .el_check_choices("el_date_picker", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_date_picker")

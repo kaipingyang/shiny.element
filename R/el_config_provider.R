@@ -52,6 +52,9 @@
 #'   el_button("a", "OK"),
 #'   el_input("b")
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_config_provider")`
+#'
 #' @export
 el_config_provider <- function(
   ...,
@@ -70,6 +73,7 @@ el_config_provider <- function(
   width = NULL,
   slots = NULL
 ) {
+  .el_check_bindings("el_config_provider", environment())
   .el_check_choices("el_config_provider", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_config_provider")

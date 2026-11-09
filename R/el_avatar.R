@@ -34,6 +34,9 @@
 #' el_avatar("me", src = "https://example.org/face.png")
 #' el_avatar("initials", content = "KY", shape = "square", size = 40)
 #' el_avatar("anon", icon = "el-icon-user-solid")
+#' @section Binding:
+#' `r .el_args_md("el_avatar")`
+#'
 #' @export
 el_avatar <- function(
   id = NULL,
@@ -53,9 +56,8 @@ el_avatar <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_avatar", environment())
   .el_check_choices("el_avatar", environment())
-  # R reads these to draw the component
-  .vue_unbound(class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_avatar")
   }

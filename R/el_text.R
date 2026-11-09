@@ -26,6 +26,9 @@
 #' @examples
 #' el_text("Primary text", type = "primary")
 #' el_text(strrep("A long sentence. ", 20), truncated = TRUE)
+#' @section Binding:
+#' `r .el_args_md("el_text")`
+#'
 #' @export
 el_text <- function(
   ...,
@@ -39,6 +42,7 @@ el_text <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_text", environment())
   .el_check_choices("el_text", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_text")

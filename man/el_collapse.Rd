@@ -78,6 +78,11 @@ rebuild the DOM underneath them, detaching them from the server. See
 The same list as \code{el_events("el_collapse")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{items} (the panels, drawn by R).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_collapse]{el_collapse()}}: the open panels, \code{accordion},

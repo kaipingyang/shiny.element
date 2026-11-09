@@ -74,6 +74,11 @@ Grey placeholder shapes shown while content is on its way, then the content
 itself. In Shiny the usual pattern is to start with \code{loading = TRUE} and
 switch it off from the server once the work is done.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style); \code{class}, \code{style} (the root's attribute, drawn by R).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_skeleton]{el_skeleton()}}. \code{loading = FALSE} swaps the

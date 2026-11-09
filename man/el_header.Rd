@@ -22,6 +22,11 @@ A Shiny UI element.
 \description{
 Element Plus Header
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 el_header("Dashboard")
 el_header(height = "80px", el_button("refresh", "Refresh"))

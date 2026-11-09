@@ -67,6 +67,9 @@
 #'   size = "40%",
 #'   content = shiny::tagList(el_input("q"), el_switch("live"))
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_drawer")`
+#'
 #' @export
 el_drawer <- function(
   id = NULL,
@@ -100,44 +103,11 @@ el_drawer <- function(
   events = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_drawer", environment())
   .el_check_choices("el_drawer", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    content = content,
-    custom_class = custom_class,
-    append_to_body = append_to_body,
-    destroy_on_close = destroy_on_close,
-    before_close = before_close,
-    footer = footer,
-    resizable = resizable,
-    modal_penetrable = modal_penetrable,
-    modal_class = modal_class,
-    header_class = header_class,
-    body_class = body_class,
-    footer_class = footer_class,
-    append_to = append_to,
-    open_delay = open_delay,
-    close_delay = close_delay,
-    z_index = z_index,
-    header_aria_level = header_aria_level
-  )
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
-  bind <- .vue_bound_markup(
-    mget(c(
-      "visible",
-      "title",
-      "size",
-      "direction",
-      "modal",
-      "with_header",
-      "show_close",
-      "close_on_click_modal",
-      "close_on_press_escape",
-      "lock_scroll"
-    )),
-    formals(el_drawer)
-  )
+  bind <- .vue_bound_markup(mget(.el_bindable("el_drawer")), formals(el_drawer))
   # a bound argument is drawn with its default until its expression is
   # read in the browser
   list2env(bind$values, environment())

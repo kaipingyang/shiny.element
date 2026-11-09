@@ -39,6 +39,9 @@
 #'     list(target = "#run", title = "Run", description = "Then press this.")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tour")`
+#'
 #' @export
 el_tour <- function(
   id = NULL,
@@ -63,6 +66,7 @@ el_tour <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_tour", environment())
   .el_check_choices("el_tour", environment())
   .el_check_items(steps, "steps", c("target", "title"))
   if (is.null(id)) {

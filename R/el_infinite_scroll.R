@@ -59,6 +59,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_infinite_scroll")`
+#'
 #' @export
 el_infinite_scroll <- function(
   id = NULL,
@@ -73,8 +76,7 @@ el_infinite_scroll <- function(
   on = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(height = height)
+  .el_check_bindings("el_infinite_scroll", environment())
   # Each piece of content is absorbed on its own, so several components
   # may sit in the same scrolling area.
   inners <- lapply(list(...), .el_absorb)

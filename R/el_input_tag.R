@@ -75,6 +75,9 @@
 #'   value = c("shiny", "element"),
 #'   placeholder = "Add a keyword"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_input_tag")`
+#'
 #' @export
 el_input_tag <- function(
   id = NULL,
@@ -116,6 +119,7 @@ el_input_tag <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_input_tag", environment())
   .el_check_choices("el_input_tag", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_input_tag")

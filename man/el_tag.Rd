@@ -98,6 +98,11 @@ The same list as \code{el_events("el_tag")}, which says how an event's arguments
 The clicks are counted as \code{\link[shiny:actionButton]{shiny::actionButton()}} counts them, 0 on load.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_tag]{el_tag()}}.

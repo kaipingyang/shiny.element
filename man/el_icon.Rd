@@ -64,6 +64,11 @@ Element Plus's icons are SVG components (\verb{@element-plus/icons-vue}, bundled
 the tag is an \verb{<i class="el-icon">} naming its icon, drawn by the page
 wherever it lands -- inside a component or not.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: an icon is drawn by R.
+}
+
 \examples{
 el_icon("Search")
 el_icon("edit", size = "1.5em")

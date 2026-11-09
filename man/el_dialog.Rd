@@ -180,6 +180,11 @@ Shiny routes an input binding's messages by element id, so the value is
 Callable with \code{\link[=call_el]{call_el()}}: \code{resetPosition()} puts a dragged dialog back.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{content}, \code{footer} (content drawn by R); \code{custom_class}, \code{append_to_body}, \code{destroy_on_close}, \code{before_close}, \code{modal_penetrable}, \code{close_icon}, \code{modal_class}, \code{header_class}, \code{body_class}, \code{footer_class}, \code{append_to}, \code{open_delay}, \code{close_delay}, \code{z_index}, \code{header_aria_level}, \code{transition} (set once, as the overlay is drawn).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_dialog]{el_dialog()}}: whether it shows, its title and

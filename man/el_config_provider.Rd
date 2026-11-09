@@ -107,6 +107,11 @@ el_page()'s.
 None: it reports nothing.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style). Given a binding, \code{locale} takes Element's own form, as it is; an R value is converted.
+}
+
 \section{Updating from the server}{
 
 \code{update_el_config_provider()} changes the component from the server: every argument of

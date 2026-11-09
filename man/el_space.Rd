@@ -78,6 +78,11 @@ Even spacing between its items, in a row or a column, wrapping if asked.
 None: it reports nothing.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_space()} changes the component from the server: every argument of

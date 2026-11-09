@@ -79,6 +79,11 @@ Entries are rendered with \verb{v-for} from a data field, so
 Content given as tags -- \code{el_card(...)} -- is drawn as markup; a string
 is text unless \code{html = TRUE}.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{html} (picks how entries are drawn); \code{width} (the mount point's style). Given a binding, \code{items} takes Element's records, \verb{[\{ value, label \}]}, as it is; an R value is converted.
+}
+
 \section{Updating from the server}{
 
 \code{update_el_timeline()} changes the component from the server.

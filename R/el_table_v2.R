@@ -97,6 +97,9 @@
 #'   width = 600,
 #'   height = 400
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_table_v2")`
+#'
 #' @export
 el_table_v2 <- function(
   id = NULL,
@@ -137,9 +140,8 @@ el_table_v2 <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_table_v2", environment())
   .el_check_choices("el_table_v2", environment())
-  # R reads these to draw the component
-  .vue_unbound(auto_resize = auto_resize)
   if (
     !is.null(methods) &&
       (!is.list(methods) ||

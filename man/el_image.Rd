@@ -168,6 +168,11 @@ full-screen preview.
 The same list as \code{el_events("el_image")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style); \code{class}, \code{style} (the root's attribute, drawn by R).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_image]{el_image()}}.

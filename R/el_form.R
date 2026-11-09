@@ -152,6 +152,9 @@
 #' @param trigger When to run the rule: `"blur"`, `"change"`, or both as
 #'   `c("blur", "change")`.
 #' @return A rule, for [el_form_field()]'s `rules` argument.
+#' @section Binding:
+#' `r .el_args_md("el_rule")`
+#'
 #' @export
 #' @examples
 #' el_rule(required = TRUE, message = "Please enter your name")
@@ -180,21 +183,7 @@ el_rule <- function(
   validator = NULL,
   transform = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(
-    required = required,
-    min = min,
-    max = max,
-    len = len,
-    pattern = pattern,
-    type = type,
-    message = message,
-    trigger = trigger,
-    enum = enum,
-    whitespace = whitespace,
-    validator = validator,
-    transform = transform
-  )
+  .el_check_bindings("el_rule", environment())
   if (!is.null(type)) {
     type <- match.arg(
       type,
@@ -272,6 +261,9 @@ el_rule <- function(
 #'   form item; anything else on the control, e.g. `placeholder`, `min`,
 #'   `max`, `disabled`. Names are converted to camelCase.
 #' @return A field declaration, for [el_form()].
+#' @section Binding:
+#' `r .el_args_md("el_form_field")`
+#'
 #' @export
 #' @examples
 #' el_form_field(
@@ -307,17 +299,7 @@ el_form_field <- function(
   ...,
   options = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(
-    prop = prop,
-    label = label,
-    value = value,
-    choices = choices,
-    rules = rules,
-    report = report,
-    button = button,
-    options = options
-  )
+  .el_check_bindings("el_form_field", environment())
   # Element's name for the choices: given through `...`, it went to the
   # control as its own `options` prop, records of nothing, and the
   # dropdown opened onto blank entries
@@ -445,6 +427,9 @@ el_form_field <- function(
 #'   [el_rule()]s do the checking.
 #' @param gutter Space between the columns, in pixels, as [el_row()]'s.
 #' @return A field declaration, for [el_form()].
+#' @section Binding:
+#' `r .el_args_md("el_form_item")`
+#'
 #' @export
 #' @examples
 #' el_form(
@@ -462,8 +447,7 @@ el_form_item <- function(
   required = NULL,
   gutter = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(label = label, required = required, gutter = gutter)
+  .el_check_bindings("el_form_item", environment())
   parts <- list(...)
   text <- vapply(parts, is.character, logical(1))
   if (is.null(spans)) {
@@ -569,6 +553,9 @@ el_form_item <- function(
 #' - `validateField()` -- Validate one or several form items
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_form")`
+#'
 #' @export
 #' @examples
 #' el_form(
@@ -660,6 +647,7 @@ el_form <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_form", environment())
   .el_check_choices("el_form", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_form")

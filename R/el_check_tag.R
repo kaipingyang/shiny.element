@@ -18,6 +18,9 @@
 #' @examples
 #' el_check_tag("pinned", "Pinned", value = TRUE)
 #' el_check_tag("urgent", "Urgent", type = "danger")
+#' @section Binding:
+#' `r .el_args_md("el_check_tag")`
+#'
 #' @export
 el_check_tag <- function(
   id,

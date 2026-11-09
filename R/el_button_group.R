@@ -26,6 +26,9 @@
 #'   el_button("prev", "Previous", icon = "ArrowLeft", type = "primary"),
 #'   el_button("next", "Next", type = "primary")
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_button_group")`
+#'
 #' @export
 el_button_group <- function(
   ...,
@@ -36,6 +39,7 @@ el_button_group <- function(
   width = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_button_group", environment())
   .el_check_choices("el_button_group", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_button_group")

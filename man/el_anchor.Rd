@@ -101,6 +101,11 @@ The same list as \code{el_events("el_anchor")}, which says how an event's argume
 Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo(href)}.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{links} (the links, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_anchor()} changes the component from the server: every argument of

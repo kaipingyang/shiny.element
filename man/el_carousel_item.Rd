@@ -23,6 +23,11 @@ A slide, for \code{el_carousel(items =)}.
 \description{
 Element Plus's \code{el-carousel-item}, for \code{el_carousel(items =)}.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a slide is drawn by el_carousel() from R.
+}
+
 \examples{
 el_carousel(
   "car",

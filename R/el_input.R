@@ -114,6 +114,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_input")`
+#'
 #' @export
 el_input <- function(
   id = NULL,
@@ -164,6 +167,7 @@ el_input <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_input", environment())
   .el_check_choices("el_input", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_input")

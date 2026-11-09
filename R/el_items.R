@@ -58,6 +58,9 @@ print.el_item <- function(x, ...) {
 #'     el_tab_pane("Config", el_switch("dark"), lazy = TRUE)
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tab_pane")`
+#'
 #' @export
 el_tab_pane <- function(
   label,
@@ -101,6 +104,9 @@ el_tab_pane <- function(
 #'     el_collapse_item("Feedback", "Operation feedback.", disabled = TRUE)
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_collapse_item")`
+#'
 #' @export
 el_collapse_item <- function(
   title,
@@ -148,6 +154,9 @@ el_collapse_item <- function(
 #'     el_timeline_item("Approved", timestamp = "2018-04-13", type = "success")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_timeline_item")`
+#'
 #' @export
 el_timeline_item <- function(
   content,
@@ -206,6 +215,9 @@ el_timeline_item <- function(
 #'     el_descriptions_item("Address", "No.1188, Wuzhong Avenue", span = 2)
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_descriptions_item")`
+#'
 #' @export
 el_descriptions_item <- function(
   label,
@@ -259,6 +271,9 @@ el_descriptions_item <- function(
 #'     el_carousel_item(htmltools::tags$h3("2"), name = "second")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_carousel_item")`
+#'
 #' @export
 el_carousel_item <- function(
   ...,
@@ -267,8 +282,7 @@ el_carousel_item <- function(
   style = NULL,
   class = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(name = name, label = label, style = style, class = class)
+  .el_check_bindings("el_carousel_item", environment())
   .el_item(
     "el_carousel_item",
     list(
@@ -302,6 +316,9 @@ el_carousel_item <- function(
 #'   ),
 #'   active = 1
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_step")`
+#'
 #' @export
 el_step <- function(
   title = NULL,
@@ -309,14 +326,8 @@ el_step <- function(
   icon = NULL,
   status = NULL
 ) {
+  .el_check_bindings("el_step", environment())
   .el_check_choices("el_step", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    title = title,
-    description = description,
-    icon = icon,
-    status = status
-  )
   .el_item(
     "el_step",
     list(title = title, description = description, icon = icon, status = status)
@@ -341,6 +352,9 @@ el_step <- function(
 #'     el_breadcrumb_item("Promotion list")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_breadcrumb_item")`
+#'
 #' @export
 el_breadcrumb_item <- function(label, to = NULL, replace = NULL) {
   .el_item(
@@ -370,6 +384,9 @@ el_breadcrumb_item <- function(label, to = NULL, replace = NULL) {
 #'     el_dropdown_item("plum", "Plum", divided = TRUE)
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_dropdown_item")`
+#'
 #' @export
 el_dropdown_item <- function(
   command,
@@ -422,6 +439,9 @@ el_dropdown_item <- function(
 #'     el_tour_step(title = "Done", description = "That is all.")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tour_step")`
+#'
 #' @export
 el_tour_step <- function(
   target = NULL,
@@ -439,24 +459,8 @@ el_tour_step <- function(
   show_close = NULL,
   close_icon = NULL
 ) {
+  .el_check_bindings("el_tour_step", environment())
   .el_check_choices("el_tour_step", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    target = target,
-    title = title,
-    description = description,
-    header = header,
-    show_arrow = show_arrow,
-    placement = placement,
-    content_style = content_style,
-    mask = mask,
-    type = type,
-    next_button_props = next_button_props,
-    prev_button_props = prev_button_props,
-    scroll_into_view_options = scroll_into_view_options,
-    show_close = show_close,
-    close_icon = close_icon
-  )
   .el_item(
     "el_tour_step",
     list(
@@ -500,6 +504,9 @@ el_tour_step <- function(
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_anchor_link")`
+#'
 #' @export
 el_anchor_link <- function(title, href, ...) {
   children <- list(...)
@@ -553,6 +560,9 @@ el_anchor_link <- function(title, href, ...) {
 #'   ),
 #'   mode = "horizontal"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_menu_item")`
+#'
 #' @export
 el_menu_item <- function(
   label,
@@ -655,6 +665,9 @@ el_menu_item_group <- function(title, ...) {
 #'     el_option_group("City name", el_option("Chengdu"), el_option("Dalian"))
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_option")`
+#'
 #' @export
 el_option <- function(label, value = label, disabled = NULL) {
   .el_item(
@@ -754,6 +767,9 @@ el_option_group <- function(label, ..., disabled = NULL) {
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_table_column")`
+#'
 #' @export
 el_table_column <- function(
   prop = NULL,
@@ -793,45 +809,8 @@ el_table_column <- function(
   filtered_value = NULL,
   tooltip_formatter = NULL
 ) {
+  .el_check_bindings("el_table_column", environment())
   .el_check_choices("el_table_column", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    prop = prop,
-    label = label,
-    cell = cell,
-    editable = editable,
-    editor = editor,
-    header = header,
-    header_html = header_html,
-    filter_icon = filter_icon,
-    type = type,
-    index = index,
-    column_key = column_key,
-    width = width,
-    min_width = min_width,
-    fixed = fixed,
-    render_header = render_header,
-    sortable = sortable,
-    sort_method = sort_method,
-    sort_by = sort_by,
-    sort_orders = sort_orders,
-    resizable = resizable,
-    formatter = formatter,
-    show_overflow_tooltip = show_overflow_tooltip,
-    align = align,
-    header_align = header_align,
-    class_name = class_name,
-    label_class_name = label_class_name,
-    selectable = selectable,
-    reserve_selection = reserve_selection,
-    filters = filters,
-    filter_placement = filter_placement,
-    filter_class_name = filter_class_name,
-    filter_multiple = filter_multiple,
-    filter_method = filter_method,
-    filtered_value = filtered_value,
-    tooltip_formatter = tooltip_formatter
-  )
   children <- list(...)
   # A group written el_table_column(label = "Info", el_table_column(...)):
   # R hands the first child column to `prop`, the next to `label`
@@ -919,6 +898,9 @@ el_table_column <- function(
 #'     el_table_v2_column("name", "Name", width = 200, sortable = TRUE)
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_table_v2_column")`
+#'
 #' @export
 el_table_v2_column <- function(
   key,
@@ -983,11 +965,13 @@ el_table_v2_column <- function(
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_skeleton_item")`
+#'
 #' @export
 el_skeleton_item <- function(variant = NULL, ...) {
+  .el_check_bindings("el_skeleton_item", environment())
   .el_check_choices("el_skeleton_item", environment())
-  # R reads these to draw the component
-  .vue_unbound(variant = variant)
   htmltools::tag("el-skeleton-item", c(list(variant = variant), list(...)))
 }
 

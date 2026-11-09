@@ -32,6 +32,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_affix(el_button("top", "Stays on top"), offset = 120)
+#' @section Binding:
+#' `r .el_args_md("el_affix")`
+#'
 #' @export
 el_affix <- function(
   ...,
@@ -47,6 +50,7 @@ el_affix <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_affix", environment())
   .el_check_choices("el_affix", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_affix")

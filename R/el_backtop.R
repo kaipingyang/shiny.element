@@ -32,6 +32,9 @@
 #'
 #' # Scrolling a panel rather than the page
 #' el_backtop("panel_top", target = "#report")
+#' @section Binding:
+#' `r .el_args_md("el_backtop")`
+#'
 #' @export
 el_backtop <- function(
   id = NULL,
@@ -46,8 +49,7 @@ el_backtop <- function(
   on = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(content = content)
+  .el_check_bindings("el_backtop", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_backtop")
   }

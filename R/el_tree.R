@@ -104,6 +104,9 @@
 #' - `updateKeyChildren()` -- Set new data to node, only works when node-key is assigned
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_tree")`
+#'
 #' @export
 #' @examples
 #' nodes <- list(
@@ -186,6 +189,7 @@ el_tree <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_tree", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_tree")
   }

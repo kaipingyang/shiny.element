@@ -188,6 +188,11 @@ through \code{\link[=update_vue]{update_vue()}} on the tooltip's id instead.
 The same list as \code{el_events("el_tooltip")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{reference} (content drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_tooltip]{el_tooltip()}}. Setting \code{visible} shows or hides

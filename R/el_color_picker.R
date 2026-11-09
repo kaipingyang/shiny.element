@@ -58,6 +58,9 @@
 #' @examples
 #' el_color_picker("cp1", value = "#409EFF")
 #' el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
+#' @section Binding:
+#' `r .el_args_md("el_color_picker")`
+#'
 #' @export
 el_color_picker <- function(
   id = NULL,
@@ -92,6 +95,7 @@ el_color_picker <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_color_picker", environment())
   .el_check_choices("el_color_picker", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_color_picker")

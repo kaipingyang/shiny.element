@@ -286,6 +286,9 @@
 #' - `submit()` -- Upload the file list manually
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_upload")`
+#'
 #' @export
 #' @examples
 #' # A drop zone taking several CSVs, read on the server like fileInput()
@@ -358,9 +361,8 @@ el_upload <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_upload", environment())
   .el_check_choices("el_upload", environment())
-  # R reads these to draw the component
-  .vue_unbound(name = name, tip = tip, action = action)
   if (is.null(id)) {
     id <- .vue_auto_id("el_upload")
   }

@@ -163,6 +163,9 @@
 #' }
 
 #' @template events
+#' @section Binding:
+#' `r .el_args_md("el_calendar")`
+#'
 el_calendar <- function(
   id = NULL,
   value = NULL,
@@ -189,14 +192,8 @@ el_calendar <- function(
   first_day_of_week = NULL,
   workweek = FALSE
 ) {
+  .el_check_bindings("el_calendar", environment())
   .el_check_choices("el_calendar", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    range = range,
-    editable = editable,
-    use_detail_popup = use_detail_popup,
-    workweek = workweek
-  )
   # mistakes are reported here, where the calendar is written
   .el_calendar_events(events)
   .el_calendar_labels(event_labels)

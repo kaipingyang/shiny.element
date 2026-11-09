@@ -121,6 +121,9 @@
 #' - `getCheckedNodes()` -- Get an array of currently selected node
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_cascader")`
+#'
 #' @export
 #' @examples
 #' # Basic cascader usage
@@ -228,9 +231,8 @@ el_cascader <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_cascader", environment())
   .el_check_choices("el_cascader", environment())
-  # R reads these to draw the component
-  .vue_unbound(level_inputs = level_inputs)
   if (is.null(id)) {
     id <- .vue_auto_id("el_cascader")
   }

@@ -417,6 +417,11 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{rownames} (read by R from the data); \code{width} (the mount point's style); \code{loading} (the output's mask, set from R); \code{loading_options} (the mask's attributes, set from R). Given a binding, \code{columns} takes Element's records, \verb{[\{ value, label \}]}, as it is; an R value is converted.
+}
+
 \section{Updating from the server}{
 
 Changes a table from the server, as \code{\link[shiny:updateSelectInput]{shiny::updateSelectInput()}} does a

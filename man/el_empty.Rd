@@ -57,6 +57,11 @@ A Shiny UI element.
 \description{
 A placeholder for a view with nothing in it yet.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_empty]{el_empty()}}.

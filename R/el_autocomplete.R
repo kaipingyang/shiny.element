@@ -79,6 +79,9 @@
 #'   clearable = TRUE,
 #'   width = 260
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_autocomplete")`
+#'
 #' @export
 el_autocomplete <- function(
   id = NULL,
@@ -123,12 +126,8 @@ el_autocomplete <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_autocomplete", environment())
   .el_check_choices("el_autocomplete", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    remote = remote,
-    fetch_suggestions = fetch_suggestions
-  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_autocomplete")
   }

@@ -132,18 +132,8 @@ el_widget <- function(
   props = NULL,
   absorbed = NULL
 ) {
+  .vue_check_bindings("el_widget", environment(), .el_arg_widget)
   # the label and the form item around it are drawn in R
-  .vue_unbound(
-    label = label,
-    label_position = label_position,
-    label_width = label_width,
-    label_suffix = label_suffix,
-    required = required,
-    error = error,
-    show_message = show_message,
-    inline_message = inline_message,
-    width = width
-  )
   container_id <- paste0(id, "_container")
   # an event the component handles and also forwards, or hands to `on`:
   # its handlers as one

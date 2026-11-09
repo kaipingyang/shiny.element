@@ -41,6 +41,11 @@ Element's container styles are plain CSS, so no Vue instance is needed --
 and none is wanted: one mounted over the container would recompile the
 components placed inside it and detach them.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 # Header above a sidebar and main area
 el_container(

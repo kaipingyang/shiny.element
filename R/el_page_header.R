@@ -38,6 +38,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_page_header")`
+#'
 #' @export
 el_page_header <- function(
   id = NULL,
@@ -50,6 +53,7 @@ el_page_header <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_page_header", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_page_header")
   }

@@ -48,6 +48,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
+#' @section Binding:
+#' `r .el_args_md("el_scrollbar")`
+#'
 #' @export
 el_scrollbar <- function(
   ...,
@@ -73,6 +76,7 @@ el_scrollbar <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_scrollbar", environment())
   .el_check_choices("el_scrollbar", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_scrollbar")

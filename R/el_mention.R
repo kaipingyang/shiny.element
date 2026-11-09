@@ -54,6 +54,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_mention("msg", options = c("Ada", "Grace", "Linus"), placeholder = "Type @")
+#' @section Binding:
+#' `r .el_args_md("el_mention")`
+#'
 #' @export
 el_mention <- function(
   id = NULL,
@@ -89,6 +92,7 @@ el_mention <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_mention", environment())
   .el_check_choices("el_mention", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =); a v_bind() is Element's form

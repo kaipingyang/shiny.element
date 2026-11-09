@@ -36,6 +36,11 @@ A tab, for \code{el_tabs(tabs =)}.
 Element Plus's \code{el-tab-pane}, for \code{el_tabs(tabs =)} and
 \code{\link[=update_el_tabs]{update_el_tabs()}}: \code{el_tabs("t", tabs = list(el_tab_pane("One", ...), el_tab_pane("Two", ...)))}.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_tabs(
   "t",

@@ -89,6 +89,9 @@
 #'   trigger = "hover",
 #'   placement = "right"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_popover")`
+#'
 #' @export
 el_popover <- function(
   id = NULL,
@@ -125,9 +128,8 @@ el_popover <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_popover", environment())
   .el_check_choices("el_popover", environment())
-  # R reads these to draw the component
-  .vue_unbound(reference = reference, body = body)
   inner_ref <- .el_absorb(reference)
   inner_body <- .el_absorb(body)
 

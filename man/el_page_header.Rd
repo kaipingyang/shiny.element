@@ -73,6 +73,11 @@ A page title with a back link.
 The same list as \code{el_events("el_page_header")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_page_header]{el_page_header()}}.

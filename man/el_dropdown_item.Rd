@@ -29,6 +29,11 @@ An entry, for \code{el_dropdown(items =)}.
 \description{
 Element Plus's \code{el-dropdown-item}, for \code{el_dropdown(items =)}.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_dropdown(
   "dd",

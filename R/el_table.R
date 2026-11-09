@@ -649,6 +649,9 @@
 #' - `toggleRowSelection()` -- Used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can...
 #'
 #' @return An `el_table` object, drawn as a table wherever UI goes.
+#' @section Binding:
+#' `r .el_args_md("el_table")`
+#'
 #' @export
 #' @examples
 #' # A data.frame is enough -- columns are inferred
@@ -746,9 +749,8 @@ el_table <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_table", environment())
   .el_check_choices("el_table", environment())
-  # R reads these to draw the component
-  .vue_unbound(rownames = rownames, loading = loading)
   # Mistakes are reported here, where the table is written, not where it
   # is drawn
   args <- .el_table_args(id, data, columns)

@@ -200,6 +200,11 @@ command that is reported as a Shiny input.
 The same list as \code{el_events("el_dropdown")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{trigger_label} (content drawn by R); \code{items} (the items, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_dropdown]{el_dropdown()}}.

@@ -70,6 +70,9 @@
 #'   src = "a.png",
 #'   preview_src_list = c("a.png", "b.png", "c.png")
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_image")`
+#'
 #' @export
 el_image <- function(
   id = NULL,
@@ -101,9 +104,8 @@ el_image <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_image", environment())
   .el_check_choices("el_image", environment())
-  # R reads these to draw the component
-  .vue_unbound(class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_image")
   }

@@ -73,6 +73,11 @@ One panel of an \code{\link[=el_splitter]{el_splitter()}}.
 None: it reports nothing.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_splitter_panel()} changes a panel's settings: one inside an

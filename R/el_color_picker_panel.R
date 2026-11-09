@@ -36,6 +36,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_color_picker_panel("brand", value = "#409EFF")
+#' @section Binding:
+#' `r .el_args_md("el_color_picker_panel")`
+#'
 #' @export
 el_color_picker_panel <- function(
   id = NULL,
@@ -60,6 +63,7 @@ el_color_picker_panel <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_color_picker_panel", environment())
   .el_check_choices("el_color_picker_panel", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_color_picker_panel")

@@ -183,6 +183,9 @@
 #' - `open()` -- Open a specific sub-menu
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_menu")`
+#'
 #' @export
 #' @examples
 #' el_menu(
@@ -245,8 +248,7 @@ el_menu <- function(
   on = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(class = class, style = style)
+  .el_check_bindings("el_menu", environment())
   .el_check_items(items, "items", c("index", "label"))
   .el_check_choices("el_menu", environment())
   if (is.null(id)) {

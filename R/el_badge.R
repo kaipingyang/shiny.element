@@ -31,6 +31,9 @@
 #'
 #' # Updated from the server: update_el_badge(session, "unread", value = 7)
 #' el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
+#' @section Binding:
+#' `r .el_args_md("el_badge")`
+#'
 #' @export
 el_badge <- function(
   ...,

@@ -27,6 +27,11 @@ Element Plus's \code{el-option} and \code{el-option-group}, for the \code{choice
 \code{\link[=el_select]{el_select()}} and the other choice components -- where a named vector
 cannot say that one choice is disabled, or that choices come in groups.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_select(
   "city",

@@ -25,6 +25,9 @@
 #'   description = "No reports yet",
 #'   el_button("create", "Create one", type = "primary")
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_empty")`
+#'
 #' @export
 el_empty <- function(
   id = NULL,
@@ -37,6 +40,7 @@ el_empty <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_empty", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_empty")
   }

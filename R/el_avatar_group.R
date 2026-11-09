@@ -43,6 +43,9 @@
 #'   el_avatar("B"),
 #'   collapse_avatars = TRUE
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_avatar_group")`
+#'
 #' @export
 el_avatar_group <- function(
   ...,
@@ -62,6 +65,7 @@ el_avatar_group <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_avatar_group", environment())
   .el_check_choices("el_avatar_group", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_avatar_group")

@@ -77,27 +77,159 @@
   spec
 }
 
-#' Arguments R reads to draw a component, which cannot follow state
+#' A component's arguments, by kind: which follow state and which do not
 #'
-#' Called with the arguments by name; an error names those given
-#' [v_bind()] or [v_model()].
+#' A component library says what each argument of its components is where
+#' it is not a prop -- a named character vector, `kinds`:
 #'
-#' @param ... The arguments, named.
+#' * `"markup: <why>"`: R draws with it; a binding is refused, the why
+#'   given;
+#' * `"data"` or `"data:<shape>"`: R converts an R value; a binding is the
+#'   library's own form (`shape` for the development build's check);
+#' * `"stands:<field>,<field>"`: one argument for several fields;
+#' * `"alias:<argument>"`: another name of an argument.
+#'
+#' An argument not named is a prop: it follows a binding. One unnamed
+#' string is the kind of every argument. The library keeps the facts; this
+#' is the mechanism, as `.vue_event_bindings()` is for events.
+#'
+#' @param kinds The kinds, as above.
+#' @param arg An argument's name.
+#' @return `list(kind, detail)`.
+#' @keywords internal
+.vue_arg_kind <- function(kinds, arg) {
+  k <- if (length(kinds) == 1L && is.null(names(kinds))) {
+    kinds
+  } else if (arg %in% names(kinds)) {
+    kinds[[arg]]
+  } else {
+    "prop"
+  }
+  list(
+    kind = sub(":.*$", "", k),
+    detail = trimws(
+      if (grepl(":", k, fixed = TRUE)) sub("^[^:]*:", "", k) else ""
+    )
+  )
+}
+
+#' Refuse a binding of an argument R draws with
+#'
+#' Run first in a component, over its own environment: an argument whose
+#' kind is `markup` and which was given [v_bind()] or [v_model()] is an
+#' error naming the function, the argument and the reason.
+#'
+#' @param fn The component function's name, for the message.
+#' @param env Its environment.
+#' @param kinds Its arguments' kinds (`.vue_arg_kind()`).
 #' @return `NULL`, invisibly.
 #' @keywords internal
-.vue_unbound <- function(...) {
-  args <- list(...)
-  hit <- names(args)[vapply(args, inherits, logical(1), "vue_binding")]
-  if (length(hit)) {
-    stop(
-      paste(sQuote(hit, FALSE), collapse = ", "),
-      " cannot follow v_bind() or v_model(): R reads ",
-      if (length(hit) == 1L) "it" else "them",
-      " to draw the component.",
-      call. = FALSE
-    )
+.vue_check_bindings <- function(fn, env, kinds) {
+  # the arguments the kinds name -- or, for one kind of them all, every
+  # argument given; one not given is not looked at
+  names <- if (length(kinds) == 1L && is.null(names(kinds))) {
+    setdiff(ls(env), "...")
+  } else {
+    names(kinds)
+  }
+  for (a in names) {
+    v <- tryCatch(get(a, envir = env, inherits = FALSE), error = function(e) {
+      NULL
+    })
+    if (!inherits(v, "vue_binding")) {
+      next
+    }
+    k <- .vue_arg_kind(kinds, a)
+    if (k$kind == "markup") {
+      stop(
+        sQuote(a, FALSE),
+        " of ",
+        fn,
+        "() cannot follow v_bind() or v_model(): ",
+        if (nzchar(k$detail)) k$detail else "R draws with it",
+        ".",
+        call. = FALSE
+      )
+    }
   }
   invisible(NULL)
+}
+
+#' The arguments a component drawn as markup binds
+#'
+#' Its arguments but its frame (`skip`) and those whose kind is not a
+#' prop: the fields its binding follows, as its update sets them.
+#'
+#' @param args The function's arguments' names.
+#' @param kinds Their kinds.
+#' @param skip Arguments of the component's frame (id, session, ...).
+#' @return The names.
+#' @keywords internal
+.vue_bindable <- function(args, kinds, skip) {
+  args <- setdiff(args, skip)
+  args[vapply(args, function(a) .vue_arg_kind(kinds, a)$kind == "prop", TRUE)]
+}
+
+#' A component's help-page sentence on bindings
+#'
+#' Every argument can follow [v_bind()] but those it names: R's markup,
+#' with the why; data, with the form a binding gives. Written from the
+#' kinds, so the page says what the component does.
+#'
+#' @param args The function's arguments' names.
+#' @param kinds Their kinds.
+#' @param skip Arguments of the component's frame.
+#' @param library Whose form a binding gives, in words: `"the library's"`.
+#' @return A markdown sentence.
+#' @keywords internal
+.vue_bindings_md <- function(args, kinds, skip, library = "the library's") {
+  args <- setdiff(args, skip)
+  ks <- lapply(stats::setNames(args, args), function(a) .vue_arg_kind(kinds, a))
+  kind <- vapply(ks, `[[`, "", "kind")
+  if (all(kind == "markup")) {
+    return(paste0(
+      "No argument follows [v_bind()]: ",
+      ks[[1]]$detail %||% "R draws with them",
+      "."
+    ))
+  }
+  out <- "Every argument can follow [v_bind()] or [v_model()]"
+  markup <- args[kind == "markup"]
+  if (length(markup)) {
+    why <- vapply(ks[markup], `[[`, "", "detail")
+    why[!nzchar(why)] <- "R draws with it"
+    # the arguments one reason covers, together
+    groups <- vapply(
+      unique(why),
+      function(w) {
+        paste0(
+          paste0("`", markup[why == w], "`", collapse = ", "),
+          " (",
+          w,
+          ")"
+        )
+      },
+      ""
+    )
+    out <- paste0(out, " except ", paste(groups, collapse = "; "))
+  }
+  out <- paste0(out, ".")
+  data <- args[kind == "data"]
+  if (length(data)) {
+    shape <- vapply(ks[data], `[[`, "", "detail")
+    form <- ifelse(
+      shape == "records",
+      paste(library, "records, `[{ value, label }]`"),
+      paste(library, "own form")
+    )
+    out <- paste0(
+      out,
+      " Given a binding, ",
+      paste0("`", data, "` takes ", form, collapse = "; "),
+      ", as it is; an R value is converted."
+    )
+  }
+  out
 }
 
 #' Arguments of a component drawn as markup, given v_bind() or v_model()

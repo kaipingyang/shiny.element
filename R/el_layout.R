@@ -62,6 +62,9 @@
 #' @param class Extra CSS classes.
 #' @param style Extra inline style.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_row")`
+#'
 #' @export
 #' @examples
 #' # Two equal columns with a 20px gutter
@@ -87,16 +90,8 @@ el_row <- function(
   class = NULL,
   style = NULL
 ) {
+  .el_check_bindings("el_row", environment())
   .el_check_choices("el_row", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    type = type,
-    justify = justify,
-    align = align,
-    tag = tag,
-    class = class,
-    style = style
-  )
   children <- list(...)
   # As Element Plus's row: start has no class of its own, an align always
   # has one
@@ -155,6 +150,9 @@ el_row <- function(
 #' @param class Extra CSS classes.
 #' @param style Extra inline style.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_col")`
+#'
 #' @export
 #' @examples
 #' el_col(span = 12, "half width")
@@ -176,21 +174,7 @@ el_col <- function(
   class = NULL,
   style = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(
-    span = span,
-    offset = offset,
-    push = push,
-    pull = pull,
-    xs = xs,
-    sm = sm,
-    md = md,
-    lg = lg,
-    xl = xl,
-    tag = tag,
-    class = class,
-    style = style
-  )
+  .el_check_bindings("el_col", environment())
   classes <- c("el-col", sprintf("el-col-%s", span))
 
   for (nm in c("offset", "push", "pull")) {

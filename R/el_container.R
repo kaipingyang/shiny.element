@@ -67,6 +67,9 @@
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_container")`
+#'
 #' @export
 #' @examples
 #' # Header above a sidebar and main area
@@ -91,9 +94,8 @@ el_container <- function(
   class = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_container", environment())
   .el_check_choices("el_container", environment())
-  # R reads these to draw the component
-  .vue_unbound(direction = direction, style = style, class = class)
   children <- list(...)
 
   vertical <- if (!is.null(direction)) {
@@ -133,13 +135,15 @@ el_container <- function(
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_header")`
+#'
 #' @export
 #' @examples
 #' el_header("Dashboard")
 #' el_header(height = "80px", el_button("refresh", "Refresh"))
 el_header <- function(..., height = "60px", style = NULL, class = NULL) {
-  # R reads these to draw the component
-  .vue_unbound(height = height, style = style, class = class)
+  .el_check_bindings("el_header", environment())
   .el_container_part("el-header", list(...), height, "height", style, class)
 }
 
@@ -151,13 +155,15 @@ el_header <- function(..., height = "60px", style = NULL, class = NULL) {
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_aside")`
+#'
 #' @export
 #' @examples
 #' el_aside("Navigation")
 #' el_aside(width = "200px", el_radio_group("nav", choices = c(Home = "h")))
 el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
-  # R reads these to draw the component
-  .vue_unbound(width = width, style = style, class = class)
+  .el_check_bindings("el_aside", environment())
   .el_container_part("el-aside", list(...), width, "width", style, class)
 }
 
@@ -167,13 +173,15 @@ el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_main")`
+#'
 #' @export
 #' @examples
 #' el_main("Body content")
 #' el_main(el_table(data = head(iris, 3)))
 el_main <- function(..., style = NULL, class = NULL) {
-  # R reads these to draw the component
-  .vue_unbound(style = style, class = class)
+  .el_check_bindings("el_main", environment())
   .el_container_part("el-main", list(...), style = style, extra_class = class)
 }
 
@@ -185,12 +193,14 @@ el_main <- function(..., style = NULL, class = NULL) {
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_footer")`
+#'
 #' @export
 #' @examples
 #' el_footer("(c) 2026")
 #' el_footer(height = "40px", "Compact footer")
 el_footer <- function(..., height = "60px", style = NULL, class = NULL) {
-  # R reads these to draw the component
-  .vue_unbound(height = height, style = style, class = class)
+  .el_check_bindings("el_footer", environment())
   .el_container_part("el-footer", list(...), height, "height", style, class)
 }

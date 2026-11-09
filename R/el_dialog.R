@@ -80,6 +80,9 @@
 #'   draggable = TRUE,
 #'   content = shiny::tagList(el_input("q"), el_switch("live"))
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_dialog")`
+#'
 #' @export
 el_dialog <- function(
   id = NULL,
@@ -118,48 +121,10 @@ el_dialog <- function(
   events = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(
-    content = content,
-    footer = footer,
-    custom_class = custom_class,
-    append_to_body = append_to_body,
-    destroy_on_close = destroy_on_close,
-    before_close = before_close,
-    modal_penetrable = modal_penetrable,
-    close_icon = close_icon,
-    modal_class = modal_class,
-    header_class = header_class,
-    body_class = body_class,
-    footer_class = footer_class,
-    append_to = append_to,
-    open_delay = open_delay,
-    close_delay = close_delay,
-    z_index = z_index,
-    header_aria_level = header_aria_level,
-    transition = transition
-  )
+  .el_check_bindings("el_dialog", environment())
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
-  bind <- .vue_bound_markup(
-    mget(c(
-      "visible",
-      "title",
-      "width",
-      "top",
-      "fullscreen",
-      "modal",
-      "close_on_click_modal",
-      "close_on_press_escape",
-      "show_close",
-      "center",
-      "lock_scroll",
-      "draggable",
-      "overflow",
-      "align_center"
-    )),
-    formals(el_dialog)
-  )
+  bind <- .vue_bound_markup(mget(.el_bindable("el_dialog")), formals(el_dialog))
   # a bound argument is drawn with its default until its expression is
   # read in the browser
   list2env(bind$values, environment())

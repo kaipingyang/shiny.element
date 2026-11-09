@@ -43,6 +43,9 @@
 #'
 #' # The quick form: names are labels
 #' el_descriptions("car", items = as.list(mtcars[1, 1:6]))
+#' @section Binding:
+#' `r .el_args_md("el_descriptions")`
+#'
 #' @export
 el_descriptions <- function(
   id = NULL,
@@ -59,6 +62,7 @@ el_descriptions <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_descriptions", environment())
   .el_check_choices("el_descriptions", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_descriptions")

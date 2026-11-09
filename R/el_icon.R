@@ -43,6 +43,9 @@
 #' el_icon("edit", size = "1.5em")
 #' el_icon("Delete", title = "Delete item", color = "#f56c6c")
 #' el_icon("close", a11y = "deco")
+#' @section Binding:
+#' `r .el_args_md("el_icon")`
+#'
 #' @export
 el_icon <- function(
   name,
@@ -54,16 +57,7 @@ el_icon <- function(
   ...,
   color = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(
-    name = name,
-    size = size,
-    class = class,
-    title = title,
-    a11y = a11y,
-    lib = lib,
-    color = color
-  )
+  .el_check_bindings("el_icon", environment())
   if (identical(lib, "element-ui")) {
     lib <- "element-plus"
   }

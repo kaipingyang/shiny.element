@@ -44,6 +44,11 @@ An \code{htmltools} tag.
 A card container with optional header and body. Supports \code{always}, \code{hover},
 and \code{never} shadow modes.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: content drawn by R.
+}
+
 \examples{
 el_card(shiny::tags$p("Card body text."), header = "My Card")
 el_card(shiny::tags$p("No shadow."), shadow = "never")

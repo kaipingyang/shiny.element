@@ -47,6 +47,11 @@ A Shiny UI element.
 \description{
 Emits \verb{<div class="el-col el-col-N">} directly; see \code{\link[=el_row]{el_row()}} for why.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 el_col(span = 12, "half width")
 el_col(span = 6, offset = 6, "quarter, pushed right")

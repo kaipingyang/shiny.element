@@ -192,6 +192,11 @@ The requests change nothing by themselves: answer them with
 \code{\link[=update_el_calendar]{update_el_calendar()}}, as the example does.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{range} (picks the calendar's markup); \code{label}, \code{label_position}, \code{label_width}, \code{label_suffix}, \code{required}, \code{error}, \code{show_message}, \code{inline_message} (the form item around the component, drawn by R); \code{width} (the mount point's style); \code{editable} (draws the planner's dialog); \code{event_labels} (the planner's words, drawn by R); \code{calendars}, \code{visible_event_count} (read by R to draw the planner); \code{use_detail_popup} (draws the planner's popup); \code{first_day_of_week} (set on Day.js as the calendar is drawn); \code{workweek} (picks the days drawn).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_calendar]{el_calendar()}}: the selected day, the range, and

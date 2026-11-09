@@ -22,6 +22,11 @@ A Shiny UI element.
 \description{
 Element Plus Aside
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 el_aside("Navigation")
 el_aside(width = "200px", el_radio_group("nav", choices = c(Home = "h")))

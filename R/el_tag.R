@@ -38,6 +38,9 @@
 #' @examples
 #' el_tag("tag1", "Success", type = "success")
 #' el_tag("tag2", "Closable", closable = TRUE)
+#' @section Binding:
+#' `r .el_args_md("el_tag")`
+#'
 #' @export
 el_tag <- function(
   id = NULL,
@@ -55,6 +58,7 @@ el_tag <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_tag", environment())
   .el_check_choices("el_tag", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_tag")

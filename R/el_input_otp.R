@@ -44,6 +44,9 @@
 #' @examples
 #' el_input_otp("code", length = 6)
 #' el_input_otp("pin", length = 4, mask = TRUE, type = "underlined")
+#' @section Binding:
+#' `r .el_args_md("el_input_otp")`
+#'
 #' @export
 el_input_otp <- function(
   id = NULL,
@@ -72,6 +75,7 @@ el_input_otp <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_input_otp", environment())
   .el_check_choices("el_input_otp", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_input_otp")

@@ -22,6 +22,11 @@ A Shiny UI element.
 \description{
 Element Plus Footer
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 el_footer("(c) 2026")
 el_footer(height = "40px", "Compact footer")

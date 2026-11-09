@@ -34,6 +34,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
+#' @section Binding:
+#' `r .el_args_md("el_watermark")`
+#'
 #' @export
 el_watermark <- function(
   ...,
@@ -51,6 +54,7 @@ el_watermark <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_watermark", environment())
   .el_check_choices("el_watermark", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_watermark")

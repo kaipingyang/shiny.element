@@ -96,6 +96,9 @@
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_dropdown")`
+#'
 #' @export
 el_dropdown <- function(
   id = NULL,
@@ -131,8 +134,7 @@ el_dropdown <- function(
   on = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(trigger_label = trigger_label)
+  .el_check_bindings("el_dropdown", environment())
   .el_check_items(items, "items", c("command", "label"))
   .el_check_choices("el_dropdown", environment())
   if (is.null(id)) {

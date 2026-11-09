@@ -91,6 +91,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_slider")`
+#'
 #' @export
 el_slider <- function(
   id = NULL,
@@ -132,9 +135,8 @@ el_slider <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_slider", environment())
   .el_check_choices("el_slider", environment())
-  # R reads these to draw the component
-  .vue_unbound(range = range, vertical = vertical)
   if (is.null(id)) {
     id <- .vue_auto_id("el_slider")
   }

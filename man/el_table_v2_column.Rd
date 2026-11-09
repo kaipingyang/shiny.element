@@ -61,6 +61,11 @@ A column, for \code{el_table_v2(columns =)}.
 A column definition for \code{el_table_v2(columns =)} and
 \code{\link[=update_el_table_v2]{update_el_table_v2()}}, under Element Plus's own field names.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_table_v2(
   "tv",

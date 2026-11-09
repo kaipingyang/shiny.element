@@ -86,6 +86,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_radio_group")`
+#'
 #' @export
 el_radio_group <- function(
   id = NULL,
@@ -115,9 +118,8 @@ el_radio_group <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_radio_group", environment())
   .el_check_choices("el_radio_group", environment())
-  # R reads these to draw the component
-  .vue_unbound(button = button)
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {

@@ -35,6 +35,11 @@ An \code{htmltools} tag.
 \description{
 Renders a horizontal or vertical dividing line, optionally with inline text.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a divider is drawn as markup by R.
+}
+
 \examples{
 el_divider()
 el_divider("Title Text", content_position = "left")

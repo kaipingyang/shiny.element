@@ -19,6 +19,11 @@ A Shiny UI element.
 \description{
 Element Plus Main
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a layout drawn as markup by R.
+}
+
 \examples{
 el_main("Body content")
 el_main(el_table(data = head(iris, 3)))

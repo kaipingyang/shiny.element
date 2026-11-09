@@ -128,6 +128,11 @@ The same list as \code{el_events("el_image_viewer")}, which says how an event's 
 Callable with \code{\link[=call_el]{call_el()}}: \code{setActiveItem()}.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style). Given a binding, \code{url_list} takes Element's own form, as it is; an R value is converted.
+}
+
 \section{Updating from the server}{
 
 Open or close an \code{\link[=el_image_viewer]{el_image_viewer()}}, or give it other images.

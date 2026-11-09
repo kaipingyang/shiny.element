@@ -173,6 +173,11 @@ neither \code{disabled} nor \code{loading} is \code{TRUE}. It carries the same c
 \code{observeEvent()} and \code{req()} treat 0 as not yet clicked.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{circle} (drawn by R as the button's shape); \code{task} (makes it a task button, bslib's protocol); \code{class}, \code{style} (the root's attribute, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_button]{el_button()}}. Supports all visual states including

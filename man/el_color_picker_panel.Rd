@@ -136,6 +136,11 @@ The same list as \code{el_events("el_color_picker_panel")}, which says how an ev
 Callable with \code{\link[=call_el]{call_el()}}: \code{update()}.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{label}, \code{label_position}, \code{label_width}, \code{label_suffix}, \code{required}, \code{error}, \code{show_message}, \code{inline_message} (the form item around the component, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_color_picker_panel]{el_color_picker_panel()}}.

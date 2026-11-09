@@ -86,6 +86,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_pagination")`
+#'
 #' @export
 el_pagination <- function(
   id = NULL,
@@ -117,6 +120,7 @@ el_pagination <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_pagination", environment())
   .el_check_choices("el_pagination", environment())
   # R reads these to draw the component
   if (is.null(id)) {

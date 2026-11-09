@@ -153,15 +153,15 @@ test_that("a whole field is bound, not a part of one", {
 test_that("arguments R draws with say so rather than drop the binding", {
   expect_error(
     el_switch("sw", label = v_bind("$vueStore.ui.label")),
-    "'label' cannot follow v_bind\\(\\) or v_model"
+    "'label' of el_switch\\(\\) cannot follow v_bind\\(\\) or v_model"
   )
   expect_error(
     el_card("x", class = v_bind("$vueStore.ui.cls")),
-    "'class' cannot follow"
+    "'class' of el_card\\(\\) cannot follow"
   )
   expect_error(
     el_select("s", choices = "a", multiple = v_bind("$vueStore.ui.m")),
-    "'multiple' cannot follow"
+    "'multiple' of el_select\\(\\) cannot follow"
   )
 })
 
@@ -247,7 +247,7 @@ test_that("containers follow state through data-shiny-vue-bind", {
   # what no update can set is drawn in R
   expect_error(
     el_dialog("dlg", footer = v_bind("$vueStore.ui.f")),
-    "'footer' cannot follow"
+    "'footer' of el_dialog\\(\\) cannot follow"
   )
   expect_null(bound(el_dialog("dlg")))
 })

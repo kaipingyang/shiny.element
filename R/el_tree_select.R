@@ -62,6 +62,9 @@
 #'     list(value = "ops", label = "Operations")
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tree_select")`
+#'
 #' @export
 el_tree_select <- function(
   id,
@@ -99,6 +102,7 @@ el_tree_select <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_tree_select", environment())
   .el_check_choices("el_tree_select", environment())
   ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(

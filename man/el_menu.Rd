@@ -193,6 +193,11 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{items} (the items, drawn by R); \code{class}, \code{style} (the root's attribute, drawn by R); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_menu()} changes the component from the server.

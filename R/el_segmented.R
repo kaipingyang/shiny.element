@@ -39,6 +39,9 @@
 #'   options = c(Day = "d", Week = "w", Month = "m"),
 #'   value = "w"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_segmented")`
+#'
 #' @export
 el_segmented <- function(
   id = NULL,
@@ -63,6 +66,7 @@ el_segmented <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_segmented", environment())
   .el_check_choices("el_segmented", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =); a v_bind() is Element's form

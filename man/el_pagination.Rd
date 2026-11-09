@@ -166,6 +166,11 @@ jump-to-page input, and total count display.
 The same list as \code{el_events("el_pagination")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style). Given a binding, \code{page_sizes} takes Element's own form, as it is; an R value is converted.
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_pagination]{el_pagination()}}.

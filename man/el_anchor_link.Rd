@@ -19,6 +19,11 @@ A link, for \code{el_anchor(links =)}.
 \description{
 Element Plus's \code{el-anchor-link}, for \code{el_anchor(links =)}.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_anchor(
   "an",

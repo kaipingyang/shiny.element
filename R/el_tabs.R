@@ -69,6 +69,9 @@
 #'     list(name = "opts", label = "Options", content = el_switch("live"))
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tabs")`
+#'
 #' @export
 el_tabs <- function(
   id = NULL,
@@ -86,8 +89,7 @@ el_tabs <- function(
   events = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(before_leave = before_leave, add_icon = add_icon)
+  .el_check_bindings("el_tabs", environment())
   # Element's editable is closable and addable together: a bound one binds
   # both, as an update's editable sets both
   if (inherits(editable, "vue_binding")) {
@@ -98,17 +100,7 @@ el_tabs <- function(
   selected <- .vue_alias(selected, value, "selected", "value")
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
-  bind <- .vue_bound_markup(
-    mget(c(
-      "selected",
-      "type",
-      "tab_position",
-      "closable",
-      "addable",
-      "stretch"
-    )),
-    formals(el_tabs)
-  )
+  bind <- .vue_bound_markup(mget(.el_bindable("el_tabs")), formals(el_tabs))
   # a bound argument is drawn with its default until its expression is
   # read in the browser
   list2env(bind$values, environment())

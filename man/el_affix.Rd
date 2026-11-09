@@ -95,6 +95,11 @@ The same list as \code{el_events("el_affix")}, which says how an event's argumen
 Callable with \code{\link[=call_el]{call_el()}}: \code{update()}, \code{updateRoot()}.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_affix()} changes the component from the server: every argument of

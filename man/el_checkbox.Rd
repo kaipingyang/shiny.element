@@ -130,6 +130,11 @@ Element. For several choices, \code{\link[=el_checkbox_group]{el_checkbox_group(
 The same list as \code{el_events("el_checkbox")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_checkbox]{el_checkbox()}}.

@@ -60,6 +60,11 @@ children, which a button with a host of its own would not be. So
 \code{update_el_button()} cannot reach them; set their fields with
 \code{\link[=update_vue]{update_vue()}} on the group's id.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_button_group()} changes the component from the server: every argument of

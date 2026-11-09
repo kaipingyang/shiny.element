@@ -67,6 +67,11 @@ Element Plus's \code{el-menu-item}, \code{el-sub-menu} and \code{el-menu-item-gr
 for \code{el_menu(items =)}. A submenu and a group hold items of their own in
 \code{...}, nested to any depth.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \examples{
 el_menu(
   "m",

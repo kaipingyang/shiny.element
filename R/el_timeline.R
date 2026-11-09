@@ -38,6 +38,9 @@
 #'
 #' @template on
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_timeline")`
+#'
 #' @export
 #' @examples
 #' el_timeline(
@@ -75,9 +78,8 @@ el_timeline <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_timeline", environment())
   .el_check_choices("el_timeline", environment())
-  # R reads these to draw the component
-  .vue_unbound(html = html)
   # entries from R, or a v_bind() of records with the fields the template
   # reads: content, timestamp, type, color, size, icon, placement, center,
   # hollow, hideTimestamp

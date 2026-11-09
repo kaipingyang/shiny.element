@@ -21,6 +21,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
+#' @section Binding:
+#' `r .el_args_md("el_splitter")`
+#'
 #' @export
 el_splitter <- function(
   ...,
@@ -32,6 +35,7 @@ el_splitter <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_splitter", environment())
   .el_check_choices("el_splitter", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_splitter")

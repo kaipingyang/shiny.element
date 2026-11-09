@@ -155,6 +155,11 @@ A tree drawing only the nodes in view, for tens of thousands of nodes.
 The same list as \code{el_events("el_tree_v2")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 \code{update_el_tree_v2()} changes the component from the server: every argument of

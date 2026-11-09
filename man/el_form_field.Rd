@@ -69,6 +69,11 @@ A field declaration, for \code{\link[=el_form]{el_form()}}.
 \description{
 Declare a form field
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a field is drawn into its form by R.
+}
+
 \examples{
 el_form_field(
   "name",

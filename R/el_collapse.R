@@ -57,6 +57,9 @@
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_collapse")`
+#'
 #' @export
 el_collapse <- function(
   id = NULL,
@@ -67,10 +70,11 @@ el_collapse <- function(
   before_collapse = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_collapse", environment())
   # what an update can set may follow the page's state: v_bind(),
   # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
-    mget(c("value", "accordion", "expand_icon_position", "before_collapse")),
+    mget(.el_bindable("el_collapse")),
     formals(el_collapse)
   )
   # a bound argument is drawn with its default until its expression is

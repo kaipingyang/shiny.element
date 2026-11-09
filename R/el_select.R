@@ -185,6 +185,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_select")`
+#'
 #' @export
 el_select <- function(
   id = NULL,
@@ -257,13 +260,8 @@ el_select <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_select", environment())
   .el_check_choices("el_select", environment())
-  # R reads these to draw the component
-  .vue_unbound(
-    multiple = multiple,
-    option_template = option_template,
-    props = props
-  )
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   # Options are drawn here, not by Element Plus from an `options` prop, so

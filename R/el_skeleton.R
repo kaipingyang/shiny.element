@@ -40,6 +40,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_skeleton")`
+#'
 #' @export
 el_skeleton <- function(
   id = NULL,
@@ -56,8 +59,7 @@ el_skeleton <- function(
   on = NULL,
   session = NULL
 ) {
-  # R reads these to draw the component
-  .vue_unbound(class = class, style = style)
+  .el_check_bindings("el_skeleton", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_skeleton")
   }

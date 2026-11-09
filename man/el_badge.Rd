@@ -75,6 +75,11 @@ An \code{htmltools} tag, or with an \code{id} a Shiny UI element.
 Wraps any content with a numeric badge or red dot in the top-right corner.
 When used without content, renders a standalone badge element.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \section{Updating from the server}{
 
 Server-side update for an \code{\link[=el_badge]{el_badge()}} given an \code{id}.

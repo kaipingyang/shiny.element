@@ -35,6 +35,9 @@
 #'
 #' # An action link: input$more counts its clicks
 #' el_link("Show more", id = "more", type = "primary")
+#' @section Binding:
+#' `r .el_args_md("el_link")`
+#'
 #' @export
 el_link <- function(
   label = "Link",
@@ -48,9 +51,8 @@ el_link <- function(
   target = "_self",
   on = NULL
 ) {
+  .el_check_bindings("el_link", environment())
   .el_check_choices("el_link", environment())
-  # R reads these to draw the component
-  .vue_unbound(underline = underline)
   # Element Plus's boolean form: TRUE is "hover", FALSE "never"
   if (isTRUE(underline)) {
     underline <- "hover"

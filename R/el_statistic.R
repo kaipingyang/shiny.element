@@ -47,6 +47,9 @@
 #'   value = Sys.time() + 3600,
 #'   format = "HH:mm:ss"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_statistic")`
+#'
 #' @export
 el_statistic <- function(
   id = NULL,
@@ -63,6 +66,7 @@ el_statistic <- function(
   slots = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_statistic", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_statistic")
   }
@@ -105,6 +109,7 @@ el_countdown <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_countdown", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_countdown")
   }

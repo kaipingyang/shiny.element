@@ -113,6 +113,11 @@ DOM underneath them, leaving them rendered but disconnected from the server.
 The same list as \code{el_events("el_tabs")}, which says how an event's arguments travel.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{tabs} (the panes, drawn by R); \code{before_leave} (set once, as the tabs are drawn); \code{add_icon} (drawn by R).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_tabs]{el_tabs()}}: the tab selected, and the tabs' look

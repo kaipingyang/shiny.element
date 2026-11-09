@@ -28,6 +28,11 @@ Element's form item holding more than one control, each with a form item
 of its own for its value and rules, laid out in columns -- a date beside a
 time, as Element's own examples write it.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: the form item's label, drawn by R.
+}
+
 \examples{
 el_form(
   el_form_item(

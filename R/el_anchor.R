@@ -44,6 +44,9 @@
 #'     )
 #'   )
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_anchor")`
+#'
 #' @export
 el_anchor <- function(
   id = NULL,
@@ -61,6 +64,7 @@ el_anchor <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_anchor", environment())
   .el_check_choices("el_anchor", environment())
   .el_check_items(links, "links", c("title", "href"))
   if (is.null(id)) {

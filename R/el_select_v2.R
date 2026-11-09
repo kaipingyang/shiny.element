@@ -147,6 +147,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_select_v2("city", options = paste("City", 1:10000), filterable = TRUE)
+#' @section Binding:
+#' `r .el_args_md("el_select_v2")`
+#'
 #' @export
 el_select_v2 <- function(
   id = NULL,
@@ -218,6 +221,7 @@ el_select_v2 <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_select_v2", environment())
   .el_check_choices("el_select_v2", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =); groups -- list(label =, options =)

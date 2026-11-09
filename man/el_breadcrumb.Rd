@@ -74,6 +74,11 @@ Steps without a \code{to} are reported too, so a breadcrumb can drive
 navigation inside a Shiny app without any routing.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_breadcrumb]{el_breadcrumb()}}.

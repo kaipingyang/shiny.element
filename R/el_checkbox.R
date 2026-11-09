@@ -50,6 +50,9 @@
 #' el_checkbox("all", "Check all", indeterminate = TRUE)
 #'
 #' el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
+#' @section Binding:
+#' `r .el_args_md("el_checkbox")`
+#'
 #' @export
 el_checkbox <- function(
   id = NULL,
@@ -75,6 +78,7 @@ el_checkbox <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_checkbox", environment())
   .el_check_choices("el_checkbox", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_checkbox")

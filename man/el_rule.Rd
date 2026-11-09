@@ -55,6 +55,11 @@ A rule, for \code{\link[=el_form_field]{el_form_field()}}'s \code{rules} argumen
 \description{
 Builds one async-validator rule, the format Element Plus's form expects.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a rule goes to Element's validator as R writes it.
+}
+
 \examples{
 el_rule(required = TRUE, message = "Please enter your name")
 el_rule(type = "email", message = "Not a valid email", trigger = "blur")

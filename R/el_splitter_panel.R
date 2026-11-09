@@ -24,6 +24,9 @@
 #' None: it reports nothing.
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_splitter_panel")`
+#'
 #' @export
 el_splitter_panel <- function(
   ...,
@@ -37,6 +40,7 @@ el_splitter_panel <- function(
   slots = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_splitter_panel", environment())
   .el_check_choices("el_splitter_panel", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_splitter_panel")

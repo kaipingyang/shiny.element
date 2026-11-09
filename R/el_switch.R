@@ -83,6 +83,9 @@
 #'   }
 #'   shinyApp(ui, server)
 #' }
+#' @section Binding:
+#' `r .el_args_md("el_switch")`
+#'
 #' @export
 el_switch <- function(
   id = NULL,
@@ -120,6 +123,7 @@ el_switch <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_switch", environment())
   .el_check_choices("el_switch", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_switch")

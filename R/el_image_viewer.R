@@ -42,6 +42,9 @@
 #' Callable with [call_el()]: `setActiveItem()`.
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_image_viewer")`
+#'
 #' @export
 el_image_viewer <- function(
   id = NULL,
@@ -63,6 +66,7 @@ el_image_viewer <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_image_viewer", environment())
   .el_check_choices("el_image_viewer", environment())
   # a vector of links, or a v_bind() of Element's string[]
   url_list <- .vue_data_arg(

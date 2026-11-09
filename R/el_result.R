@@ -27,6 +27,9 @@
 #'   sub_title = "It will be reviewed within a day",
 #'   el_button("back", "Back to the list", type = "primary")
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_result")`
+#'
 #' @export
 el_result <- function(
   id = NULL,
@@ -39,6 +42,7 @@ el_result <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_result", environment())
   .el_check_choices("el_result", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_result")

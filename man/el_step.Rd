@@ -22,6 +22,11 @@ A step, for \code{el_steps(steps =)}.
 \description{
 Element Plus's \code{el-step}, for \code{el_steps(steps =)}.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a step is drawn by el_steps() from R.
+}
+
 \examples{
 el_steps(
   "s",

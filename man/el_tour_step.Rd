@@ -57,6 +57,11 @@ A step, for \code{el_tour(steps =)}.
 \description{
 Element Plus's \code{el-tour-step}, for \code{el_tour(steps =)}.
 }
+\section{Binding}{
+
+No argument follows \code{\link[=v_bind]{v_bind()}}: a step is drawn by el_tour() from R.
+}
+
 \examples{
 el_tour(
   "tour",

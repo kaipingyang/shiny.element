@@ -92,6 +92,11 @@ Observe \verb{input$<id>_load}, fetch the next page, and render it into a
 \code{\link[shiny:uiOutput]{shiny::uiOutput()}} inside the area.
 }
 
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{height} (the scrolling area's style); \code{width} (the mount point's style).
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_infinite_scroll]{el_infinite_scroll()}}. Setting \code{disabled} is how a

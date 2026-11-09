@@ -51,6 +51,9 @@
 #' - `setActiveItem()` -- Manually switch slide
 #'
 #' @return A Shiny UI element.
+#' @section Binding:
+#' `r .el_args_md("el_carousel")`
+#'
 #' @export
 #' @examples
 #' el_carousel(
@@ -92,6 +95,7 @@ el_carousel <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_carousel", environment())
   .el_check_items(items, "items", c("content", "name"))
   .el_check_choices("el_carousel", environment())
   if (is.null(id)) {

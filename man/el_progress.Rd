@@ -106,6 +106,11 @@ An \code{htmltools} tagList with a Vue-managed progress component.
 Creates an Element Plus progress bar. This is a display-only component;
 update it from the server with \code{\link[=update_el_progress]{update_el_progress()}}.
 }
+\section{Binding}{
+
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_progress]{el_progress()}}.

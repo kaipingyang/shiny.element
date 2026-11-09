@@ -61,6 +61,9 @@
 #'   data = lapply(1:1000, function(i) list(id = i, label = paste("Node", i))),
 #'   height = 300
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tree_v2")`
+#'
 #' @export
 el_tree_v2 <- function(
   id = NULL,
@@ -87,6 +90,7 @@ el_tree_v2 <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_tree_v2", environment())
   .el_check_choices("el_tree_v2", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_tree_v2")

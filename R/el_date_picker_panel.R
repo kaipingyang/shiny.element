@@ -60,6 +60,9 @@
 #' @return A Shiny UI element.
 #' @examples
 #' el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
+#' @section Binding:
+#' `r .el_args_md("el_date_picker_panel")`
+#'
 #' @export
 el_date_picker_panel <- function(
   id = NULL,
@@ -95,6 +98,7 @@ el_date_picker_panel <- function(
   events = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_date_picker_panel", environment())
   .el_check_choices("el_date_picker_panel", environment())
   if (inherits(value, "Date")) {
     value <- format(value, "%Y-%m-%d")

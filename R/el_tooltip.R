@@ -102,6 +102,9 @@
 #'   placement = "right",
 #'   effect = "light"
 #' )
+#' @section Binding:
+#' `r .el_args_md("el_tooltip")`
+#'
 #' @export
 el_tooltip <- function(
   id = NULL,
@@ -139,9 +142,8 @@ el_tooltip <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_tooltip", environment())
   .el_check_choices("el_tooltip", environment())
-  # R reads these to draw the component
-  .vue_unbound(reference = reference)
   if (!is.null(trigger) && !is.character(trigger)) {
     stop(
       "`trigger` is how the tooltip opens (\"hover\", \"click\", ...); ",

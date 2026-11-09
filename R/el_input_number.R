@@ -68,6 +68,9 @@
 #' @examples
 #' el_input_number("n1", value = 5, min = 0, max = 100)
 #' el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
+#' @section Binding:
+#' `r .el_args_md("el_input_number")`
+#'
 #' @export
 el_input_number <- function(
   id = NULL,
@@ -107,6 +110,7 @@ el_input_number <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_input_number", environment())
   .el_check_choices("el_input_number", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_input_number")
