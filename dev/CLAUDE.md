@@ -83,7 +83,9 @@ at how mature Shiny packages do it; the closer to upstream wins.
 ### Two layers
 
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no
-component library and is to become the shiny.vue package:
+component library and is to become the shinyvue package (no dot, as
+Posit’s shinyreact; its future plans in
+`.claude/plans/shinyvue-sfc-future-2026-11-09.md`):
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md),
 [`vue_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.md),
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
@@ -146,7 +148,7 @@ as a one-line forwarder or a copy – one job, one function. A forwarder
 also breaks helpers that name their caller
 ([`.vue_check_session()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_session.md)
 reads `sys.call(-1)` for its message). When the Vue layer becomes
-shiny.vue, the helpers the Element layer uses are exported there as its
+shinyvue, the helpers the Element layer uses are exported there as its
 API for library authors (as htmlwidgets exports `createWidget()`), not
 reached with `:::`. A helper moved between layers moves with every
 caller in the same commit: no name is left behind for compatibility –
@@ -229,8 +231,8 @@ element – one `Vue.createApp()` each, Element Plus installed on each by
 ```
 
 `inst/js/shiny-vue.js` (generic, Element-free – meant to become
-shiny.vue) compiles the template off-page and appends it to the host,
-and registers one Shiny InputBinding, `shiny.vue`, on every host with a
+shinyvue) compiles the template off-page and appends it to the host, and
+registers one Shiny InputBinding, `shiny.vue`, on every host with a
 value (`input` names the reported field; `type` an input handler such as
 `shiny.element.date` or `shiny.action`; `rate` a debounce).
 `inst/js/el-events.js` is Element’s side: error drawing for

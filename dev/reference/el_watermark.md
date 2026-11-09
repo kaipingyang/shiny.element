@@ -149,8 +149,8 @@ invisibly.
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_318d3d4c-2183-41d2-9d53-f11075f5eda1" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_318d3d4c-2183-41d2-9d53-f11075f5eda1_container" style="display: contents">
+#> <div id="el_watermark_f4a1c7fd-b36e-4595-8320-9fc7a991cdf1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_f4a1c7fd-b36e-4595-8320-9fc7a991cdf1_container" style="display: contents">
 #>   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>
