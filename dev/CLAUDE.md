@@ -85,7 +85,7 @@ at how mature Shiny packages do it; the closer to upstream wins.
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no
 component library and is to become the shinyvue package (no dot, as
 Posit’s shinyreact; its future plans in
-`.claude/plans/shinyvue-sfc-future-2026-11-09.md`):
+`.claude/plans/2026-11-09-shinyvue-sfc-future.md`):
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md),
 [`vue_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.md),
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
@@ -126,7 +126,7 @@ the function that made them: `$vueStore` (was `$store`, kept a version),
 `setup()`, read as `$vueRef` and the rest, mounted first with the
 stores), `$find(id)` (a component, as
 [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
-finds it); plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`. And the
+finds it); plan `.claude/plans/2026-10-30-vue-syntax-in-r.md`. And the
 `.vue_*` helpers. A registry follows the same split: the facts are the
 component library’s (the Element layer’s `R/el_events_registry.R`,
 `R/el_args_registry.R`), the mechanism that reads them the Vue layer’s
@@ -139,7 +139,7 @@ it:
 builds through
 [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
 with `use = "shinyElement.plugin"` (Element Plus, its icons, `$elRef`,
-`$elDate`). Design record: `.claude/plans/vue-layer-2026-10-04.md`.
+`$elDate`). Design record: `.claude/plans/2026-10-04-vue-layer.md`.
 
 **Calling the Vue layer.** Element code calls a `.vue_*` helper
 directly; an `.el_*` helper exists only where the Element layer adds
@@ -181,7 +181,7 @@ Vue’s meaning: an R `NULL` or `NA` is “unset”, the component’s own
 default (`undefined` in the browser); a deliberate `null` – Element’s
 own `value-on-clear` takes one – is `JS("null")`, reachable once props
 bind through `$optional()`
-(`.claude/plans/optional-props-2026-10-26.md`). A change that cannot
+(`.claude/plans/2026-10-26-optional-props.md`). A change that cannot
 keep all of this says which part and why, in its plan, before any code.
 
 **Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
@@ -477,8 +477,8 @@ Vue layer’s (`R/vue_events.R`:
 [`.vue_on_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_on_bindings.md)),
 also behind `vue_app(events =, on =)`. Task buttons
 (`el_button(task = TRUE)`) speak bslib’s `bslib.taskbutton` protocol.
-Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
-`.claude/plans/names-and-events-2026-10-09.md`.
+Design records: `.claude/plans/2026-10-06-shiny-style-components.md`,
+`.claude/plans/2026-10-09-names-and-events.md`.
 
 ### Adding a new component
 
@@ -669,6 +669,14 @@ The other local notes are the container’s: no HTML `tidy`, the clock
 unverifiable, and an installed size counted larger on overlayfs than on
 tmpfs. Build from a clean tree: a worktree’s `.git` file and a stray
 `Rplots.pdf` go into the tarball (`.Rbuildignore` has `^\.git$`).
+
+## Plans
+
+Design records live in `.claude/plans/`, named `YYYY-MM-DD-<topic>.md`,
+the date first so the folder reads in order; a later round of the same
+topic is a new file (`2026-10-19-startup-speed-2.md`). A plan says its
+status at the top (built, future, …) and records the user’s decisions
+with their date. `.claude/` is not in git: a plan lives on this machine.
 
 ## Lessons and gotchas
 
