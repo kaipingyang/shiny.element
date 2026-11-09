@@ -116,9 +116,9 @@ data, an alias – is the arguments registry, `R/el_args_registry.R`, read
 first in each component by `.el_check_bindings()` through the Vue
 layer’s
 [`.vue_check_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_bindings.md),
-and `test-args-registry.R` holds every component to it). Template names
-follow the function that made them: `$vueStore` (was `$store`, kept a
-version),
+and `test-args-registry.R` holds every component to it; the Vue layer’s
+own functions have theirs, `.vue_arg_registry`). Template names follow
+the function that made them: `$vueStore` (was `$store`, kept a version),
 [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
 (`R/vue_state.R`: hosts with no markup whose `state` the bridge makes in
 `setup()`, read as `$vueRef` and the rest, mounted first with the

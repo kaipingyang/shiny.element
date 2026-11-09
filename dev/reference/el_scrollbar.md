@@ -214,8 +214,8 @@ invisibly.
 
 ``` r
 el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
-#> <div id="el_scrollbar_d6ff8515-a420-4b32-b893-c8769de89cc2" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_d6ff8515-a420-4b32-b893-c8769de89cc2_container" style="display: contents">
+#> <div id="el_scrollbar_091d9740-c39e-4c5e-b3fe-ef9b3a545e3c" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_091d9740-c39e-4c5e-b3fe-ef9b3a545e3c_container" style="display: contents">
 #>   <el-scrollbar v-bind="$optional(&#39;scrollbar&#39;)" @end-reached="svEmitEndReached">
 #>     <p>1</p>
 #>     <p>2</p>
@@ -239,6 +239,6 @@ el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
 #>     <p>20</p>
 #>   </el-scrollbar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"svEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_d6ff8515-a420-4b32-b893-c8769de89cc2', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"scrollbar":{"height":"height","max-height":"maxHeight","native":"native","wrap-style":"wrapStyle","wrap-class":"wrapClass","view-style":"viewStyle","view-class":"viewClass","noresize":"noresize","tag":"tag","always":"always","min-size":"minSize","role":"role","aria-label":"ariaLabel","aria-orientation":"ariaOrientation","tabindex":"tabindex","distance":"distance"}},"generated":true,"evals":["options.methods.svEmitEndReached"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"svEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_091d9740-c39e-4c5e-b3fe-ef9b3a545e3c', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"scrollbar":{"height":"height","max-height":"maxHeight","native":"native","wrap-style":"wrapStyle","wrap-class":"wrapClass","view-style":"viewStyle","view-class":"viewClass","noresize":"noresize","tag":"tag","always":"always","min-size":"minSize","role":"role","aria-label":"ariaLabel","aria-orientation":"ariaOrientation","tabindex":"tabindex","distance":"distance"}},"generated":true,"evals":["options.methods.svEmitEndReached"]}</script>
 #> </div>
 ```

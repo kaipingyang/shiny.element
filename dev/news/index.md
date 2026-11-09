@@ -209,7 +209,18 @@
   error further on (a carousel’s `initial_index`: “non-numeric argument
   to binary operator”). What each argument is, is one registry now, and
   each help page has a “Binding” section written from it, naming the
-  arguments that do not bind and why.
+  arguments that do not bind and why. The Vue layer’s own functions
+  refuse likewise: a
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+  template or a
+  [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
+  state given
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  was drawn with the binding dropped, saying nothing; a
+  [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  value followed it, where Vue’s `ref()` holds a value and following an
+  expression is
+  [`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md).
 
 - `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
