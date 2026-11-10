@@ -69,10 +69,9 @@ An entry, for `el_timeline(items =)`.
 
 ## Binding
 
-Every argument can follow
-[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-or
-[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+an entry is data R converts; bind the timeline's `items` instead.
 
 ## See also
 

@@ -74,10 +74,9 @@ A field, for `el_descriptions(items =)`.
 
 ## Binding
 
-Every argument can follow
-[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-or
-[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+an item is drawn by el_descriptions() from R.
 
 ## See also
 

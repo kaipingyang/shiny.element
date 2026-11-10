@@ -37,10 +37,9 @@ A panel, for `el_collapse(items =)`.
 
 ## Binding
 
-Every argument can follow
-[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-or
-[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a panel is drawn by el_collapse() from R.
 
 ## See also
 

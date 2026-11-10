@@ -221,6 +221,14 @@
   value followed it, where Vue’s `ref()` holds a value and following an
   expression is
   [`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md).
+  Items made in R –
+  [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_tab_pane.md),
+  [`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_collapse_item.md),
+  [`el_option()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_option.md)
+  and the rest – refuse too: a bound pane label was written into the
+  tab’s id, a panel title shown as the expression’s text. A component’s
+  frame – `id`, `session`, `events`, `on`, `slots` – refuses a binding
+  by its own name.
 
 - `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),

@@ -169,7 +169,12 @@ error naming the function, the argument and the reason.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_check_bindings</span><span class="op">(</span><span class="va">fn</span>, <span class="va">env</span>, <span class="va">kinds</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_check_bindings</span><span class="op">(</span></span>
+<span>  <span class="va">fn</span>,</span>
+<span>  <span class="va">env</span>,</span>
+<span>  <span class="va">kinds</span>,</span>
+<span>  frame <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"session"</span>, <span class="st">"events"</span>, <span class="st">"on"</span>, <span class="st">"slots"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -186,6 +191,11 @@ error naming the function, the argument and the reason.</p>
 
 <dt id="arg-kinds">kinds<a class="anchor" aria-label="anchor" href="#arg-kinds"></a></dt>
 <dd><p>Its arguments' kinds (<code><a href="dot-vue_arg_kind.html">.vue_arg_kind()</a></code>).</p></dd>
+
+
+<dt id="arg-frame">frame<a class="anchor" aria-label="anchor" href="#arg-frame"></a></dt>
+<dd><p>Arguments every component reads in R – its id, session,
+events, handlers and slots – refused whatever <code>kinds</code> says.</p></dd>
 
 </dl></div>
     <div class="section level2">

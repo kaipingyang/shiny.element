@@ -89,10 +89,9 @@ A column, for `el_table_v2(columns =)`.
 
 ## Binding
 
-Every argument can follow
-[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-or
-[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+a column is drawn from R; bind the table's `columns` instead.
 
 ## See also
 

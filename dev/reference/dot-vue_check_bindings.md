@@ -10,7 +10,12 @@ is an error naming the function, the argument and the reason.
 ## Usage
 
 ``` r
-.vue_check_bindings(fn, env, kinds)
+.vue_check_bindings(
+  fn,
+  env,
+  kinds,
+  frame = c("id", "session", "events", "on", "slots")
+)
 ```
 
 ## Arguments
@@ -27,6 +32,11 @@ is an error naming the function, the argument and the reason.
 
   Its arguments' kinds
   ([`.vue_arg_kind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_arg_kind.md)).
+
+- frame:
+
+  Arguments every component reads in R – its id, session, events,
+  handlers and slots – refused whatever `kinds` says.
 
 ## Value
 

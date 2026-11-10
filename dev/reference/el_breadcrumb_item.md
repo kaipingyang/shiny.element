@@ -30,10 +30,9 @@ A step, for `el_breadcrumb(items =)`.
 
 ## Binding
 
-Every argument can follow
-[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
-or
-[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md).
+No argument follows
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md):
+an item is drawn by el_breadcrumb() from R.
 
 ## See also
 
