@@ -38,7 +38,7 @@ Element Plus's \code{el-tab-pane}, for \code{el_tabs(tabs =)} and
 }
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+No argument follows \code{\link[=v_bind]{v_bind()}}: a pane is drawn by el_tabs() from R.
 }
 
 \examples{

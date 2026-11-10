@@ -146,7 +146,11 @@
   `vue_app()` template or a `vue_store()` state given `v_bind()` was
   drawn with the binding dropped, saying nothing; a `vue_ref()` value
   followed it, where Vue's `ref()` holds a value and following an
-  expression is `vue_computed()`.
+  expression is `vue_computed()`. Items made in R -- `el_tab_pane()`,
+  `el_collapse_item()`, `el_option()` and the rest -- refuse too: a bound
+  pane label was written into the tab's id, a panel title shown as the
+  expression's text. A component's frame -- `id`, `session`, `events`,
+  `on`, `slots` -- refuses a binding by its own name.
 
 * `el_tabs(editable =)` and `el_collapse(before_collapse =)` follow a
   `v_bind()`, as `?v_bind` promised of what a container's `update_*()`

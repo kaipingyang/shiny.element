@@ -70,6 +70,7 @@ el_tab_pane <- function(
   closable = NULL,
   lazy = NULL
 ) {
+  .el_check_bindings("el_tab_pane", environment())
   .el_item(
     "el_tab_pane",
     list(
@@ -115,6 +116,7 @@ el_collapse_item <- function(
   icon = NULL,
   disabled = NULL
 ) {
+  .el_check_bindings("el_collapse_item", environment())
   .el_item(
     "el_collapse_item",
     list(
@@ -170,6 +172,7 @@ el_timeline_item <- function(
   icon = NULL,
   hollow = NULL
 ) {
+  .el_check_bindings("el_timeline_item", environment())
   .el_check_choices("el_timeline_item", environment())
   .el_item(
     "el_timeline_item",
@@ -232,6 +235,7 @@ el_descriptions_item <- function(
   class_name = NULL,
   label_class_name = NULL
 ) {
+  .el_check_bindings("el_descriptions_item", environment())
   .el_check_choices("el_descriptions_item", environment())
   .el_item(
     "el_descriptions_item",
@@ -357,6 +361,7 @@ el_step <- function(
 #'
 #' @export
 el_breadcrumb_item <- function(label, to = NULL, replace = NULL) {
+  .el_check_bindings("el_breadcrumb_item", environment())
   .el_item(
     "el_breadcrumb_item",
     list(label = label, to = to, replace = replace)
@@ -395,6 +400,7 @@ el_dropdown_item <- function(
   disabled = NULL,
   divided = NULL
 ) {
+  .el_check_bindings("el_dropdown_item", environment())
   .el_item(
     "el_dropdown_item",
     list(
@@ -509,6 +515,7 @@ el_tour_step <- function(
 #'
 #' @export
 el_anchor_link <- function(title, href, ...) {
+  .el_check_bindings("el_anchor_link", environment())
   children <- list(...)
   .el_item(
     "el_anchor_link",
@@ -571,6 +578,7 @@ el_menu_item <- function(
   route = NULL,
   disabled = NULL
 ) {
+  .el_check_bindings("el_menu_item", environment())
   .el_item(
     "el_menu_item",
     list(
@@ -602,6 +610,7 @@ el_sub_menu <- function(
   collapse_close_icon = NULL,
   collapse_open_icon = NULL
 ) {
+  .el_check_bindings("el_sub_menu", environment())
   children <- list(...)
   if (!length(children)) {
     stop(
@@ -634,6 +643,7 @@ el_sub_menu <- function(
 #' @rdname el_menu_item
 #' @export
 el_menu_item_group <- function(title, ...) {
+  .el_check_bindings("el_menu_item_group", environment())
   .el_item(
     "el_menu_item_group",
     list(title = title, group = TRUE, children = list(...))
@@ -670,6 +680,7 @@ el_menu_item_group <- function(title, ...) {
 #'
 #' @export
 el_option <- function(label, value = label, disabled = NULL) {
+  .el_check_bindings("el_option", environment())
   .el_item(
     "el_option",
     list(value = value, label = label, disabled = disabled)
@@ -679,6 +690,7 @@ el_option <- function(label, value = label, disabled = NULL) {
 #' @rdname el_option
 #' @export
 el_option_group <- function(label, ..., disabled = NULL) {
+  .el_check_bindings("el_option_group", environment())
   .el_item(
     "el_option_group",
     list(label = label, options = list(...), disabled = disabled)
@@ -921,6 +933,7 @@ el_table_v2_column <- function(
   cell_renderer = NULL,
   header_cell_renderer = NULL
 ) {
+  .el_check_bindings("el_table_v2_column", environment())
   .el_check_choices("el_table_v2_column", environment())
   .el_item(
     "el_table_v2_column",

@@ -21,7 +21,7 @@ Element Plus's \code{el-anchor-link}, for \code{el_anchor(links =)}.
 }
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+No argument follows \code{\link[=v_bind]{v_bind()}}: a link is drawn by el_anchor() from R.
 }
 
 \examples{

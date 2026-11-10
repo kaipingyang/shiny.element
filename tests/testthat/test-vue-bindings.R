@@ -577,6 +577,12 @@ test_that("the Vue layer's own functions refuse a binding, saying why", {
     why <- .vue_arg_kind(.vue_arg_registry[[fn]], "x")$detail
     for (a in setdiff(names(formals(f)), "...")) {
       args <- stats::setNames(list(v_bind("$vueStore.s.f")), a)
+      # the frame (id, session, events, on, slots) says so whatever the rest
+      reason <- if (a %in% c("id", "session", "events", "on", "slots")) {
+        "the component's frame, read by R"
+      } else {
+        why
+      }
       expect_error(
         do.call(f, args),
         paste0(
@@ -585,7 +591,7 @@ test_that("the Vue layer's own functions refuse a binding, saying why", {
           "' of ",
           fn,
           "() cannot follow v_bind() or v_model(): ",
-          why
+          reason
         ),
         fixed = TRUE,
         info = paste0(fn, "(", a, ")")

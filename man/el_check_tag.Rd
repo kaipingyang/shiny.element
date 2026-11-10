@@ -64,7 +64,7 @@ The same list as \code{el_events("el_check_tag")}, which says how an event's arg
 
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{width} (the mount point's style).
 }
 
 \section{Updating from the server}{

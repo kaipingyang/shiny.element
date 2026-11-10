@@ -31,6 +31,7 @@ el_check_tag <- function(
   width = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_check_tag", environment())
   .el_check_choices("el_check_tag", environment())
   ns_id <- .vue_ui_id(id, NULL)
   el_widget(

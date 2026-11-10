@@ -70,11 +70,9 @@ el_segmented <- function(
   .el_check_choices("el_segmented", environment())
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =); a v_bind() is Element's form
-  options <- .vue_data_arg(
-    options,
-    function(x) if (is.null(x)) x else .vue_choices(x),
-    "options"
-  )
+  options <- .el_data_arg("el_segmented", "options", options, function(x) {
+    if (is.null(x)) x else .vue_choices(x)
+  })
   if (is.null(id)) {
     id <- .vue_auto_id("el_segmented")
   }

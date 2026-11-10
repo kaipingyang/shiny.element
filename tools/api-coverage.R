@@ -13,7 +13,26 @@ fixtures <- list(
   el_select = list("sel", choices = c("A", "B")),
   el_form_field = list(prop = "f", label = "F"),
   el_icon = list("edit"),
-  el_check_tag = list("ct", "Tag"),
+  el_check_tag = list("ct", label = "Tag"),
+  # items a component draws from R: what each needs to be made at all
+  el_anchor_link = list(title = "A", href = "#a"),
+  el_breadcrumb_item = list(label = "Home"),
+  el_collapse_item = list(title = "T"),
+  el_descriptions_item = list(label = "L"),
+  el_dropdown_item = list(command = "a"),
+  el_menu_item = list(label = "M", index = "1"),
+  el_menu_item_group = list(title = "G"),
+  el_option = list(label = "A"),
+  el_option_group = list(label = "G"),
+  el_sub_menu = list(
+    label = "S",
+    index = "1",
+    el_menu_item(label = "M", index = "1-1")
+  ),
+  el_tab_pane = list(label = "A"),
+  el_table_v2_column = list(key = "a"),
+  el_timeline_item = list(content = "c"),
+  el_tree_node = list(key = "k"),
   el_tree_select = list("ts"),
   el_pagination = list("pg", total = 100),
   # Per-item props only render once there is an item to carry them

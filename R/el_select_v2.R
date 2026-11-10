@@ -226,16 +226,11 @@ el_select_v2 <- function(
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =); groups -- list(label =, options =)
   # -- and a v_bind() are passed as Element Plus takes them
-  options <- .vue_data_arg(
-    options,
-    function(x) {
-      grouped <- is.list(x) &&
-        any(vapply(x, function(o) is.list(o) && !is.null(o$options), TRUE))
-      if (is.null(x) || grouped) x else .vue_choices(x)
-    },
-    "options",
-    "records"
-  )
+  options <- .el_data_arg("el_select_v2", "options", options, function(x) {
+    grouped <- is.list(x) &&
+      any(vapply(x, function(o) is.list(o) && !is.null(o$options), TRUE))
+    if (is.null(x) || grouped) x else .vue_choices(x)
+  })
   if (is.null(id)) {
     id <- .vue_auto_id("el_select_v2")
   }

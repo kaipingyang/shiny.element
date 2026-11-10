@@ -69,7 +69,7 @@ for \code{el_menu(items =)}. A submenu and a group hold items of their own in
 }
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+No argument follows \code{\link[=v_bind]{v_bind()}}: an item is drawn by el_menu() from R.
 }
 
 \examples{

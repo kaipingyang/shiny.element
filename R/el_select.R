@@ -267,12 +267,9 @@ el_select <- function(
   # Options are drawn here, not by Element Plus from an `options` prop, so
   # `props` renames their fields here. A v_bind() gives Element's records,
   # { value, label, disabled }, as they are; option groups come from R.
-  choices <- .vue_data_arg(
-    choices,
-    function(x) .el_rename_option_fields(x %||% list(), props),
-    "choices",
-    "records"
-  )
+  choices <- .el_data_arg("el_select", "choices", choices, function(x) {
+    .el_rename_option_fields(x %||% list(), props)
+  })
   bound_choices <- inherits(choices, "vue_binding")
   if (is.null(id)) {
     id <- .vue_auto_id("el_select")

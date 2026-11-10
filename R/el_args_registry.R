@@ -55,6 +55,24 @@
 # `alias:x` (another name of x). One string for a whole function: every
 # argument is markup, for that reason.
 .el_arg_registry <- list(
+  el_check_tag = c(
+    width = "markup: the mount point's style"
+  ),
+  # items a component draws from R: their arguments are R's
+  el_anchor_link = "markup: a link is drawn by el_anchor() from R",
+  el_breadcrumb_item = "markup: an item is drawn by el_breadcrumb() from R",
+  el_collapse_item = "markup: a panel is drawn by el_collapse() from R",
+  el_descriptions_item = "markup: an item is drawn by el_descriptions() from R",
+  el_dropdown_item = "markup: an item is drawn by el_dropdown() from R",
+  el_menu_item = "markup: an item is drawn by el_menu() from R",
+  el_menu_item_group = "markup: a group is drawn by el_menu() from R",
+  el_option = "markup: an option is data R converts; bind the select's `choices` instead",
+  el_option_group = "markup: a group is data R converts; bind the select's `choices` instead",
+  el_sub_menu = "markup: a submenu is drawn by el_menu() from R",
+  el_tab_pane = "markup: a pane is drawn by el_tabs() from R",
+  el_table_v2_column = "markup: a column is drawn from R; bind the table's `columns` instead",
+  el_timeline_item = "markup: an entry is data R converts; bind the timeline's `items` instead",
+  el_tree_node = "markup: a node is data R converts; bind the tree's `data` instead",
   el_checkbox = c(
     width = "markup: the mount point's style"
   ),
@@ -406,4 +424,22 @@
     .el_arg_skip,
     library = "Element's"
   )
+}
+
+# A data argument (R converts an R value; a binding is Element's form), its
+# shape for the development build's check read from the registry -- the one
+# place it is written
+.el_data_arg <- function(fn, arg, x, convert = identity) {
+  k <- .vue_arg_kind(.el_arg_kinds(fn), arg)
+  if (k$kind != "data") {
+    stop(
+      "`",
+      arg,
+      "` of ",
+      fn,
+      "() is not data in the arguments registry (R/el_args_registry.R).",
+      call. = FALSE
+    )
+  }
+  .vue_data_arg(x, convert, arg, if (nzchar(k$detail)) k$detail)
 }

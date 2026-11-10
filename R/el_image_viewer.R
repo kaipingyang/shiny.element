@@ -69,10 +69,11 @@ el_image_viewer <- function(
   .el_check_bindings("el_image_viewer", environment())
   .el_check_choices("el_image_viewer", environment())
   # a vector of links, or a v_bind() of Element's string[]
-  url_list <- .vue_data_arg(
+  url_list <- .el_data_arg(
+    "el_image_viewer",
+    "url_list",
     url_list,
-    function(x) if (is.null(x)) x else as.list(x),
-    "url_list"
+    function(x) if (is.null(x)) x else as.list(x)
   )
   if (is.null(id)) {
     id <- .vue_auto_id("el_image_viewer")

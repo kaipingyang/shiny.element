@@ -92,6 +92,7 @@ el_progress <- function(
   on = NULL,
   session = NULL
 ) {
+  .el_check_bindings("el_progress", environment())
   .el_check_choices("el_progress", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_progress")

@@ -154,6 +154,7 @@ el_upload_file <- function(name) {
 #' @rdname el_table_row
 #' @export
 el_tree_node <- function(key) {
+  .el_check_bindings("el_tree_node", environment())
   stopifnot(length(key) == 1)
   list(.ref = "node", value = key)
 }

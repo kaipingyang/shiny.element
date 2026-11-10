@@ -54,12 +54,21 @@ test_that("every argument binds, or refuses with the registry's reason", {
     if ("id" %in% names(formals(f)) && is.null(base$id)) {
       base$id <- "x"
     }
-    if (inherits(try(do.call(f, base), silent = TRUE), "try-error")) {
+    # a component that cannot be made from its fixture is a failure, not a
+    # component left out: tools/api-coverage.R gives it what it needs
+    made <- try(do.call(f, base), silent = TRUE)
+    if (inherits(made, "try-error")) {
+      wrong <- c(wrong, sprintf("%s: cannot be made from its fixture", fn))
       next
     }
     kinds <- .el_arg_kinds(fn)
-    for (a in setdiff(names(formals(f)), c(.el_arg_skip, names(base)))) {
-      k <- .vue_arg_kind(kinds, a)
+    # its frame too: refused, as R reads it
+    for (a in setdiff(names(formals(f)), c("...", names(base)))) {
+      k <- if (a %in% .el_arg_skip) {
+        list(kind = "markup", detail = "the component's frame, read by R")
+      } else {
+        .vue_arg_kind(kinds, a)
+      }
       args <- base
       args[[a]] <- v_bind("$vueStore.s.f")
       got <- tryCatch(
@@ -73,7 +82,16 @@ test_that("every argument binds, or refuses with the registry's reason", {
             grepl('"bound"', html, fixed = TRUE) ||
               grepl("data-shiny-vue-bind", html, fixed = TRUE)
           ) {
-            "bound"
+            # a data argument's shape, from the registry, travels with it
+            if (
+              k$kind == "data" &&
+                nzchar(k$detail) &&
+                !grepl(sprintf('"shape":"%s"', k$detail), html, fixed = TRUE)
+            ) {
+              "bound without its shape"
+            } else {
+              "bound"
+            }
           } else {
             "dropped"
           }

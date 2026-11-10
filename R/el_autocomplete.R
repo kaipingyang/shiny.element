@@ -229,11 +229,11 @@ el_autocomplete <- function(
     data = list(
       value = value,
       # a vector, records, or a v_bind() of Element's records { value }
-      suggestions = .vue_data_arg(
-        suggestions,
-        .el_autocomplete_suggestions,
+      suggestions = .el_data_arg(
+        "el_autocomplete",
         "suggestions",
-        "records"
+        suggestions,
+        .el_autocomplete_suggestions
       )
     ),
     methods = c(events$methods, list(fetchSuggestions = fetcher)),

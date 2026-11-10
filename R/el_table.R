@@ -34,7 +34,7 @@
 .el_table_sanitize_columns <- function(columns) {
   # a v_bind(): Element's el-table-column props, camelCase, as they are
   if (inherits(columns, "vue_binding")) {
-    return(.vue_data_arg(columns, name = "columns", shape = "records"))
+    return(.el_data_arg("el_table", "columns", columns, identity))
   }
   if (!is.list(columns)) {
     stop(

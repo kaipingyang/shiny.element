@@ -4,7 +4,12 @@
 \alias{.vue_check_bindings}
 \title{Refuse a binding of an argument R draws with}
 \usage{
-.vue_check_bindings(fn, env, kinds)
+.vue_check_bindings(
+  fn,
+  env,
+  kinds,
+  frame = c("id", "session", "events", "on", "slots")
+)
 }
 \arguments{
 \item{fn}{The component function's name, for the message.}
@@ -12,6 +17,9 @@
 \item{env}{Its environment.}
 
 \item{kinds}{Its arguments' kinds (\code{.vue_arg_kind()}).}
+
+\item{frame}{Arguments every component reads in R -- its id, session,
+events, handlers and slots -- refused whatever \code{kinds} says.}
 }
 \value{
 \code{NULL}, invisibly.

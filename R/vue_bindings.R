@@ -113,6 +113,18 @@
   )
 }
 
+# An argument's value, or NULL when it was not given: an error while it is
+# worked out (an item refusing a binding) goes up as it is, once
+.vue_given <- function(a, env) {
+  if (!exists(a, envir = env, inherits = FALSE)) {
+    return(NULL)
+  }
+  if (eval(call("missing", as.name(a)), env)) {
+    return(NULL)
+  }
+  get(a, envir = env, inherits = FALSE)
+}
+
 #' Refuse a binding of an argument R draws with
 #'
 #' Run first in a component, over its own environment: an argument whose
@@ -122,9 +134,32 @@
 #' @param fn The component function's name, for the message.
 #' @param env Its environment.
 #' @param kinds Its arguments' kinds (`.vue_arg_kind()`).
+#' @param frame Arguments every component reads in R -- its id, session,
+#'   events, handlers and slots -- refused whatever `kinds` says.
 #' @return `NULL`, invisibly.
 #' @keywords internal
-.vue_check_bindings <- function(fn, env, kinds) {
+.vue_check_bindings <- function(
+  fn,
+  env,
+  kinds,
+  frame = c("id", "session", "events", "on", "slots")
+) {
+  # the component's frame -- its id, session, events and handlers, slots --
+  # is R's, whatever the kinds say of the rest
+  given <- intersect(frame, ls(env))
+  for (a in given) {
+    v <- .vue_given(a, env)
+    if (inherits(v, "vue_binding")) {
+      stop(
+        sQuote(a, FALSE),
+        " of ",
+        fn,
+        "() cannot follow v_bind() or v_model(): the component's frame, ",
+        "read by R.",
+        call. = FALSE
+      )
+    }
+  }
   # the arguments the kinds name -- or, for one kind of them all, every
   # argument given; one not given is not looked at
   names <- if (length(kinds) == 1L && is.null(names(kinds))) {
@@ -133,9 +168,7 @@
     names(kinds)
   }
   for (a in names) {
-    v <- tryCatch(get(a, envir = env, inherits = FALSE), error = function(e) {
-      NULL
-    })
+    v <- .vue_given(a, env)
     if (!inherits(v, "vue_binding")) {
       next
     }

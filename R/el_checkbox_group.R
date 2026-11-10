@@ -115,7 +115,7 @@ el_checkbox_group <- function(
   }
   # A named vector c(Label = value), or Element's records; a v_bind() is
   # Element's form, followed in the browser
-  choices <- .vue_data_arg(choices, .vue_choices, "choices", "records")
+  choices <- .el_data_arg("el_checkbox_group", "choices", choices, .vue_choices)
   if (is.null(id)) {
     id <- .vue_auto_id("el_checkbox_group")
   }

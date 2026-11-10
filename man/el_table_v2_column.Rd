@@ -63,7 +63,7 @@ A column definition for \code{el_table_v2(columns =)} and
 }
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}}.
+No argument follows \code{\link[=v_bind]{v_bind()}}: a column is drawn from R; bind the table's \code{columns} instead.
 }
 
 \examples{

@@ -50,6 +50,7 @@ el_badge <- function(
   badge_class = NULL,
   on = NULL
 ) {
+  .el_check_bindings("el_badge", environment())
   .el_check_choices("el_badge", environment())
   # state followed in the browser needs an instance of its own
   if (

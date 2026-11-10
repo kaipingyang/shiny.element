@@ -83,7 +83,7 @@ el_timeline <- function(
   # entries from R, or a v_bind() of records with the fields the template
   # reads: content, timestamp, type, color, size, icon, placement, center,
   # hollow, hideTimestamp
-  items <- .vue_data_arg(items, .el_timeline_items, "items", "records")
+  items <- .el_data_arg("el_timeline", "items", items, .el_timeline_items)
   if (is.null(id)) {
     id <- .vue_auto_id("el_timeline")
   }

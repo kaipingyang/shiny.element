@@ -159,7 +159,12 @@ el_pagination <- function(
     total = total,
     pageSize = page_size,
     currentPage = current_page,
-    pageSizes = .vue_data_arg(page_sizes, as.list, "page_sizes"),
+    pageSizes = .el_data_arg(
+      "el_pagination",
+      "page_sizes",
+      page_sizes,
+      as.list
+    ),
     layout = layout,
     background = background,
     small = small,
