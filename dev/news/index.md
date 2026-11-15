@@ -2,6 +2,15 @@
 
 ## shiny.element (development version)
 
+### Documentation
+
+- The installed package is smaller: the internal helpers’ help pages are
+  no longer installed (their docs stay in the source), and VueUse’s two
+  files are packed, taken out into
+  [`tempdir()`](https://rdrr.io/r/base/tempfile.html) the first time
+  [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
+  is used, as the rarer locales are.
+
 ## shiny.element 0.3.2
 
 Components that follow one another in the browser: Vue’s directives as R

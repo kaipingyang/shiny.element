@@ -355,7 +355,7 @@ the server.</p>
       <ul>
 <li>fields whole, or in place: <code>insert</code> <code>replace</code> <code>delete</code>
           by position or <code>key</code>, <code>set</code> by path</li>
-        <li>queued per session (<code><a href="../reference/dot-vue_send.html">.vue_send()</a></code>), sent in <code><a href="https://rdrr.io/pkg/shiny/man/onFlush.html" class="external-link">onFlushed()</a></code>
+        <li>queued per session (<code>.vue_send()</code>), sent in <code><a href="https://rdrr.io/pkg/shiny/man/onFlush.html" class="external-link">onFlushed()</a></code>
           as <code>update*Input()</code> are; <code><a href="../reference/flush_vue.html">flush_vue()</a></code> sends now</li>
       </ul>
 </div>
@@ -439,9 +439,9 @@ reports, its containers, its theme and locale.</p>
       <code><a href="../reference/el_input.html">el_input()</a></code>, <code><a href="../reference/el_select.html">el_select()</a></code>, <code><a href="../reference/el_tree.html">el_tree()</a></code>, ...
       <ul>
 <li>
-<code><a href="../reference/el_widget.html">el_widget()</a></code>: the Element tag, its props (<code><a href="../reference/dot-el_props.html">.el_props()</a></code>,
+<code><a href="../reference/el_widget.html">el_widget()</a></code>: the Element tag, its props (<code>.el_props()</code>,
           <code>NA</code> for Element's default), the label, slots</li>
-        <li>built by <code><a href="../reference/dot-vue_host.html">.vue_host()</a></code> with <code>use = "shinyElement.plugin"</code>
+        <li>built by <code>.vue_host()</code> with <code>use = "shinyElement.plugin"</code>
 </li>
       </ul>
 </div>
@@ -450,7 +450,7 @@ reports, its containers, its theme and locale.</p>
       <code><a href="../reference/el_space.html">el_space()</a></code>, <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>, <code><a href="../reference/el_card.html">el_card()</a></code>, ...
       <ul>
 <li>
-<code><a href="../reference/dot-el_absorb.html">.el_absorb()</a></code>: the components inside join the wrapper's Vue instance,
+<code>.el_absorb()</code>: the components inside join the wrapper's Vue instance,
           their fields renamed, their ids kept in a registry</li>
       </ul>
 </div>
@@ -497,7 +497,7 @@ reports, its containers, its theme and locale.</p>
         <li>
 <code><a href="../reference/el_events.html">el_events()</a></code> prints it; <code>events =</code> is checked against it;
           each help page's "Shiny inputs" table comes from it</li>
-        <li>forwarded by the Vue layer (<code><a href="../reference/dot-vue_event_bindings.html">.vue_event_bindings()</a></code>), with
+        <li>forwarded by the Vue layer (<code>.vue_event_bindings()</code>), with
           <code>on =</code> handlers</li>
       </ul>
 </div>

@@ -104,10 +104,9 @@ el_widget(
 
   Named list of slot contents, one entry per Element slot:
   `list(title = tags$b("Bold"))` fills the `title` slot. A component
-  given here is absorbed like any other
-  ([`.el_absorb()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb.md)).
-  For a scoped slot, where Element hands the template its own data,
-  write the template with
+  given here is absorbed like any other (`.el_absorb()`). For a scoped
+  slot, where Element hands the template its own data, write the
+  template with
   [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md)
   and the value is used as it stands.
 
@@ -177,13 +176,10 @@ el_widget(
 
 - props:
 
-  Optional props from
-  [`.el_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.md):
-  bound on the root tag of `markup` as one group,
-  `v-bind="$optional('<tag>')"`, with their fields added to `data`; or
-  already bound on another tag
-  ([`.el_bind_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bind_props.md)),
-  whose groups are kept.
+  Optional props from `.el_props()`: bound on the root tag of `markup`
+  as one group, `v-bind="$optional('<tag>')"`, with their fields added
+  to `data`; or already bound on another tag (`.el_bind_props()`), whose
+  groups are kept.
 
 - absorbed:
 

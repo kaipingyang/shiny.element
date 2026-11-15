@@ -88,9 +88,8 @@ The server changes it
 
 - fields whole, or in place: `insert` `replace` `delete` by position or
   `key`, `set` by path
-- queued per session
-  ([`.vue_send()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send.md)),
-  sent in [`onFlushed()`](https://rdrr.io/pkg/shiny/man/onFlush.html) as
+- queued per session (`.vue_send()`), sent in
+  [`onFlushed()`](https://rdrr.io/pkg/shiny/man/onFlush.html) as
   `update*Input()` are;
   [`flush_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/flush_vue.md)
   sends now
@@ -158,12 +157,9 @@ R Shiny's channel The browser: `el-events.js`, the containers' bindings
 ...
 
 - [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md):
-  the Element tag, its props
-  ([`.el_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.md),
-  `NA` for Element's default), the label, slots
-- built by
-  [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
-  with `use = "shinyElement.plugin"`
+  the Element tag, its props (`.el_props()`, `NA` for Element's
+  default), the label, slots
+- built by `.vue_host()` with `use = "shinyElement.plugin"`
 
 ##### Wrappers, folding others in
 
@@ -172,9 +168,8 @@ R Shiny's channel The browser: `el-events.js`, the containers' bindings
 [`el_card()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_card.md),
 ...
 
-- [`.el_absorb()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb.md):
-  the components inside join the wrapper's Vue instance, their fields
-  renamed, their ids kept in a registry
+- `.el_absorb()`: the components inside join the wrapper's Vue instance,
+  their fields renamed, their ids kept in a registry
 
 ##### Containers
 
@@ -230,9 +225,8 @@ What a component reports
 - [`el_events()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_events.md)
   prints it; `events =` is checked against it; each help page's "Shiny
   inputs" table comes from it
-- forwarded by the Vue layer
-  ([`.vue_event_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_event_bindings.md)),
-  with `on =` handlers
+- forwarded by the Vue layer (`.vue_event_bindings()`), with `on =`
+  handlers
 
 `input$<id>_<event>`
 

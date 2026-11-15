@@ -268,7 +268,7 @@ width set on it would do nothing.</p></dd>
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
 <dd><p>Named list of slot contents, one entry per Element slot:
 <code>list(title = tags$b("Bold"))</code> fills the <code>title</code> slot. A component given
-here is absorbed like any other (<code><a href="dot-el_absorb.html">.el_absorb()</a></code>). For a scoped slot,
+here is absorbed like any other (<code>.el_absorb()</code>). For a scoped slot,
 where Element hands the template its own data, write the template with
 <code><a href="template.html">template()</a></code> and the value is used as it stands.</p></dd>
 
@@ -333,9 +333,9 @@ whether beside the component rather than under it. Element's
 
 
 <dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
-<dd><p>Optional props from <code><a href="dot-el_props.html">.el_props()</a></code>: bound on the root tag of
+<dd><p>Optional props from <code>.el_props()</code>: bound on the root tag of
 <code>markup</code> as one group, <code>v-bind="$optional('&lt;tag&gt;')"</code>, with their fields
-added to <code>data</code>; or already bound on another tag (<code><a href="dot-el_bind_props.html">.el_bind_props()</a></code>),
+added to <code>data</code>; or already bound on another tag (<code>.el_bind_props()</code>),
 whose groups are kept.</p></dd>
 
 

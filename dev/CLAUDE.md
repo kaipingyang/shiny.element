@@ -37,19 +37,15 @@ in `R/vue_js.R` marks JavaScript the same way). To stay under CRAN’s 5
 MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into
 [`tempdir()`](https://rdrr.io/r/base/tempfile.html) when first used
-([`.el_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_dir.md));
-Day.js’s locales for the same languages, which Element’s date components
-read, likewise in `inst/dayjs/locale`
-([`.el_dayjs_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_dayjs_locale_dir.md),
-set with Element’s by
+(`.el_locale_dir()`); Day.js’s locales for the same languages, which
+Element’s date components read, likewise in `inst/dayjs/locale`
+(`.el_dayjs_locale_dir()`, set with Element’s by
 [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_locale_dependency.md));
 Vue’s development build is `.Rbuildignore`d, so a CRAN install loads it
-from unpkg
-([`.vue_core_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.md));
-only the Getting started and Shiny guides are vignettes, the rest
-pkgdown articles. A page’s theme is compiled once per machine, not per R
-process (`R/el_theme_cache.R`: sass’s cache, placed where bslib’s file
-output goes); the default
+from unpkg (`.vue_core_dependency()`); only the Getting started and
+Shiny guides are vignettes, the rest pkgdown articles. A page’s theme is
+compiled once per machine, not per R process (`R/el_theme_cache.R`:
+sass’s cache, placed where bslib’s file output goes); the default
 [`el_theme()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_theme.md)
 ships compiled in `inst/el-theme/` for the bslib and sass on CRAN
 (`Rscript tools/el-theme-css.R` before a release).
@@ -100,27 +96,25 @@ so updates, calls and outputs reach it),
 (vue-router 5.4.0, `inst/vue-router`: one router per page, in every app,
 the route in the hash and as `input$<id>`),
 [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
-(VueUse 15.0.0, Element’s own version, `inst/vueuse`, opt-in, for
-`setup()`),
+(VueUse 15.0.0, Element’s own version, `inst/vueuse/vueuse.tar.xz`,
+taken out into [`tempdir()`](https://rdrr.io/r/base/tempfile.html) on
+first use by `.vue_unpacked()`; opt-in, for `setup()`),
 [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
 (`R/vue_directives.R`: Vue’s directives for an R component’s arguments –
 an expression over `$vueStore`, `$inputs`, `$route`, one way or written
 back to a store; `ns =` scopes those names to a module, the expression
-untouched.
-[`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
-moves a bound field to the spec’s `bound` (`{expr, model, scope}`), the
-bridge evaluates it with `with` over the page’s names and keeps field
-and state in step; containers bind what their update can set,
-[`.vue_bound_markup()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.md)
-writing `data-shiny-vue-bind` and their bindings applying it through
+untouched. `.vue_host()` moves a bound field to the spec’s `bound`
+(`{expr, model, scope}`), the bridge evaluates it with `with` over the
+page’s names and keeps field and state in step; containers bind what
+their update can set, `.vue_bound_markup()` writing
+`data-shiny-vue-bind` and their bindings applying it through
 `shinyVue.bindElement()`; what each argument is – a prop, R’s markup,
 data, an alias – is the arguments registry, `R/el_args_registry.R`, read
 first in each component by `.el_check_bindings()` through the Vue
-layer’s
-[`.vue_check_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_bindings.md),
-and `test-args-registry.R` holds every component to it; the Vue layer’s
-own functions have theirs, `.vue_arg_registry`). Template names follow
-the function that made them: `$vueStore` (was `$store`, kept a version),
+layer’s `.vue_check_bindings()`, and `test-args-registry.R` holds every
+component to it; the Vue layer’s own functions have theirs,
+`.vue_arg_registry`). Template names follow the function that made them:
+`$vueStore` (was `$store`, kept a version),
 [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
 (`R/vue_state.R`: hosts with no markup whose `state` the bridge makes in
 `setup()`, read as `$vueRef` and the rest, mounted first with the
@@ -136,23 +130,21 @@ Element; `test-browser-pure-vue.R` runs it with no Element Plus on the
 page. The **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on
 it:
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)
-builds through
-[`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
-with `use = "shinyElement.plugin"` (Element Plus, its icons, `$elRef`,
-`$elDate`). Design record: `.claude/plans/2026-10-04-vue-layer.md`.
+builds through `.vue_host()` with `use = "shinyElement.plugin"` (Element
+Plus, its icons, `$elRef`, `$elDate`). Design record:
+`.claude/plans/2026-10-04-vue-layer.md`.
 
 **Calling the Vue layer.** Element code calls a `.vue_*` helper
 directly; an `.el_*` helper exists only where the Element layer adds
 something of its own (Element’s names, its plugin, its defaults), never
 as a one-line forwarder or a copy – one job, one function. A forwarder
-also breaks helpers that name their caller
-([`.vue_check_session()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_session.md)
-reads `sys.call(-1)` for its message). When the Vue layer becomes
-shinyvue, the helpers the Element layer uses are exported there as its
-API for library authors (as htmlwidgets exports `createWidget()`), not
-reached with `:::`. A helper moved between layers moves with every
-caller in the same commit: no name is left behind for compatibility –
-internal helpers are not an API.
+also breaks helpers that name their caller (`.vue_check_session()` reads
+`sys.call(-1)` for its message). When the Vue layer becomes shinyvue,
+the helpers the Element layer uses are exported there as its API for
+library authors (as htmlwidgets exports `createWidget()`), not reached
+with `:::`. A helper moved between layers moves with every caller in the
+same commit: no name is left behind for compatibility – internal helpers
+are not an API.
 
 **User code goes in untouched.** The Vue layer is to be a package for
 any Vue code, so its machinery never takes a name from the user’s space:
@@ -163,26 +155,26 @@ Vue the user writes – `data`, `computed`, `methods`, `watch`, `setup`,
 lifecycle hooks, `components`, `directives`, `provide`, `emits`, plugins
 through `use`, any other option – passes through as written. Where the
 package and the user give the same thing, the two are merged and the
-user’s wins: an event handler
-([`.vue_merge_handlers()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_merge_handlers.md)),
-one `v-bind` object rather than two, the user’s explicit attributes
-placed after ours (Vue 3: the later wins). Raw `el$` tags,
+user’s wins: an event handler (`.vue_merge_handlers()`), one `v-bind`
+object rather than two, the user’s explicit attributes placed after ours
+(Vue 3: the later wins). Raw `el$` tags,
 [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md),
 slots and cells are never rewritten – except values the user made with
-`v_*()` (`R/vue_directives.R`), which
-[`.vue_directives()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_directives.md)
-turns into the attributes they stand for on every template’s way out
-([`.vue_islands()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_islands.md),
-`.vue_template()`,
-[`.vue_tags_as_html()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_tags_as_html.md),
-[`.el_absorb()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb.md));
-`vtags$` are Vue’s built-in components (`R/vue_tags.R`). Values keep
-Vue’s meaning: an R `NULL` or `NA` is “unset”, the component’s own
-default (`undefined` in the browser); a deliberate `null` – Element’s
-own `value-on-clear` takes one – is `JS("null")`, reachable once props
-bind through `$optional()`
-(`.claude/plans/2026-10-26-optional-props.md`). A change that cannot
-keep all of this says which part and why, in its plan, before any code.
+`v_*()` (`R/vue_directives.R`), which `.vue_directives()` turns into the
+attributes they stand for on every template’s way out (`.vue_islands()`,
+`.vue_template()`, `.vue_tags_as_html()`, `.el_absorb()`); `vtags$` are
+Vue’s built-in components (`R/vue_tags.R`). Values keep Vue’s meaning:
+an R `NULL` or `NA` is “unset”, the component’s own default (`undefined`
+in the browser); a deliberate `null` – Element’s own `value-on-clear`
+takes one – is `JS("null")`, reachable once props bind through
+`$optional()` (`.claude/plans/2026-10-26-optional-props.md`). A change
+that cannot keep all of this says which part and why, in its plan,
+before any code.
+
+Internal helpers are documented with roxygen and `@noRd`: the docs are
+read in the source, not installed (the help pages counted 1.3 MB of the
+package). Refer to one in another’s docs as code, `` `.vue_host()` ``,
+not as a link.
 
 **Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
 file named for no job collects whatever fits nowhere else. A helper one
@@ -249,26 +241,23 @@ would recompile and detach the components inside.
 are outputs in an app: `el_table_output(id)` +
 `render_el_table(el_table(data = ...))`.
 [`el_table()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_table.md)
-returns a spec object
-([`.el_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_component.md),
-`R/el_component.R`) drawn by
+returns a spec object (`.el_component()`, `R/el_component.R`) drawn by
 [`htmltools::as.tags()`](https://rstudio.github.io/htmltools/reference/as.tags.html),
 as htmlwidgets are, so `el_on()` can pipe events onto it;
-[`.el_resolve()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_resolve.md)
-draws specs inside UI that code reads as tags. The rendered host is
-`<id>-el` with `data-shiny-vue-id=<id>`: the bridge finds it by either.
-A component with a value in an output reports `input$<id>` through
-`Shiny.setInputValue()` with no binding (`reportFromOutput`), since an
-input binding sharing the output’s id makes Shiny warn; the table has no
-value (`input$<id>` is left free) and reports `_selection_rows`. The
-first render sends markup; later renders with the same template and
-options send only the changed data fields as JSON
-([`.vue_output_value()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_output_value.md),
-`applyPatch()` in shiny-vue.js), and a page that cannot apply a patch
-asks for the markup with `input$<id>__vue_redraw`. Under `bindCache()`
-the cache keeps the whole output (`.vue_output_whole()`, the same for
-every session, via `cacheWriteHook`) and `cacheReadHook` compares it
-with what the session’s page has (`.vue_output_send()`).
+`.el_resolve()` draws specs inside UI that code reads as tags. The
+rendered host is `<id>-el` with `data-shiny-vue-id=<id>`: the bridge
+finds it by either. A component with a value in an output reports
+`input$<id>` through `Shiny.setInputValue()` with no binding
+(`reportFromOutput`), since an input binding sharing the output’s id
+makes Shiny warn; the table has no value (`input$<id>` is left free) and
+reports `_selection_rows`. The first render sends markup; later renders
+with the same template and options send only the changed data fields as
+JSON (`.vue_output_value()`, `applyPatch()` in shiny-vue.js), and a page
+that cannot apply a patch asks for the markup with
+`input$<id>__vue_redraw`. Under `bindCache()` the cache keeps the whole
+output (`.vue_output_whole()`, the same for every session, via
+`cacheWriteHook`) and `cacheReadHook` compares it with what the
+session’s page has (`.vue_output_send()`).
 `el_table_output(loading = TRUE)` shows Element’s mask while Shiny
 recalculates. The data the table shows is kept per session
 (`.el_shown()`, a `reactiveValues()` shared by the data components, read
@@ -280,19 +269,15 @@ a render writes it only when its own data changed, an update always –
 the rule the browser’s patching follows – so the
 `shiny.element.selection` handler returns the right
 `data[rows, , drop = FALSE]`. Editable columns
-(`el_table_column(editable =)`,
-[`.el_table_editor()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_table_editor.md))
-apply an edit in the browser at once and on the server in the
-`shiny.element.cell_edit` input handler, which converts the value to the
-column’s type.
+(`el_table_column(editable =)`, `.el_table_editor()`) apply an edit in
+the browser at once and on the server in the `shiny.element.cell_edit`
+input handler, which converts the value to the column’s type.
 
 ### Server to browser
 
 - Updates and method calls are queued per session and sent with the
   flush, in `session$onFlushed()` – as Shiny’s `sendInputMessage()` and
-  DT’s and leaflet’s proxies
-  ([`.vue_send()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send.md),
-  `R/vue_send.R`);
+  DT’s and leaflet’s proxies (`.vue_send()`, `R/vue_send.R`);
   [`flush_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/flush_vue.md)
   sends them at once,
   [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_progress.md)
@@ -301,17 +286,15 @@ column’s type.
 - `update_el_*()` and
   [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md)
   send one custom message, `shinyVueUpdate`, a flat
-  `{id, fields..., .action}`
-  ([`.vue_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.md)).
-  `.edit` (rows inserted, replaced, deleted by position or key) and
-  `.set` (values by path) change a field in place
-  (`update_vue(insert =, ...)`); the table and calendar use them. The
-  bridge finds the host by id, bound or not – Shiny’s input messages
-  reach only bound inputs – runs `sv.hooks` for dot-keys (`.label`,
-  `.error`, `.resolve`), then the component’s `shinyVueReceive(data)` if
-  it has one (for method calls: form, carousel, tree, upload), then
-  assigns declared `$data` fields; an unknown id or field logs
-  `[shiny-vue]`.
+  `{id, fields..., .action}` (`.vue_send_update()`). `.edit` (rows
+  inserted, replaced, deleted by position or key) and `.set` (values by
+  path) change a field in place (`update_vue(insert =, ...)`); the table
+  and calendar use them. The bridge finds the host by id, bound or not –
+  Shiny’s input messages reach only bound inputs – runs `sv.hooks` for
+  dot-keys (`.label`, `.error`, `.resolve`), then the component’s
+  `shinyVueReceive(data)` if it has one (for method calls: form,
+  carousel, tree, upload), then assigns declared `$data` fields; an
+  unknown id or field logs `[shiny-vue]`.
 - [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md)
   (and
   [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md),
@@ -338,17 +321,16 @@ column’s type.
   table it is a spec object with an output form
   ([`el_calendar_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_calendar_output.md),
   [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_calendar_output.md));
-  both renders go through
-  [`.el_render_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_render_component.md).
-  Event fields follow Element first (`date`, as its day cell names it,
-  `type`, `color`), toastui where Element has none (`end`, `title`,
-  `body`, `_update` as `list(event, changes)`). Beyond them: times in
-  `date`/`end`, `calendars`, `visible_event_count`, `use_detail_popup`,
-  `isReadOnly`, `first_day_of_week` (set on dayjs’s global locale only
-  while the calendar renders: Element reads it as a date table is
-  created) and `workweek`; slots of the events layer’s own (`event`,
-  `eventForm`, `eventDetail`) are placed by `.el_calendar_scoped()` as a
-  one-item `v-for` giving their scope.
+  both renders go through `.el_render_component()`. Event fields follow
+  Element first (`date`, as its day cell names it, `type`, `color`),
+  toastui where Element has none (`end`, `title`, `body`, `_update` as
+  `list(event, changes)`). Beyond them: times in `date`/`end`,
+  `calendars`, `visible_event_count`, `use_detail_popup`, `isReadOnly`,
+  `first_day_of_week` (set on dayjs’s global locale only while the
+  calendar renders: Element reads it as a date table is created) and
+  `workweek`; slots of the events layer’s own (`event`, `eventForm`,
+  `eventDetail`) are placed by `.el_calendar_scoped()` as a one-item
+  `v-for` giving their scope.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search);
   [`el_load_children()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_load_children.md)
@@ -372,34 +354,27 @@ column’s type.
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/dev/reference/use_element.md)
   – the same for other page functions.
 - Every component – control or markup – carries one set,
-  [`.el_dependencies()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_dependencies.md):
-  the Vue host’s
-  ([`.vue_host_dependencies()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host_dependencies.md):
-  jQuery,
-  [`.vue_core_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.md),
-  [`.vue_bridge_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bridge_dependency.md)),
-  Element Plus, and Element’s side of the bridge in one dependency,
-  `shiny-element`
-  ([`.el_bridge_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bridge_dependency.md):
-  `el-events.js` and the collapse, tabs and overlay bindings), as
-  shinyWidgets keeps its bindings in one file and bslib’s components
-  share one set. One function per resource, one set for all: a new
-  component adds none. Made once per R session
-  ([`.vue_memo()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_memo.md)).
-  Shiny’s inputs carry selectize and htmlwidgets their libraries the
-  same way, so a component works on any page and without Shiny (static R
-  Markdown); `test-browser-bare-page.R` runs them on a `fluidPage()`
-  with neither. htmltools keeps the first copy, so a page that loads
-  Element from the CDN keeps it. The theme, locale, global config and
-  feedback handlers belong to the page:
+  `.el_dependencies()`: the Vue host’s (`.vue_host_dependencies()`:
+  jQuery, `.vue_core_dependency()`, `.vue_bridge_dependency()`), Element
+  Plus, and Element’s side of the bridge in one dependency,
+  `shiny-element` (`.el_bridge_dependency()`: `el-events.js` and the
+  collapse, tabs and overlay bindings), as shinyWidgets keeps its
+  bindings in one file and bslib’s components share one set. One
+  function per resource, one set for all: a new component adds none.
+  Made once per R session (`.vue_memo()`). Shiny’s inputs carry
+  selectize and htmlwidgets their libraries the same way, so a component
+  works on any page and without Shiny (static R Markdown);
+  `test-browser-bare-page.R` runs them on a `fluidPage()` with neither.
+  htmltools keeps the first copy, so a page that loads Element from the
+  CDN keeps it. The theme, locale, global config and feedback handlers
+  belong to the page:
   [`el_page()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_page.md)
   or
   [`use_element()`](https://kaipingyang.github.io/shiny.element/dev/reference/use_element.md).
 
 ### Shiny UI inside a template: islands
 
-[`.vue_islands()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_islands.md)
-(`R/vue_app.R`), run by
+`.vue_islands()` (`R/vue_app.R`), run by
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
 and
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md),
@@ -430,9 +405,8 @@ a slot, a table cell, a wrapper’s trigger, `el_widget(markup =)`.
   JavaScript name being the canonical one: column definitions
   (`show_overflow_tooltip` or `showOverflowTooltip`), items, plugin
   options, and the Vue layer’s options (`before_unmount` or
-  `beforeUnmount`). Convert with
-  [`.vue_camel()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_camel.md);
-  two spellings with different values are an error.
+  `beforeUnmount`). Convert with `.vue_camel()`; two spellings with
+  different values are an error.
 - **Only names the package knows are converted.** Field names in `data`,
   method names, anything a template refers to are the user’s and pass
   through exactly as written – renaming `item_count` would break
@@ -456,9 +430,7 @@ other events only when asked for with `events =` (snake_case, always
 `input$<id>_<event>`, no renaming).
 `on = list(<vue event> = JS("function(report, ...)"))` binds a handler
 of the user’s own; `report(name, value)` sets `input$<id>_<name>`; on an
-event the component handles itself too,
-[`.vue_merge_handlers()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_merge_handlers.md)
-(run by
+event the component handles itself too, `.vue_merge_handlers()` (run by
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md))
 makes the two one handler. The one input not under the id:
 `el_cascader(level_inputs =)`, each level of the path under an id the
@@ -471,13 +443,11 @@ prints it, every component’s `events` is checked against it, and each
 help page’s “Shiny inputs” table is generated from it
 (`` `r .el_events_md("el_x")` ``). Containers read their reported events
 from `data-el-events`. The forwarding itself, its check and `on` are the
-Vue layer’s (`R/vue_events.R`:
-[`.vue_event_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_event_bindings.md),
-[`.vue_events_check()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_events_check.md),
-[`.vue_on_bindings()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_on_bindings.md)),
-also behind `vue_app(events =, on =)`. Task buttons
-(`el_button(task = TRUE)`) speak bslib’s `bslib.taskbutton` protocol.
-Design records: `.claude/plans/2026-10-06-shiny-style-components.md`,
+Vue layer’s (`R/vue_events.R`: `.vue_event_bindings()`,
+`.vue_events_check()`, `.vue_on_bindings()`), also behind
+`vue_app(events =, on =)`. Task buttons (`el_button(task = TRUE)`) speak
+bslib’s `bslib.taskbutton` protocol. Design records:
+`.claude/plans/2026-10-06-shiny-style-components.md`,
 `.claude/plans/2026-10-09-names-and-events.md`.
 
 ### Adding a new component
@@ -486,13 +456,11 @@ Design records: `.claude/plans/2026-10-06-shiny-style-components.md`,
 
 1.  `R/el_<name>.R`: the component function built with
     [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md),
-    and `update_el_<name>()` sending
-    [`.vue_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.md).
-2.  Optional props go through
-    [`.el_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.md)
-    and `el_widget(props =)`, which binds them on the component’s tag as
-    one group, `v-bind="$optional('<tag>')"`, with an `NA` placeholder
-    per field so they fall back to Element’s defaults and stay updatable
+    and `update_el_<name>()` sending `.vue_send_update()`.
+2.  Optional props go through `.el_props()` and `el_widget(props =)`,
+    which binds them on the component’s tag as one group,
+    `v-bind="$optional('<tag>')"`, with an `NA` placeholder per field so
+    they fall back to Element’s defaults and stay updatable
     (`JS("null")` is a deliberate `null`). A field named otherwise than
     its prop, as an update already sets it, is `.el_props(fields =)`; a
     value R gives as text is converted by a wrap (`$elDate`, `$elRef`).
@@ -500,20 +468,17 @@ Design records: `.claude/plans/2026-10-06-shiny-style-components.md`,
     `mounted = .vue_mounted_report(c(<field> = ns_id))`; that field
     becomes the binding’s value.
 4.  Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
-    [`.el_check_choices()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_check_choices.md)
-    first in the function; arguments R reads to draw the markup (not
-    fields of the component) in the arguments registry,
-    `R/el_args_registry.R` (`markup: <why>`), with
+    `.el_check_choices()` first in the function; arguments R reads to
+    draw the markup (not fields of the component) in the arguments
+    registry, `R/el_args_registry.R` (`markup: <why>`), with
     `.el_check_bindings("el_<name>", environment())` first in the
     function, so a
     [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
     given them is refused with the why (`test-args-registry.R` checks
     every argument against it; the help page’s “Binding” section is
     written from it, `` `r .el_args_md()` ``). A field keeps a binding
-    through its conversions:
-    [`.vue_array()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.md),
-    [`.vue_flag()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_flag.md)
-    rather than [`as.list()`](https://rdrr.io/r/base/list.html),
+    through its conversions: `.vue_array()`, `.vue_flag()` rather than
+    [`as.list()`](https://rdrr.io/r/base/list.html),
     [`isTRUE()`](https://rdrr.io/r/base/Logic.html).
 5.  `roxygen2::roxygenise(".")`, then tests: unit, the browser fixture,
     and **look at a screenshot** (`tools/article-shots.R`).
