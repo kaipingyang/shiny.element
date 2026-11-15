@@ -1,3 +1,5 @@
+# shiny.element (development version)
+
 # shiny.element 0.3.2
 
 Components that follow one another in the browser: Vue's directives as R
