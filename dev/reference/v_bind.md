@@ -32,6 +32,16 @@ v_model(path, arg = NULL, modifiers = NULL, ns = NULL)
   A store's field, `$vueStore.<id>.<field>`, going on with `.<name>`,
   `['<name>']` or `[<index>]`.
 
+- arg:
+
+  In a template, the model's argument, as `v-model:title` writes it:
+  `"title"`. A named attribute gives it too: `title = v_model("t")`.
+
+- modifiers:
+
+  Vue's modifiers, as `v-model.trim.lazy` writes them:
+  `c("trim", "lazy")`.
+
 ## Value
 
 The binding, to give as an argument's value.

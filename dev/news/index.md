@@ -2,6 +2,25 @@
 
 ## shiny.element (development version)
 
+## shiny.element 0.3.2
+
+Components that follow one another in the browser: Vue’s directives as R
+functions –
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+[`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+for a component’s arguments,
+[`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+[`v_for()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+and the rest for templates – with
+[`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
+(Pinia),
+[`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md),
+[`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+and its kin, VueUse; an arguments registry saying what each argument can
+follow; and most of the site’s examples running in the page, as
+upstream’s.
+
 ### Breaking changes
 
 - `vue_store(data =)` is deprecated, for `state`, Pinia’s name: it still
