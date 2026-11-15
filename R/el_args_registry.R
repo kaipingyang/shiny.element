@@ -349,7 +349,7 @@
     add_icon = "markup: drawn by R",
     before_leave = "markup: set once, as the tabs are drawn",
     editable = "stands:closable,addable",
-    tabs = "markup: the panes, drawn by R",
+    tabs = "markup: the panes, drawn by R; panes following state are upstream's v-for in a template, vue_app() with el$tabs and v_for()",
     value = "alias:selected"
   ),
   el_text = c(

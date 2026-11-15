@@ -1,5 +1,13 @@
 # shiny.element (development version)
 
+## New features
+
+* `el_select()`'s options are one list, as upstream's grouped select
+  iterates them: a group is an item with `options` of its own. So a
+  `v_bind()` of `choices` takes groups too, Element's
+  `[{ label, options: [...] }]`, and options and groups keep the order
+  they are given in (ungrouped ones came first).
+
 ## Documentation
 
 * The installed package is smaller: the internal helpers' help pages are

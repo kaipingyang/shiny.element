@@ -759,3 +759,54 @@ test_that("tabs' editable and collapse's before_collapse follow v_bind()", {
   expect_true(js(open))
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("a select draws groups and options from one list, bound or given", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store(
+        "s",
+        state = list(
+          opts = list(
+            list(
+              label = "Fruit",
+              options = list(list(value = "a", label = "Apple"))
+            ),
+            list(value = "x", label = "Other")
+          )
+        )
+      )),
+      el_select("bound", choices = v_bind("$vueStore.s.opts")),
+      el_select(
+        "given",
+        choices = list(Fruit = c(Apple = "a", Pear = "p"), "x")
+      )
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  open <- function(id) {
+    js(sprintf("document.querySelector('#%s .el-select__wrapper').click()", id))
+    Sys.sleep(0.5)
+    js(paste0(
+      "Array.from(document.querySelectorAll('.el-select-dropdown'))",
+      ".filter(function(d){ return d.offsetParent; })[0]",
+      ".innerText.replace(/\\s+/g, ' ').trim()"
+    ))
+  }
+  expect_equal(open("bound"), "Fruit Apple Other")
+  js("document.body.click()")
+  Sys.sleep(0.3)
+  expect_equal(open("given"), "Fruit Apple Pear x")
+  expect_length(unlist(js("__w")), 0)
+})

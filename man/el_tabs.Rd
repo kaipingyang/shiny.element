@@ -115,7 +115,7 @@ The same list as \code{el_events("el_tabs")}, which says how an event's argument
 
 \section{Binding}{
 
-Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{tabs} (the panes, drawn by R); \code{before_leave} (set once, as the tabs are drawn); \code{add_icon} (drawn by R).
+Every argument can follow \code{\link[=v_bind]{v_bind()}} or \code{\link[=v_model]{v_model()}} except \code{tabs} (the panes, drawn by R; panes following state are upstream's v-for in a template, vue_app() with el$tabs and v_for()); \code{before_leave} (set once, as the tabs are drawn); \code{add_icon} (drawn by R).
 }
 
 \section{Updating from the server}{

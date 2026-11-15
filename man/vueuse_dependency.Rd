@@ -17,7 +17,8 @@ VueUse 15.0.0 -- the version the bundled component library is built with -- as t
 \code{setup()}, as \code{VueUse.useTransition(...)}. Give it to the component that
 uses it, \code{vue_app(dependencies = vueuse_dependency())}, or put it on the
 page; it carries Vue, which it needs loaded before it, so either works.
-No page loads it unless asked: the two files are 149 KB.
+No page loads it unless asked: the two files are 149 KB, kept packed
+in the package and taken out into \code{tempdir()} the first time.
 }
 \examples{
 # A number counting up to its value

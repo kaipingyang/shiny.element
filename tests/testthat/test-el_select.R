@@ -112,7 +112,8 @@ test_that("el_select: v-for attribute present on el-option", {
   sel <- el_select("s1", choices = c(A = "a"), session = NULL)
   html <- render_html(sel)
   expect_match(html, "v-for")
-  expect_match(html, "opt in options")
+  expect_match(html, "o in options")
+  expect_match(html, "opt in \\[o\\]")
 })
 
 # ── disabled / clearable / filterable ────────────────────────────────────────
@@ -235,12 +236,37 @@ test_that("el_select renders option groups from a named list, as Shiny does", {
   )
   html <- paste(as.character(ui), collapse = "")
   expect_match(html, "<el-option-group", fixed = TRUE)
+  # one list, as upstream's grouped select: a group carries its options
   d <- vue_data_of(ui)
-  expect_equal(d$options, list())
-  expect_equal(d$groups[[1]]$label, "Fruit")
-  expect_equal(d$groups[[1]]$options[[2]], list(value = "p", label = "Pear"))
-  expect_equal(d$groups[[2]]$label, "Vegetables")
-  expect_true(d$groups[[2]]$disabled)
+  expect_null(d$groups)
+  expect_equal(d$options[[1]]$label, "Fruit")
+  expect_equal(d$options[[1]]$options[[2]], list(value = "p", label = "Pear"))
+  expect_equal(d$options[[2]]$label, "Vegetables")
+  expect_true(d$options[[2]]$disabled)
+})
+
+test_that("options and groups keep the order they are given in", {
+  d <- vue_data_of(el_select(
+    "g",
+    choices = list(Any = "any", Fruit = c(Apple = "a", Pear = "p"), "x")
+  ))
+  # a named single value is a group, as before; an unnamed one an option
+  expect_equal(d$options[[1]]$label, "Any")
+  expect_equal(d$options[[2]]$label, "Fruit")
+  expect_equal(d$options[[3]], list(value = "x", label = "x"))
+  # the template draws a group or an option from the same list
+  html <- paste(
+    as.character(el_select("g", choices = c(A = "a"))),
+    collapse = ""
+  )
+  expect_match(html, 'v-for="o in options"', fixed = TRUE)
+  expect_match(html, '<el-option-group v-if="o.options"', fixed = TRUE)
+})
+
+test_that("a bound select takes Element's groups as they are", {
+  s <- vue_spec_of(el_select("g", choices = v_bind("$vueStore.s.opts")))
+  expect_equal(s$bound$options$expr, "$vueStore.s.opts")
+  expect_null(s$options$data$groups)
 })
 
 test_that("a single option can be disabled", {

@@ -534,7 +534,7 @@ test_that("a data argument takes an R value converted, or a v_bind() as it is", 
   )) {
     expect_equal(spec(x)$bound$options$expr, "$vueStore.s.opts")
   }
-  expect_equal(spec(el_select("s", choices = b))$options$data$groups, list())
+  expect_null(spec(el_select("s", choices = b))$options$data$groups)
   expect_equal(
     spec(el_segmented("sg", options = b))$bound$options$expr,
     "$vueStore.s.opts"

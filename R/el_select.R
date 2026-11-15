@@ -15,8 +15,8 @@
 #'   for it, `options` Element's; give either. Empty by default, for a
 #'   select whose options arrive later (`remote = TRUE`).
 #'   Or [v_bind()] of an expression giving Element's records, `[{ value, label,
-#'   disabled }]`: followed in the browser, given as it is (option groups come
-#'   from R).
+#'   disabled }]`, groups among them as `{ label, options }`, as upstream's
+#'   grouped select takes them: followed in the browser, given as it is.
 #' @param selected,value Initially selected value(s); a character vector for
 #'   multiple selection. `selected` is Shiny's name, `value` Element's
 #'   (its `v-model`); give either.
@@ -266,7 +266,8 @@ el_select <- function(
   choices <- .vue_alias(choices, options, "choices", "options")
   # Options are drawn here, not by Element Plus from an `options` prop, so
   # `props` renames their fields here. A v_bind() gives Element's records,
-  # { value, label, disabled }, as they are; option groups come from R.
+  # { value, label, disabled }, groups { label, options } among them, as
+  # upstream's grouped select takes them.
   choices <- .el_data_arg("el_select", "choices", choices, function(x) {
     .el_rename_option_fields(x %||% list(), props)
   })
@@ -296,19 +297,26 @@ el_select <- function(
       )
     )
   }
-  option_slot <- list(
-    option_tag("opt in options"),
-    htmltools::tag(
-      "el-option-group",
-      list(
-        "v-for" = "g in groups",
-        ":key" = "g.label",
-        ":label" = "g.label",
-        ":disabled" = "g.disabled",
-        option_tag("opt in g.options")
-      )
+  # One list, as upstream's `options`: an item with `options` of its own
+  # is a group (`<el-option-group v-for="group in options">`), any other an
+  # option, in the order given
+  option_slot <- list(htmltools::tag(
+    "template",
+    list(
+      "v-for" = "o in options",
+      ":key" = "o.options ? 'group:' + o.label : o.value",
+      htmltools::tag(
+        "el-option-group",
+        list(
+          "v-if" = "o.options",
+          ":label" = "o.label",
+          ":disabled" = "o.disabled",
+          option_tag("opt in o.options")
+        )
+      ),
+      htmltools::tag("template", list("v-else" = NA, option_tag("opt in [o]")))
     )
-  )
+  ))
 
   # Build el-select attributes
   select_attrs <- list(
@@ -352,12 +360,7 @@ el_select <- function(
     } else {
       selected
     },
-    options = if (bound_choices) {
-      choices
-    } else {
-      .el_select_choices(choices)$options
-    },
-    groups = if (bound_choices) list() else .el_select_choices(choices)$groups,
+    options = if (bound_choices) choices else .el_select_choices(choices),
     multiple = multiple,
     disabled = disabled,
     clearable = clearable,
@@ -550,9 +553,7 @@ update_el_select <- function(
     msg$value <- selected
   }
   if (!is.null(choices)) {
-    parts <- .el_select_choices(choices)
-    msg$options <- parts$options
-    msg$groups <- parts$groups
+    msg$options <- .el_select_choices(choices)
     # New choices answer a remote search, so it is no longer loading
     if (is.null(loading)) msg$loading <- FALSE
   }
@@ -621,19 +622,21 @@ update_el_select <- function(
 }
 
 
-#' Split a select's choices into loose options and option groups
+#' A select's choices as Element's options: one list, groups in it
 #'
 #' Groups are written the way `shiny::selectInput()` takes them -- a named
 #' list whose elements are vectors, `list(East = c("NY", "NJ"))` -- or as
 #' `list(label =, disabled =, options =)` when a group needs its own
-#' `disabled`. Anything else is an ungrouped choice.
+#' `disabled`. Anything else is an ungrouped choice. The result is the one
+#' list upstream's grouped select iterates, in the order given: a group is
+#' `list(label, disabled, options)`, an option `list(value, label, ...)`.
 #'
 #' @param choices The choices as given.
-#' @return A list of `options` and `groups`.
+#' @return The options.
 #' @noRd
 .el_select_choices <- function(choices) {
   if (!is.list(choices) || !length(choices)) {
-    return(list(options = .vue_choices(choices), groups = list()))
+    return(.vue_choices(choices))
   }
   nms <- names(choices) %||% rep("", length(choices))
   is_group <- function(x, nm) {
@@ -645,11 +648,17 @@ update_el_select <- function(
   }
   flags <- mapply(is_group, choices, nms)
   if (!any(flags)) {
-    return(list(options = .vue_choices(choices), groups = list()))
+    return(.vue_choices(choices))
   }
-
-  groups <- Map(
-    function(x, nm) {
+  unname(Map(
+    function(x, nm, group) {
+      # an option: a record as it is, a value labelled by its name
+      if (!group) {
+        if (is.list(x)) {
+          return(x)
+        }
+        return(list(value = x, label = if (nzchar(nm)) nm else as.character(x)))
+      }
       if (is.list(x) && !is.null(x$options)) {
         list(
           label = x$label %||% nm,
@@ -660,18 +669,10 @@ update_el_select <- function(
         list(label = nm, disabled = FALSE, options = .vue_choices(x))
       }
     },
-    choices[flags],
-    nms[flags]
-  )
-  loose <- choices[!flags]
-  list(
-    options = if (length(loose)) {
-      .vue_choices(unname(loose))
-    } else {
-      list()
-    },
-    groups = unname(groups)
-  )
+    choices,
+    nms,
+    flags
+  ))
 }
 
 `%||%` <- function(a, b) if (is.null(a)) b else a
