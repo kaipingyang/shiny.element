@@ -171,8 +171,8 @@ el_config_provider(
   el_button("a", "OK"),
   el_input("b")
 )
-#> <div id="el_config_provider_7071f0de-b138-4e41-a455-0f7098c4eb25" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_config_provider_7071f0de-b138-4e41-a455-0f7098c4eb25_container" style="display: contents">
+#> <div id="el_config_provider_2fd2a585-3773-4a5f-a7dd-9db4e78db834" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_config_provider_2fd2a585-3773-4a5f-a7dd-9db4e78db834_container" style="display: contents">
 #>   <el-config-provider v-bind="$optional(&#39;config-provider&#39;)" :locale="$elLocale(locale)">
 #>     <div class="el-provider-scope" style="display: contents" :data-card-shadow="card &amp;&amp; card.shadow ? card.shadow : &#39;&#39;" :data-dialog="dialog ? JSON.stringify(dialog) : &#39;&#39;" :data-config="JSON.stringify({&#39;locale&#39;: locale, &#39;size&#39;: size, &#39;button&#39;: button, &#39;link&#39;: link, &#39;card&#39;: card, &#39;dialog&#39;: dialog, &#39;message&#39;: message, &#39;table&#39;: table, &#39;emptyValues&#39;: emptyValues, &#39;valueOnClear&#39;: valueOnClear, &#39;experimentalFeatures&#39;: experimentalFeatures})">
 #>       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_a" id="a">{{el2_label}}</el-button>

@@ -7,7 +7,8 @@ component's `setup()`, as `VueUse.useTransition(...)`. Give it to the
 component that uses it, `vue_app(dependencies = vueuse_dependency())`,
 or put it on the page; it carries Vue, which it needs loaded before it,
 so either works. No page loads it unless asked: the two files are 149
-KB.
+KB, kept packed in the package and taken out into
+[`tempdir()`](https://rdrr.io/r/base/tempfile.html) the first time.
 
 ## Usage
 

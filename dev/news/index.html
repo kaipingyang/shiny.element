@@ -159,6 +159,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="shinyelement-development-version">shiny.element (development version)<a class="anchor" aria-label="anchor" href="#shinyelement-development-version"></a></h2>
 <div class="section level3">
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/el_select.html">el_select()</a></code>’s options are one list, as upstream’s grouped select iterates them: a group is an item with <code>options</code> of its own. So a <code><a href="../reference/v_bind.html">v_bind()</a></code> of <code>choices</code> takes groups too, Element’s <code>[{ label, options: [...] }]</code>, and options and groups keep the order they are given in (ungrouped ones came first).</li>
+</ul></div>
+<div class="section level3">
 <h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
 <ul><li>The installed package is smaller: the internal helpers’ help pages are no longer installed (their docs stay in the source), and VueUse’s two files are packed, taken out into <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code> the first time <code><a href="../reference/vueuse_dependency.html">vueuse_dependency()</a></code> is used, as the rarer locales are.</li>
 </ul></div>
