@@ -6,7 +6,7 @@
 #'
 #' @param x A format, or `NULL`.
 #' @return `x` in day.js's tokens.
-#' @keywords internal
+#' @noRd
 .el_dayjs_format <- function(x) {
   if (!is.character(x) || length(x) != 1L) {
     return(x)

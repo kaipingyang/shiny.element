@@ -12,7 +12,7 @@
 #'
 #' @param ns_id The namespaced element id.
 #' @param events The events forwarded, by their Vue names (kebab-case).
-#' @param on The user's own handlers: see [.vue_on_bindings()].
+#' @param on The user's own handlers: see `.vue_on_bindings()`.
 #' @param shapes Named list of JavaScript functions, one per event that
 #'   carries more than one argument, turning the arguments into a single
 #'   object. `this` is the Vue instance. Returning `undefined` skips that
@@ -26,7 +26,7 @@
 #'   `check-change` keeps its checked keys.
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
-#' @keywords internal
+#' @noRd
 .vue_event_bindings <- function(
   ns_id,
   events,
@@ -103,7 +103,7 @@
 #' @param what The component, for the error: `"my_table()"`.
 #' @param see Where to read about them, appended to the error.
 #' @return The events, kebab-case.
-#' @keywords internal
+#' @noRd
 .vue_events_check <- function(
   asked,
   known,
@@ -169,7 +169,7 @@
 #' @param ns_id The namespaced id.
 #' @param on A named list of [JS()] functions, strings or [v_on()]s.
 #' @return A list with `attrs` and `methods`.
-#' @keywords internal
+#' @noRd
 .vue_on_bindings <- function(ns_id, on) {
   if (is.null(on) || !length(on)) {
     return(list(attrs = list(), methods = list()))
@@ -263,7 +263,7 @@
 #' @param tag The component's tag.
 #' @param on Output of `.vue_on_bindings()`.
 #' @return The tag.
-#' @keywords internal
+#' @noRd
 .vue_on_attach <- function(tag, on) {
   for (key in names(on$attrs)) {
     given <- tag$attribs[[key]]
@@ -285,7 +285,7 @@
 #'
 #' @param attribs A tag's attributes.
 #' @return The attributes, each `@<event>` once.
-#' @keywords internal
+#' @noRd
 .vue_merge_handlers <- function(attribs) {
   keys <- names(attribs)
   if (is.null(keys)) {
@@ -309,7 +309,7 @@
 #' @param handlers What each is given: a method's name or an arrow
 #'   function, as `.vue_on_attach()` writes.
 #' @return One arrow function calling each, in order.
-#' @keywords internal
+#' @noRd
 .vue_join_handlers <- function(key, handlers) {
   name <- grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", handlers)
   arrow <- startsWith(handlers, "(...a) => ")
@@ -338,7 +338,7 @@
 #' @param bindings `c(<inputId> = "<field or expression>")`.
 #' @return A [JS()] function, with the bindings as its `vue_report`
 #'   attribute.
-#' @keywords internal
+#' @noRd
 .vue_mounted_report <- function(bindings) {
   js_str <- function(x) {
     vapply(
@@ -385,7 +385,7 @@
 #'
 #' @param code The code, a string.
 #' @return `TRUE` or `FALSE`.
-#' @keywords internal
+#' @noRd
 .vue_is_handler <- function(code) {
   fn <- paste0(
     "^\\s*(?:async\\s*)?(?:\\([^)]*?\\)|[\\w$_]+)\\s*(?::[^=]+)?=>|",

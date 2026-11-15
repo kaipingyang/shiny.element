@@ -497,7 +497,7 @@ el_notification_close <- function(
 #' @param args The calling function's arguments, `as.list(environment())`.
 #' @param skip Names that are not options.
 #' @return A named list.
-#' @keywords internal
+#' @noRd
 .el_service_options <- function(args, skip) {
   args <- args[setdiff(names(args), skip)]
   args <- Filter(Negate(is.null), args)

@@ -163,7 +163,7 @@ el_locale_dependency <- function(locale = NULL) {
 #'
 #' @param code An Element Plus locale code, lower case.
 #' @return Day.js's locale name, or `NULL` for none (dates stay English).
-#' @keywords internal
+#' @noRd
 .el_dayjs_code <- function(code) {
   apart <- c(
     `ar-eg` = "ar",
@@ -189,7 +189,7 @@ el_locale_dependency <- function(locale = NULL) {
 #'
 #' @param code An Element Plus locale code, lower case.
 #' @return A list of htmlDependency objects; empty when Day.js has none.
-#' @keywords internal
+#' @noRd
 .el_dayjs_locale_dependency <- function(code) {
   dj <- .el_dayjs_code(code)
   if (is.null(dj)) {
@@ -237,13 +237,13 @@ el_locale_dependency <- function(locale = NULL) {
 
 #' Where a Day.js locale file is
 #'
-#' As [.el_locale_dir()] for Element Plus's: the locales used most are
+#' As `.el_locale_dir()` for Element Plus's: the locales used most are
 #' files, the rest are in one archive, taken out into `tempdir()` the first
 #' time one is used.
 #'
 #' @param dj Day.js's locale name.
 #' @return The directory holding `<dj>.js`, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_dayjs_locale_dir <- function(dj) {
   file <- paste0(dj, ".js")
   root <- .vue_file("dayjs", "locale")
@@ -327,7 +327,7 @@ element_plus_dependency <- function(offline = TRUE) {
 #' Plus 2.14.7; the hook stays for the next one.
 #'
 #' @return A `<style>` element, as text, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_css_fixes <- function() {
   NULL
 }
@@ -402,7 +402,7 @@ el_locales <- function() {
 #' @param code A locale code, lower case: `"zh-cn"`.
 #' @return The directory holding `<code>.min.js`, or `NULL` for a locale
 #'   Element Plus does not ship.
-#' @keywords internal
+#' @noRd
 .el_locale_dir <- function(code) {
   file <- paste0(code, ".min.js")
   root <- system.file(
@@ -434,7 +434,7 @@ el_locales <- function() {
 #' Listed once a session.
 #'
 #' @return File names, `"af.min.js"`.
-#' @keywords internal
+#' @noRd
 .el_locales_packed <- function() {
   if (is.null(.el_locale_cache$packed)) {
     archive <- system.file(
@@ -466,7 +466,7 @@ el_locales <- function() {
 #' @param z_index A number, or `NULL`.
 #' @return A list holding one htmlDependency, or `NULL` when there is nothing
 #'   to set.
-#' @keywords internal
+#' @noRd
 .el_config_dependency <- function(size = NULL, z_index = NULL) {
   if (is.null(size) && is.null(z_index)) {
     return(NULL)
@@ -507,7 +507,7 @@ el_locales <- function() {
 #' mounted.
 #'
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .el_bridge_dependency <- function() {
   htmltools::htmlDependency(
     "shiny-element",
@@ -538,7 +538,7 @@ el_locales <- function() {
 #' once per R session and mode.
 #'
 #' @return A list of htmlDependency objects.
-#' @keywords internal
+#' @noRd
 .el_dependencies <- function() {
   .vue_memo(paste("el_dependencies", .vue_dev()), function() {
     c(
@@ -556,7 +556,7 @@ el_locales <- function() {
 #'
 #' @param code Locale codes, `"zh-cn"`.
 #' @return The globals' names.
-#' @keywords internal
+#' @noRd
 .el_locale_global <- function(code) {
   vapply(
     strsplit(tolower(code), "-", fixed = TRUE),

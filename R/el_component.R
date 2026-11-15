@@ -11,7 +11,7 @@
 #' @param args Its arguments.
 #' @param class The component's class, `"el_table"`.
 #' @return An object of class `class` and `el_component`.
-#' @keywords internal
+#' @noRd
 .el_component <- function(fn, args, class) {
   structure(list(fn = fn, args = args), class = c(class, "el_component"))
 }
@@ -47,7 +47,7 @@ knit_print.el_component <- function(x, ...) {
 #'
 #' @param x UI: tags, lists of them, components.
 #' @return `x`, every component in it replaced by its tags.
-#' @keywords internal
+#' @noRd
 .el_resolve <- function(x) {
   if (inherits(x, "el_component")) {
     return(htmltools::as.tags(x))
@@ -376,7 +376,7 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @param output_fn The output function.
 #' @param label The render function's name, for its cache hint.
 #' @return A render function, of class `el_render_output`.
-#' @keywords internal
+#' @noRd
 .el_render_component <- function(
   expr,
   env,

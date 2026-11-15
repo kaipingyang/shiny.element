@@ -143,7 +143,7 @@ el_icon <- function(
 #' @param name `"Search"`, `"search"`, `"arrow-right"`, `"arrow right"` or
 #'   `"el-icon-arrow-right"`.
 #' @return `"Search"`, `"ArrowRight"`.
-#' @keywords internal
+#' @noRd
 .el_icon_pascal <- function(name) {
   if (grepl("^[A-Z]", name)) {
     return(name)
@@ -163,7 +163,7 @@ el_icon <- function(
 #'
 #' @param x An icon name, an Element UI icon class, or `NULL`.
 #' @return The Element Plus name, or `x` unchanged.
-#' @keywords internal
+#' @noRd
 .el_icon_name <- function(x) {
   if (!is.character(x) || length(x) != 1L || !grepl("^el-icon-", x)) {
     return(x)
@@ -197,7 +197,7 @@ el_icon <- function(
 #'
 #' @param class The icon's own class, beside `el-icon`.
 #' @return An `<i>` tag holding the SVG.
-#' @keywords internal
+#' @noRd
 .el_close_icon <- function(class) {
   htmltools::tags$i(
     class = paste("el-icon", class),
@@ -219,7 +219,7 @@ el_icon <- function(
 #'
 #' @param x An icon's name (any form [el_icon()] takes), or a tag.
 #' @return Markup.
-#' @keywords internal
+#' @noRd
 .el_icon_template <- function(x) {
   if (!is.character(x)) {
     return(x)

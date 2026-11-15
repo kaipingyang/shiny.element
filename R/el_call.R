@@ -106,7 +106,7 @@ call_el <- function(
 #'
 #' @param x A method name.
 #' @return The same name in snake_case.
-#' @keywords internal
+#' @noRd
 .el_snake_case <- function(x) {
   tolower(gsub("([a-z0-9])([A-Z])", "\\1_\\2", x))
 }

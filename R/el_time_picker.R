@@ -296,7 +296,7 @@ el_time_select <- function(
 #' @param width,slots As for [el_widget()].
 #' @param form_item The label and message arguments, for [el_widget()].
 #' @return A Shiny UI element.
-#' @keywords internal
+#' @noRd
 .el_time_widget <- function(
   tag,
   ns_id,

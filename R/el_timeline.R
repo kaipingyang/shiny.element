@@ -150,7 +150,7 @@ el_timeline <- function(
 #'
 #' @param items A list of entries.
 #' @return The entries with unknown and empty fields dropped.
-#' @keywords internal
+#' @noRd
 .el_timeline_items <- function(items) {
   fields <- c(
     "content",

@@ -6,7 +6,7 @@
 #' @param session What was given.
 #' @param fn The calling function's name, for the message.
 #' @return `session`, invisibly.
-#' @keywords internal
+#' @noRd
 .vue_check_session <- function(session, fn = NULL) {
   if (is.null(fn)) {
     fn <- tryCatch(deparse(sys.call(-1)[[1]]), error = function(e) {
@@ -55,9 +55,9 @@
 #'
 #' @param session A Shiny session.
 #' @param msg `list(id =, <field> = <value>, ...)`; dot-keys are the bridge's.
-#' @param immediate Send now rather than with the flush: see [.vue_send()].
+#' @param immediate Send now rather than with the flush: see `.vue_send()`.
 #' @return `NULL`, invisibly.
-#' @keywords internal
+#' @noRd
 .vue_send_update <- function(session, msg, immediate = FALSE) {
   msg <- .vue_tags_as_html(msg)
   # Functions travel as source, listed by path, as a component's options do
@@ -84,7 +84,7 @@
 #' @param msg The message.
 #' @param immediate Send now: a progress, a feedback service.
 #' @return `NULL`, invisibly.
-#' @keywords internal
+#' @noRd
 .vue_send <- function(session, type, msg, immediate = FALSE) {
   queue <- .vue_queue(session)
   if (isTRUE(immediate) || is.null(queue)) {
@@ -126,7 +126,7 @@
 #' @param session A Shiny session.
 #' @return An environment, or `NULL` for a session that cannot hold one
 #'   until the flush.
-#' @keywords internal
+#' @noRd
 .vue_queue <- function(session) {
   if (
     !is.function(session$onFlushed) ||
@@ -148,7 +148,7 @@
 #' Send what is queued, in order
 #' @param session A Shiny session.
 #' @return `NULL`, invisibly.
-#' @keywords internal
+#' @noRd
 .vue_send_queued <- function(session) {
   queue <- .vue_queue(session)
   if (is.null(queue) || !length(queue$messages)) {

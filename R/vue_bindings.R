@@ -46,9 +46,9 @@
 #' the spec's `bound`, which the bridge follows. Only whole fields are
 #' bound.
 #'
-#' @param spec A host's spec, as [.vue_host()] receives it.
+#' @param spec A host's spec, as `.vue_host()` receives it.
 #' @return The spec, with `bound` when a field is.
-#' @keywords internal
+#' @noRd
 .vue_bound <- function(spec) {
   data <- spec$options$data
   if (!length(data) || !is.list(data)) {
@@ -96,7 +96,7 @@
 #' @param kinds The kinds, as above.
 #' @param arg An argument's name.
 #' @return `list(kind, detail)`.
-#' @keywords internal
+#' @noRd
 .vue_arg_kind <- function(kinds, arg) {
   k <- if (length(kinds) == 1L && is.null(names(kinds))) {
     kinds
@@ -137,7 +137,7 @@
 #' @param frame Arguments every component reads in R -- its id, session,
 #'   events, handlers and slots -- refused whatever `kinds` says.
 #' @return `NULL`, invisibly.
-#' @keywords internal
+#' @noRd
 .vue_check_bindings <- function(
   fn,
   env,
@@ -197,7 +197,7 @@
 #' @param kinds Their kinds.
 #' @param skip Arguments of the component's frame (id, session, ...).
 #' @return The names.
-#' @keywords internal
+#' @noRd
 .vue_bindable <- function(args, kinds, skip) {
   args <- setdiff(args, skip)
   args[vapply(args, function(a) .vue_arg_kind(kinds, a)$kind == "prop", TRUE)]
@@ -214,7 +214,7 @@
 #' @param skip Arguments of the component's frame.
 #' @param library Whose form a binding gives, in words: `"the library's"`.
 #' @return A markdown sentence.
-#' @keywords internal
+#' @noRd
 .vue_bindings_md <- function(args, kinds, skip, library = "the library's") {
   args <- setdiff(args, skip)
   ks <- lapply(stats::setNames(args, args), function(a) .vue_arg_kind(kinds, a))
@@ -278,7 +278,7 @@
 #' @param defaults The component function's formals, for the defaults.
 #' @return A list: `values`, the bound ones replaced by their defaults, and
 #'   `json`, the attribute's value, or `NULL` when none is bound.
-#' @keywords internal
+#' @noRd
 .vue_bound_markup <- function(values, defaults) {
   bound <- vapply(values, inherits, logical(1), c("v_bind", "v_model"))
   if (!any(bound)) {
@@ -319,7 +319,7 @@
 #' @param shape What a binding gives, for the bridge's check in Vue's
 #'   development build: `"records"`, a list of objects.
 #' @return `convert(x)`, or the binding.
-#' @keywords internal
+#' @noRd
 .vue_data_arg <- function(x, convert = identity, name = "", shape = NULL) {
   if (inherits(x, "v_model")) {
     stop(

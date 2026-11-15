@@ -19,7 +19,7 @@
 #' @return A list with `markup`, the Vue options to merge (`data`, `methods`,
 #'   `watch`, `mounted`, `computed`), and `dependencies`. Plain markup comes
 #'   back as `markup` with everything else empty.
-#' @keywords internal
+#' @noRd
 .el_absorb <- function(ui) {
   # a component given as its specification (el_table()) is drawn first, and
   # directives (v_if(), v_bind() ...) are their attributes before fields are
@@ -186,11 +186,11 @@
 
 #' Merge what several absorbed components contribute
 #'
-#' @param ... Results of [.el_absorb()].
+#' @param ... Results of `.el_absorb()`.
 #' @return One set of Vue options, the dependencies to attach, and each
 #'   part's markup as it now stands -- renaming rewrites it, so the caller
 #'   must render `markups` rather than what it passed in.
-#' @keywords internal
+#' @noRd
 .el_absorb_merge <- function(...) {
   parts <- list(...)
 
@@ -287,10 +287,10 @@
 #' `:class="data.isSelected ? 'is-selected' : ''"` names a CSS class, not a
 #' field.
 #'
-#' @param absorbed Output of [.el_absorb()].
+#' @param absorbed Output of `.el_absorb()`.
 #' @param prefix Prefix to apply, already a valid JS identifier fragment.
 #' @return The same list, with every field renamed.
-#' @keywords internal
+#' @noRd
 .el_prefix_absorbed <- function(absorbed, prefix) {
   # Methods collide as readily as data: most components call theirs
   # handleChange or handleClick. The markup names both, so both are renamed.
@@ -410,7 +410,7 @@
 #' @param expr A Vue template expression.
 #' @param rename Named character vector, old name to new.
 #' @return The expression, rewritten.
-#' @keywords internal
+#' @noRd
 .el_rewrite_expr <- function(expr, rename) {
   if (!is.character(expr) || !length(expr)) {
     return(expr)
@@ -448,7 +448,7 @@
 #' @param ui Markup.
 #' @param rename Named character vector, old name to new.
 #' @return The markup, rewritten.
-#' @keywords internal
+#' @noRd
 .el_rewrite_markup <- function(ui, rename) {
   if (inherits(ui, "shiny.tag")) {
     # Every directive's value is an expression -- v-loading as much as v-if --
@@ -493,7 +493,7 @@
 #' @param html Markup, one string.
 #' @param rename Named character vector, old name to new.
 #' @return The markup, its binding values and interpolations rewritten.
-#' @keywords internal
+#' @noRd
 .el_rewrite_html <- function(html, rename) {
   rewrite <- function(x, pattern, inner) {
     m <- gregexpr(pattern, x, perl = TRUE)
@@ -526,7 +526,7 @@
 #' @param js An `JS()` string.
 #' @param rename Named character vector, old name to new.
 #' @return The function, rewritten.
-#' @keywords internal
+#' @noRd
 .el_rewrite_js <- function(js, rename) {
   if (is.null(js)) {
     return(NULL)
@@ -548,7 +548,7 @@
 #' @param rename Named character vector, old name to new.
 #' @param before A lookbehind that must precede a name.
 #' @return `x`, renamed.
-#' @keywords internal
+#' @noRd
 .el_rename_all <- function(x, rename, before) {
   if (!length(rename) || !length(x)) {
     return(x)
@@ -572,15 +572,15 @@
 #'
 #' For Element Plus's containers -- affix, space, scrollbar, watermark and the
 #' like -- whose content is arbitrary UI: each child that is a component of
-#' this package is folded into the container's instance ([.el_absorb()]),
+#' this package is folded into the container's instance (`.el_absorb()`),
 #' the rest is markup inside its template. The container's own fields are
 #' taken first, so a child's field of the same name is the one renamed.
 #'
 #' @param tag The Element Plus tag.
 #' @param ns_id The namespaced id.
 #' @param children A list of UI.
-#' @param props Output of [.el_props()], or `NULL`.
-#' @param events Output of [.el_event_bindings()], or `NULL`.
+#' @param props Output of `.el_props()`, or `NULL`.
+#' @param events Output of `.el_event_bindings()`, or `NULL`.
 #' @param on The user's own handlers, for a container that forwards no
 #'   event of Element's: see [el_widget()].
 #' @param attrs Further attributes of the tag.
@@ -591,7 +591,7 @@
 #'   them, whose bindings name the container's fields. Left out of the
 #'   children, it is not renamed with them.
 #' @return A Shiny UI element.
-#' @keywords internal
+#' @noRd
 .el_wrap_widget <- function(
   tag,
   ns_id,
@@ -647,7 +647,7 @@
 #'
 #' @param mounts A list of `JS()` hooks, `NULL`s dropped.
 #' @return One hook, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_join_mounted <- function(mounts) {
   mounts <- Filter(Negate(is.null), mounts)
   if (!length(mounts)) {
@@ -674,7 +674,7 @@
 #' @param options A component's Vue options.
 #' @param old,new The ref's name, and its new one.
 #' @return The options, `$refs.<old>` read as `$refs.<new>` throughout.
-#' @keywords internal
+#' @noRd
 .el_rename_ref <- function(options, old, new) {
   pattern <- sprintf(
     "\\$refs(\\.%1$s(?![A-Za-z0-9_$])|\\[(['\"])%1$s\\2\\])",
@@ -714,7 +714,7 @@
 #'
 #' A config provider renders its slot alone: an attribute on it reaches
 #' nothing, and Vue warns.
-#' @keywords internal
+#' @noRd
 .el_no_root <- c("el-config-provider")
 
 
@@ -727,7 +727,7 @@
 #' @param markup A tag, tag list or list of them.
 #' @param rename Named character vector: old group -> new.
 #' @return The markup.
-#' @keywords internal
+#' @noRd
 .el_rename_groups <- function(markup, rename) {
   if (inherits(markup, "shiny.tag")) {
     hit <- which(names(markup$attribs) == "v-bind")

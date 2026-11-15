@@ -50,7 +50,7 @@
 #'
 #' @param opts A named list of options.
 #' @return The list, named as Vue names its options.
-#' @keywords internal
+#' @noRd
 .vue_option_aliases <- function(opts) {
   if (!length(opts)) {
     return(opts)
@@ -80,7 +80,7 @@
 #' @param use `c("PluginA", "PluginB")`, or a list naming a plugin with its
 #'   options: `list(PluginA = list(size = "small"), "PluginB")`.
 #' @return A list of names and `list(name =, options =)`.
-#' @keywords internal
+#' @noRd
 .vue_use <- function(use) {
   if (!length(use)) {
     return(NULL)
@@ -156,7 +156,7 @@
 #'   template -- a `vue_app()` the library did not fold -- is an island
 #'   either way, or Vue would drop its template and it would never mount.
 #' @return A list: `template`, with placeholders; `holder`, a tag or `NULL`.
-#' @keywords internal
+#' @noRd
 .vue_islands <- function(template, components = TRUE) {
   islands <- list()
   loose <- list()
@@ -245,7 +245,7 @@
 #' @param spec What the bridge reads: `options`, `input`, `use`, ...
 #' @param dependencies htmlDependencies to attach beside the Vue layer's.
 #' @return A tag with its dependencies.
-#' @keywords internal
+#' @noRd
 .vue_host <- function(
   id,
   template,

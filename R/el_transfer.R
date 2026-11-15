@@ -179,7 +179,7 @@ el_transfer <- function(
 #'
 #' @param data A data.frame or a list of items.
 #' @return A list of items.
-#' @keywords internal
+#' @noRd
 .el_transfer_data <- function(data) {
   if (is.null(data) || !length(data)) {
     return(list())

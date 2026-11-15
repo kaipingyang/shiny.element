@@ -87,7 +87,7 @@ update_vue <- function(
 #'
 #' @param insert,replace,delete,at,key As for [update_vue()].
 #' @return `NULL`, or `list(op, field, rows, at, key)`.
-#' @keywords internal
+#' @noRd
 .vue_edit <- function(insert, replace, delete, at, key) {
   given <- Filter(
     Negate(is.null),
@@ -165,7 +165,7 @@ update_vue <- function(
 #'
 #' @param set A named list, path to value.
 #' @return A list of `list(path, value)`.
-#' @keywords internal
+#' @noRd
 .vue_set_paths <- function(set) {
   if (!is.list(set) || is.null(names(set)) || any(!nzchar(names(set)))) {
     stop(

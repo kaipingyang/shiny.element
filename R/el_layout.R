@@ -6,7 +6,7 @@
 #'
 #' @param ... Style fragments; `NULL` entries are dropped.
 #' @return A single `;`-separated style string, or `NULL` if nothing was given.
-#' @keywords internal
+#' @noRd
 .el_style <- function(...) {
   parts <- unlist(list(...))
   parts <- parts[!is.na(parts) & nzchar(parts)]
@@ -24,7 +24,7 @@
 #' @param child A column tag, or any other child (returned untouched).
 #' @param half Half the gutter width, in pixels.
 #' @return The child with padding merged into its `style`.
-#' @keywords internal
+#' @noRd
 .el_col_gutter <- function(child, half) {
   if (!inherits(child, "shiny.tag")) {
     return(child)
@@ -347,7 +347,7 @@ el_page <- function(
 #' removed.
 #'
 #' @return A tag list.
-#' @keywords internal
+#' @noRd
 .el_page_loading <- function() {
   htmltools::tagList(
     htmltools::tags$style(htmltools::HTML(

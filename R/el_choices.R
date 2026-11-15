@@ -7,7 +7,7 @@
 #' when given a string.
 #'
 #' @name .el_choices
-#' @keywords internal
+#' @noRd
 .el_choices <- local({
   list(
     el_affix = list(position = c("top", "bottom")),
@@ -537,10 +537,10 @@
 #' Exact matching, unlike [match.arg()]: `"prim"` is not `"primary"` to
 #' Element either.
 #'
-#' @param fn The function's name, a key of [.el_choices].
+#' @param fn The function's name, a key of `.el_choices`.
 #' @param env Its evaluation environment.
 #' @return `NULL`, invisibly; or an error.
-#' @keywords internal
+#' @noRd
 .el_check_choices <- function(fn, env) {
   allowed <- .el_choices[[fn]]
   for (arg in names(allowed)) {

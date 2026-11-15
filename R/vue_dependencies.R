@@ -6,7 +6,7 @@
 #' `options(shiny.vue.dev = TRUE)`, or `shiny.element.dev` as before.
 #'
 #' @return `TRUE` or `FALSE`.
-#' @keywords internal
+#' @noRd
 .vue_dev <- function() {
   isTRUE(getOption("shiny.vue.dev", getOption("shiny.element.dev", FALSE)))
 }
@@ -18,7 +18,7 @@
 #' page still loads one copy.
 #'
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .vue_jquery_dependency <- function() {
   jquerylib::jquery_core(3)
 }
@@ -37,7 +37,7 @@
 #'
 #' @param dev Load `vue.global.js` rather than `vue.global.prod.js`.
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .vue_core_dependency <- function(dev = .vue_dev()) {
   if (!isTRUE(dev)) {
     return(htmltools::htmlDependency(
@@ -69,7 +69,7 @@
 #' input binding, serialises values, forwards events and applies updates.
 #'
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .vue_bridge_dependency <- function() {
   htmltools::htmlDependency(
     "shiny-vue",
@@ -86,7 +86,7 @@
 #' needs for any host on it. Made once per R session and mode.
 #'
 #' @return A list of htmlDependency objects.
-#' @keywords internal
+#' @noRd
 .vue_host_dependencies <- function() {
   .vue_memo(paste("vue_host_dependencies", .vue_dev()), function() {
     list(
@@ -107,7 +107,7 @@
 #' @param key What it is, with whatever it depends on (`dev`, `offline`).
 #' @param make A function making it.
 #' @return The value.
-#' @keywords internal
+#' @noRd
 .vue_memo <- function(key, make) {
   value <- .vue_memo_env[[key]]
   if (is.null(value)) {
@@ -123,7 +123,7 @@
 #'
 #' @param ... Path components, as for [system.file()].
 #' @return The path; `""` when there is none.
-#' @keywords internal
+#' @noRd
 .vue_file <- function(...) {
   parts <- c(...)
   .vue_memo(
@@ -144,7 +144,7 @@
 #'
 #' @param dev Load the development build.
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .vue_router_dependency <- function(dev = .vue_dev()) {
   if (!isTRUE(dev)) {
     return(htmltools::htmlDependency(
@@ -178,7 +178,8 @@
 #' `setup()`, as `VueUse.useTransition(...)`. Give it to the component that
 #' uses it, `vue_app(dependencies = vueuse_dependency())`, or put it on the
 #' page; it carries Vue, which it needs loaded before it, so either works.
-#' No page loads it unless asked: the two files are 149 KB.
+#' No page loads it unless asked: the two files are 149 KB, kept packed
+#' in the package and taken out into `tempdir()` the first time.
 #'
 #' @return A list of htmlDependency objects: Vue, `@vueuse/shared`,
 #'   `@vueuse/core`.
@@ -200,26 +201,52 @@
 #' @export
 vueuse_dependency <- function() {
   .vue_memo(paste("vueuse_dependency", .vue_dev()), function() {
+    # packed, to keep the installed package small; taken out once a session
+    dir <- .vue_unpacked("vueuse", "vueuse.tar.xz")
     list(
       .vue_core_dependency(),
       htmltools::htmlDependency(
         name = "vueuse-shared",
         version = "15.0.0",
-        src = "vueuse",
-        package = "shiny.element",
+        src = c(file = dir),
         script = "shared.iife.min.js",
         all_files = FALSE
       ),
       htmltools::htmlDependency(
         name = "vueuse-core",
         version = "15.0.0",
-        src = "vueuse",
-        package = "shiny.element",
+        src = c(file = dir),
         script = "core.iife.min.js",
         all_files = FALSE
       )
     )
   })
+}
+
+#' A packed directory of the package's files, taken out to serve
+#'
+#' Files a page loads only when asked for (VueUse) are kept in the package
+#' as one xz archive, a quarter of their size, and taken out into the
+#' session's `tempdir()` the first time they are wanted -- as the
+#' component library's rarer locales are. Each R process has its own
+#' `tempdir()`, so processes never share a half-written copy.
+#'
+#' @param dir The directory under `inst/`.
+#' @param archive The archive in it.
+#' @return The directory the files are in.
+#' @noRd
+.vue_unpacked <- function(dir, archive) {
+  out <- file.path(tempdir(), paste0("shiny.vue-", dir))
+  if (!dir.exists(out)) {
+    tmp <- paste0(out, ".part")
+    utils::untar(
+      system.file(dir, archive, package = "shiny.element", mustWork = TRUE),
+      exdir = tmp,
+      tar = "internal"
+    )
+    file.rename(tmp, out)
+  }
+  out
 }
 
 #' Pinia, as bundled with the package
@@ -231,7 +258,7 @@ vueuse_dependency <- function() {
 #'
 #' @param dev Load the development build.
 #' @return An htmlDependency object.
-#' @keywords internal
+#' @noRd
 .vue_pinia_dependency <- function(dev = .vue_dev()) {
   if (!isTRUE(dev)) {
     return(htmltools::htmlDependency(

@@ -474,7 +474,7 @@ print.vue_directive <- function(x, ...) {
 #'
 #' @param x A tag, a tag list, or anything else (returned as it is).
 #' @return `x`, its directives as attributes.
-#' @keywords internal
+#' @noRd
 .vue_directives <- function(x) {
   if (inherits(x, "shiny.tag")) {
     a <- x$attribs
@@ -592,7 +592,7 @@ print.vue_binding <- function(x, ...) {
 #' @param kind `"v_bind"`, `"v_model"` or `"v_on"`.
 #' @param ns `NULL`, a namespace function or a module's id.
 #' @return The code, classed `c(kind, "vue_binding")`, with `scope`.
-#' @keywords internal
+#' @noRd
 .vue_binding <- function(code, kind, ns) {
   structure(code, scope = .vue_scope(ns), class = c(kind, "vue_binding"))
 }
@@ -607,7 +607,7 @@ print.vue_binding <- function(x, ...) {
 #'
 #' @param ns `NULL`, a namespace function or a module's id.
 #' @return `NULL`, or a list of `inputs` and `store` prefixes.
-#' @keywords internal
+#' @noRd
 .vue_scope <- function(ns) {
   module <- if (is.null(ns)) {
     ""

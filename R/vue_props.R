@@ -3,12 +3,12 @@
 #' A field left out of a Vue instance's `data` is not reactive, so an update
 #' can never set it later. Unset optional props are therefore declared as
 #' `NA`, which serialises to `null`; for the props of an `$optional()` group
-#' ([.vue_optional_props()]) the bridge makes that `null` `undefined`, so the
+#' (`.vue_optional_props()`) the bridge makes that `null` `undefined`, so the
 #' component applies its own default.
 #'
 #' @param x A value, or `NULL` when the user did not supply one.
 #' @return `x`, or `NA` when `x` is `NULL`.
-#' @keywords internal
+#' @noRd
 .vue_or_na <- function(x) {
   if (is.null(x)) NA else x
 }
@@ -17,7 +17,7 @@
 #'
 #' The props a component library defaults when they are not given, bound
 #' together on one tag with `v-bind="$optional('<group>')"` (see
-#' [.vue_bind_optional()]). Each prop has a field in the component's data,
+#' `.vue_bind_optional()`). Each prop has a field in the component's data,
 #' named in camelCase, so an update sets it as any other; unset (`NULL`)
 #' is `NA`, sent as `null` and made `undefined` in the browser, where Vue
 #' applies the prop's default. A deliberate `null` is `JS("null")`.
@@ -39,7 +39,7 @@
 #' @return `list(map =, data =)`: `map` for the spec's `optional`, one group
 #'   of `<prop-kebab> = <field>` (or `list(field =, wrap =)`); `data` the
 #'   fields, by name.
-#' @keywords internal
+#' @noRd
 .vue_optional_props <- function(
   values,
   group,
@@ -102,9 +102,9 @@
 #' well (Vue 3 merges `v-bind` and attributes in source order).
 #'
 #' @param attrs A tag's attributes, a named list.
-#' @param group The group's name, as given to [.vue_optional_props()].
+#' @param group The group's name, as given to `.vue_optional_props()`.
 #' @return The attributes.
-#' @keywords internal
+#' @noRd
 .vue_bind_optional <- function(attrs, group) {
   ours <- sprintf("$optional('%s')", group)
   has <- if (is.null(names(attrs))) {

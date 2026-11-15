@@ -9,7 +9,7 @@
 #'
 #' @param x A vector, `NULL` or a binding.
 #' @return A list, or the binding.
-#' @keywords internal
+#' @noRd
 .vue_array <- function(x) {
   if (inherits(x, "vue_binding")) {
     return(x)
@@ -21,7 +21,7 @@
 #'
 #' @param x A value, or a binding, which is kept.
 #' @return `TRUE`, `FALSE` or the binding.
-#' @keywords internal
+#' @noRd
 .vue_flag <- function(x) {
   if (inherits(x, "vue_binding")) x else isTRUE(x)
 }
@@ -42,7 +42,7 @@
 #' @param data A data.frame, a list holding some, or anything else
 #'   (returned as is).
 #' @return The rows: JSON of class `json`, or a list of row lists.
-#' @keywords internal
+#' @noRd
 .vue_rows <- function(data) {
   if (!is.data.frame(data)) {
     if (is.list(data) && !inherits(data, "json") && length(data)) {
@@ -92,7 +92,7 @@
 #'
 #' @param x Anything.
 #' @return `x`, with every tag in it rendered.
-#' @keywords internal
+#' @noRd
 .vue_tags_as_html <- function(x) {
   if (inherits(x, c("shiny.tag", "shiny.tag.list"))) {
     return(as.character(htmltools::renderTags(.vue_directives(x))$html))
@@ -109,7 +109,7 @@
 #'
 #' @param x A nested list.
 #' @return Dot-separated paths, dots inside names escaped.
-#' @keywords internal
+#' @noRd
 .vue_js_paths <- function(x) {
   walk <- function(node, path) {
     if (is.list(node) && !inherits(node, "POSIXlt")) {
@@ -148,13 +148,13 @@
 #' of building it. What jsonlite was asked for, yyjsonr is given: one-element
 #' vectors unboxed and `I()` ones kept as arrays, `NA` and `NULL` as `null`,
 #' data frames by column, `JS()` code and `json` verbatim, full precision;
-#' and what yyjsonr does otherwise, done first ([.vue_json_prepare()]): a
+#' and what yyjsonr does otherwise, done first (`.vue_json_prepare()`): a
 #' named vector is an object, a date-time ISO 8601 in UTC, a whole number
 #' kept as a double written `1`, not `1.0`.
 #'
 #' @param spec `options`, and `input`, `rate`, `type`, `use`, ...
 #' @return The JSON, as a single string, safe inside a `<script>`.
-#' @keywords internal
+#' @noRd
 .vue_json <- function(spec) {
   spec <- .vue_tags_as_html(spec)
   spec$evals <- I(.vue_js_paths(spec))
@@ -186,7 +186,7 @@
 #'
 #' @param x A value.
 #' @return The value.
-#' @keywords internal
+#' @noRd
 .vue_json_prepare <- function(x) {
   if (inherits(x, c("json", "JS_EVAL"))) {
     return(x)
@@ -219,7 +219,7 @@
 #' @param x A double vector, plain or `I()`.
 #' @return `x`, an integer vector when every value is whole and within
 #'   integer range (`NA` allowed).
-#' @keywords internal
+#' @noRd
 .vue_json_whole <- function(x) {
   v <- unclass(x)
   ok <- !is.na(v)

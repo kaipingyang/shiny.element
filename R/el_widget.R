@@ -40,7 +40,7 @@
 #' @param head Tags to place before the host, such as a `<style>` block.
 #' @param slots Named list of slot contents, one entry per Element slot:
 #'   `list(title = tags$b("Bold"))` fills the `title` slot. A component given
-#'   here is absorbed like any other ([.el_absorb()]). For a scoped slot,
+#'   here is absorbed like any other (`.el_absorb()`). For a scoped slot,
 #'   where Element hands the template its own data, write the template with
 #'   [template()] and the value is used as it stands.
 #' @param width Component width, as a CSS unit. Applied to the Element markup
@@ -78,7 +78,7 @@
 #'   the package's wrappers; leave it `NULL`.
 #' @param props Optional props from `.el_props()`: bound on the root tag of
 #'   `markup` as one group, `v-bind="$optional('<tag>')"`, with their fields
-#'   added to `data`; or already bound on another tag ([.el_bind_props()]),
+#'   added to `data`; or already bound on another tag (`.el_bind_props()`),
 #'   whose groups are kept.
 #' @param type An input type for [shiny::registerInputHandler()], which
 #'   converts the value on its way into R.
@@ -412,7 +412,7 @@ el_widget <- function(
 #' @param tag A tag, or something else (returned unchanged).
 #' @param width A CSS unit, as accepted by [shiny::validateCssUnit()].
 #' @return The tag, with the width set.
-#' @keywords internal
+#' @noRd
 .el_set_width <- function(tag, width) {
   if (!inherits(tag, "shiny.tag")) {
     warning(
@@ -448,7 +448,7 @@ el_widget <- function(
 #' @param taken Field and method names the component itself already uses;
 #'   an absorbed component declaring one of them is renamed.
 #' @return A list of `markup` plus the Vue options its components contribute.
-#' @keywords internal
+#' @noRd
 .el_slot_markup <- function(slots, taken = character(0)) {
   if (!length(slots) || is.null(names(slots))) {
     stop(
@@ -502,7 +502,7 @@ el_widget <- function(
 #' @param tag A tag.
 #' @param children Children to add.
 #' @return The tag, with the children appended.
-#' @keywords internal
+#' @noRd
 .el_append_children <- function(tag, children) {
   if (!length(children)) {
     return(tag)
@@ -533,7 +533,7 @@ el_widget <- function(
 #' @param position `"top"` or `"left"`.
 #' @param markup The component's Element markup.
 #' @return A tag.
-#' @keywords internal
+#' @noRd
 .el_labelled <- function(
   container_id,
   id,
@@ -650,7 +650,7 @@ el_widget <- function(
 #'
 #' @param size_field Whether the component has a `size` field.
 #' @return A Vue class binding.
-#' @keywords internal
+#' @noRd
 .el_form_item_size_class <- function(size_field) {
   global <- "($ELEMENT && $ELEMENT.size)"
   current <- if (size_field) sprintf("(size || %s)", global) else global
@@ -668,7 +668,7 @@ el_widget <- function(
 #' @param label The label; nothing is added when it is `NULL`.
 #' @param native Whether the tag passes `id` to a native input.
 #' @return The attributes, with the tie added.
-#' @keywords internal
+#' @noRd
 .el_label_attrs <- function(attrs, id, label, native = FALSE) {
   if (is.null(label)) {
     return(attrs)
@@ -691,7 +691,7 @@ el_widget <- function(
 #' @param label New label: text, tags or `HTML()`, or `NULL`.
 #' @param error New error message, `""` to clear it, or `NULL`.
 #' @return The message.
-#' @keywords internal
+#' @noRd
 .el_form_item_update <- function(msg, label = NULL, error = NULL) {
   # Markup -- tags or HTML() -- goes as HTML, as Shiny's update*Input()
   # takes it; anything else as text

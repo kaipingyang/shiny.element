@@ -6,7 +6,7 @@
 #'
 #' @param prefix The component's function name.
 #' @return The id, with attribute `generated`.
-#' @keywords internal
+#' @noRd
 .vue_auto_id <- function(prefix) {
   structure(paste0(prefix, "_", uuid::UUIDgenerate()), generated = TRUE)
 }
@@ -26,7 +26,7 @@
 #' @param id The id as given.
 #' @param session `NULL`, or a session passed by the caller.
 #' @return The id the component uses.
-#' @keywords internal
+#' @noRd
 .vue_ui_id <- function(id, session = NULL) {
   if (is.numeric(id) && length(id) == 1L && !is.na(id)) {
     id <- as.character(id)
@@ -73,7 +73,7 @@
 #' @param main,alias The argument's values under each name.
 #' @param main_name,alias_name The names, for the error message.
 #' @return Whichever was given; `main` when neither was.
-#' @keywords internal
+#' @noRd
 .vue_alias <- function(main, alias, main_name, alias_name) {
   if (is.null(alias)) {
     return(main)
@@ -105,7 +105,7 @@
 #'
 #' @param choices A named vector, an unnamed vector, or a list of configs.
 #' @return An unnamed list of `list(value = , label = )` items.
-#' @keywords internal
+#' @noRd
 .vue_choices <- function(choices) {
   # A list is assumed to be in option shape already.
   if (is.list(choices)) {
@@ -129,7 +129,7 @@
 #'
 #' @param x One name.
 #' @return The name in camelCase.
-#' @keywords internal
+#' @noRd
 .vue_camel <- function(x) {
   parts <- strsplit(x, "_", fixed = TRUE)[[1]]
   paste0(
@@ -147,7 +147,7 @@
 #' @param id The input's id.
 #' @param default The value without a bookmark.
 #' @return The restored value, or `default`.
-#' @keywords internal
+#' @noRd
 .vue_restore <- function(id, default) {
   value <- shiny::restoreInput(id = id, default = default)
   if (identical(value, default)) {

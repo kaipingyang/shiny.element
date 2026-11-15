@@ -21,7 +21,7 @@
 #' where the bslib and sass installed are the ones it was compiled with.
 #'
 #' @name el_theme_cache
-#' @keywords internal
+#' @noRd
 NULL
 
 #' The page's theme function, drawn with the cache
@@ -33,7 +33,7 @@ NULL
 #' @param page A page from [shiny::fluidPage()].
 #' @param theme The theme it was given.
 #' @return The page.
-#' @keywords internal
+#' @noRd
 .el_page_theme_cached <- function(page, theme) {
   if (!inherits(theme, "bs_theme")) {
     return(page)
@@ -67,7 +67,7 @@ NULL
 #' @return An object sass takes for its cache (class `FileCache`), or
 #'   `NULL` when sass's caching is off (`options(sass.cache = FALSE)`, Shiny's
 #'   developer mode).
-#' @keywords internal
+#' @noRd
 .el_theme_cache <- function(theme) {
   base <- sass::sass_cache_get()
   if (is.null(base)) {
@@ -110,7 +110,7 @@ NULL
 #' @param theme The theme, whose files (fonts) go beside the CSS, as
 #'   `sass::as_sass_layer()` lists them: destination = source.
 #' @return The output's directory, invisibly.
-#' @keywords internal
+#' @noRd
 .el_theme_place <- function(base, key, theme) {
   dir <- file.path(tempdir(), paste0("bslib-", key))
   out <- file.path(dir, "bootstrap.min.css")
@@ -147,7 +147,7 @@ NULL
 #' Whether a theme is the default `el_theme()`
 #' @param theme A theme.
 #' @return `TRUE` or `FALSE`.
-#' @keywords internal
+#' @noRd
 .el_theme_is_default <- function(theme) {
   identical(theme, .vue_memo("el_theme_default", el_theme))
 }
@@ -160,7 +160,7 @@ NULL
 #' (compressed) another output.
 #'
 #' @return The CSS, one string; `NULL` where it does not apply.
-#' @keywords internal
+#' @noRd
 .el_theme_shipped <- function() {
   if (!.el_theme_versions_match()) {
     return(NULL)
@@ -185,7 +185,7 @@ NULL
 
 #' Whether the bslib and sass installed made the shipped CSS
 #' @return `TRUE` or `FALSE`.
-#' @keywords internal
+#' @noRd
 .el_theme_versions_match <- function() {
   path <- .vue_file("el-theme", "versions.json")
   if (!nzchar(path)) {

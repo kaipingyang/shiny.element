@@ -345,7 +345,7 @@ el_cascader <- function(
 #' @param level_inputs Input ids, one per level, or `NULL`.
 #' @param props The cascader's `props`.
 #' @return A `watch` list for [el_widget()], or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_cascader_levels <- function(level_inputs, props) {
   if (is.null(level_inputs)) {
     return(NULL)

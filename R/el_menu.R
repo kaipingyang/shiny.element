@@ -6,7 +6,7 @@
 #'
 #' @param items A list of item descriptions, see [el_menu()].
 #' @return A list of tags.
-#' @keywords internal
+#' @noRd
 .el_menu_nodes <- function(items) {
   lapply(items, function(item) {
     icon <- if (!is.null(item$icon)) .el_icon_template(item$icon)
@@ -81,7 +81,7 @@
 #' @param item One item description.
 #' @param fields The snake_case fields to look for.
 #' @return A list of `:kebab-case` bindings, one per field present.
-#' @keywords internal
+#' @noRd
 .el_menu_item_props <- function(item, fields) {
   out <- list()
   for (f in fields) {

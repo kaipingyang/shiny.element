@@ -88,7 +88,7 @@ el_load_children <- function(
 #'
 #' @param ns_id The component's id.
 #' @return A JS function, the computed property.
-#' @keywords internal
+#' @noRd
 .el_lazy_props <- function(ns_id) {
   JS(sprintf(
     paste0(
@@ -116,7 +116,7 @@ el_load_children <- function(
 #' @param kind `"tree"` -- `load(node, resolve)` -- or `"table"` --
 #'   `load(row, treeNode, resolve)`.
 #' @return A JS function, a method of the component.
-#' @keywords internal
+#' @noRd
 .el_lazy_load_method <- function(ns_id, kind = c("tree", "table")) {
   kind <- match.arg(kind)
   JS(switch(

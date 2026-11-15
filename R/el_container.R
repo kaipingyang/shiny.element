@@ -3,7 +3,7 @@
 #' @param x A candidate child element.
 #' @param classes Layout class names to look for.
 #' @return `TRUE` when `x` is a tag carrying one of `classes`.
-#' @keywords internal
+#' @noRd
 .el_has_class <- function(x, classes) {
   if (!inherits(x, "shiny.tag")) {
     return(FALSE)
@@ -22,7 +22,7 @@
 #' @param style Extra inline style.
 #' @param extra_class Extra CSS classes.
 #' @return A Shiny UI element.
-#' @keywords internal
+#' @noRd
 .el_container_part <- function(
   class,
   children,

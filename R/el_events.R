@@ -265,15 +265,15 @@ print.el_events <- function(x, ...) {
 #'
 #' The component's entry in [el_events()] -- the events on by default, and
 #' those the user asked for with `events` -- forwarded by the Vue layer
-#' ([.vue_event_bindings()]), with the user's own handlers, `on`.
+#' (`.vue_event_bindings()`), with the user's own handlers, `on`.
 #'
 #' @param ns_id The namespaced element id.
 #' @param fn The component's function name, its entry in the registry.
 #' @param asked The user's `events`.
-#' @param on,shapes,throttle,bound As for [.vue_event_bindings()].
+#' @param on,shapes,throttle,bound As for `.vue_event_bindings()`.
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
-#' @keywords internal
+#' @noRd
 .el_event_bindings <- function(
   ns_id,
   fn,

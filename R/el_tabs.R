@@ -233,7 +233,7 @@ el_tabs <- function(
 #' @param active,closable Whether it is selected, and whether it can be closed.
 #' @param pos_class `is-top`, `is-left`, ...
 #' @return A tag.
-#' @keywords internal
+#' @noRd
 .el_tab_item <- function(ns_id, t, active, closable, pos_class) {
   disabled <- isTRUE(t$disabled)
   # A disabled tab cannot be closed, as in Element Plus's TabNav
@@ -273,7 +273,7 @@ el_tabs <- function(
 #' @param t The tab description.
 #' @param active Whether it is selected.
 #' @return A tag.
-#' @keywords internal
+#' @noRd
 .el_tab_pane <- function(ns_id, t, active) {
   content <- if (isTRUE(t$lazy) && !active) {
     htmltools::tag("template", list(`data-el-lazy` = "true", t$content))

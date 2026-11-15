@@ -74,7 +74,8 @@ its host exposing the store so updates, calls and outputs reach it),
 `update_vue()`, `call_vue()`, `vue_answer()`, `vue_router()` (vue-router
 5.4.0, `inst/vue-router`: one router per page, in every app, the route
 in the hash and as `input$<id>`), `vueuse_dependency()` (VueUse 15.0.0,
-Element's own version, `inst/vueuse`, opt-in, for `setup()`),
+Element's own version, `inst/vueuse/vueuse.tar.xz`, taken out into
+`tempdir()` on first use by `.vue_unpacked()`; opt-in, for `setup()`),
 `v_bind()`/`v_model()`/`v_on()` (`R/vue_directives.R`: Vue's directives
 for an R component's arguments -- an expression over `$vueStore`,
 `$inputs`, `$route`, one way or written back to a store; `ns =` scopes
@@ -138,6 +139,11 @@ browser); a deliberate `null` -- Element's own `value-on-clear` takes one
 -- is `JS("null")`, reachable once props bind through `$optional()`
 (`.claude/plans/2026-10-26-optional-props.md`). A change that cannot keep
 all of this says which part and why, in its plan, before any code.
+
+Internal helpers are documented with roxygen and `@noRd`: the docs are
+read in the source, not installed (the help pages counted 1.3 MB of the
+package). Refer to one in another's docs as code, `` `.vue_host()` ``,
+not as a link.
 
 **Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
 file named for no job collects whatever fits nowhere else. A helper one

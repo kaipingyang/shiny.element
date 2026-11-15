@@ -14,7 +14,7 @@
 #' @param job_id The job's id, from `uploadInit`.
 #' @param session The Shiny session the job belongs to.
 #' @return Whether the job was found and removed, invisibly.
-#' @keywords internal
+#' @noRd
 .el_upload_abandon <- function(job_id, session) {
   if (!is.character(job_id) || length(job_id) != 1L || !nzchar(job_id)) {
     return(invisible(FALSE))
@@ -85,7 +85,7 @@
 #'   prematurely". So when a file fails, or is aborted with Element's
 #'   `abort()`, that file is marked failed (or left, if aborted) and the rest
 #'   of the batch is sent again as a fresh job. The interrupted job is
-#'   named to the server, which lets it go ([.el_upload_abandon()]).
+#'   named to the server, which lets it go (`.el_upload_abandon()`).
 #'
 #' Each call returns an object with `abort()`, which Element keeps per file:
 #' it stops that file's request if it is in flight and drops it from the
@@ -93,7 +93,7 @@
 #'
 #' @param ns_id The namespaced input id.
 #' @return A [JS()] object for the `http-request` prop.
-#' @keywords internal
+#' @noRd
 .el_upload_js <- function(ns_id) {
   JS(sprintf(
     paste0(

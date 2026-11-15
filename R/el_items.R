@@ -10,7 +10,7 @@
 #' @param kind The constructor's name, `"el_tab_pane"`.
 #' @param fields Named list; `NULL` fields are left out.
 #' @return The list, of class `kind` and `el_item`.
-#' @keywords internal
+#' @noRd
 .el_item <- function(kind, fields) {
   fields <- fields[!vapply(fields, is.null, logical(1))]
   structure(fields, class = c(kind, "el_item", "list"))
@@ -999,7 +999,7 @@ el_skeleton_item <- function(variant = NULL, ...) {
 #' @param arg The argument's name, for the error.
 #' @param fields The fields an item has, for the error.
 #' @return `x`, invisibly.
-#' @keywords internal
+#' @noRd
 .el_check_items <- function(x, arg, fields) {
   if (is.null(x) || (is.list(x) && !length(x))) {
     return(invisible(x))

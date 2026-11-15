@@ -211,7 +211,7 @@ el <- local({
 #'
 #' @param args The tag's arguments: named attributes and children.
 #' @return The arguments, `TRUE` as a bare attribute and `FALSE` bound.
-#' @keywords internal
+#' @noRd
 .el_tag_args <- function(args) {
   nms <- names(args)
   if (is.null(nms)) {

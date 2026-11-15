@@ -630,7 +630,7 @@ update_el_select <- function(
 #'
 #' @param choices The choices as given.
 #' @return A list of `options` and `groups`.
-#' @keywords internal
+#' @noRd
 .el_select_choices <- function(choices) {
   if (!is.list(choices) || !length(choices)) {
     return(list(options = .vue_choices(choices), groups = list()))
@@ -683,7 +683,7 @@ update_el_select <- function(
 #' @param props `list(value =, label =, disabled =, options =)`: the fields
 #'   holding each, or `NULL`.
 #' @return The choices, with the fields `.el_select_choices()` reads.
-#' @keywords internal
+#' @noRd
 .el_rename_option_fields <- function(choices, props) {
   if (is.null(props) || !is.list(choices)) {
     return(choices)

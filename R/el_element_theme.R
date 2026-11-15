@@ -11,7 +11,7 @@
 #' page and, mixed against the dark background, for `html.dark`.
 #'
 #' @name el_element_theme
-#' @keywords internal
+#' @noRd
 NULL
 
 # Element Plus's defaults, from theme-chalk's common/var.scss
@@ -29,7 +29,7 @@ NULL
 #' @param with What it is mixed with.
 #' @param weight How much of `with`, from 0 to 1.
 #' @return `"#rrggbb"`.
-#' @keywords internal
+#' @noRd
 .el_mix <- function(hex, with, weight) {
   a <- grDevices::col2rgb(hex)[, 1]
   b <- grDevices::col2rgb(with)[, 1]
@@ -40,7 +40,7 @@ NULL
 #' A colour, as hex
 #' @param x A colour R can read.
 #' @return `"#rrggbb"`.
-#' @keywords internal
+#' @noRd
 .el_hex <- function(x) {
   rgb <- tryCatch(grDevices::col2rgb(x)[, 1], error = function(e) NULL)
   if (is.null(rgb)) {
@@ -58,7 +58,7 @@ NULL
 #'
 #' @param theme A theme, a named list, or `NULL`.
 #' @return A named character vector, names without the `--el-` prefix.
-#' @keywords internal
+#' @noRd
 .el_element_vars <- function(theme) {
   if (is.null(theme)) {
     return(character(0))
@@ -112,7 +112,7 @@ NULL
 
 #' Element Plus's theme variables, by name
 #' @return Names, without the `--el-` prefix.
-#' @keywords internal
+#' @noRd
 .el_known_vars <- function() {
   css <- paste(
     readLines(
@@ -135,13 +135,13 @@ NULL
 
 #' Element Plus's variables, set for a theme
 #'
-#' @param vars Output of [.el_element_vars()].
+#' @param vars Output of `.el_element_vars()`.
 #' @param live Whether the theme is the page's Bootstrap theme: its colours
 #'   then follow Bootstrap's CSS variables, live; otherwise they are written
 #'   out, and only those that differ from Element's.
 #' @return An htmlDependency holding the `<style>`, or `NULL` when nothing
 #'   changes.
-#' @keywords internal
+#' @noRd
 .el_theme_vars_dependency <- function(vars, live = FALSE) {
   from_bs <- attr(vars, "from_bs")
   if (!isTRUE(live) && length(from_bs)) {
@@ -272,7 +272,7 @@ NULL
 #'
 #' @param theme A theme, or `NULL`.
 #' @return A tag function giving the dependency, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_theme_tag <- function(theme) {
   if (is.null(theme)) {
     return(NULL)

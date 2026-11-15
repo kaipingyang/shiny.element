@@ -7,7 +7,7 @@
 #' @param ... Its content.
 #' @param scope The scope's name or destructuring, for a scoped slot.
 #' @return A template tag.
-#' @keywords internal
+#' @noRd
 .vue_slot <- function(name, ..., scope = NULL) {
   htmltools::tag(
     "template",
@@ -30,7 +30,7 @@
 #' @param x A character string, tag, tag list or `HTML()`, or `NULL`.
 #' @param arg The argument's name, for the error.
 #' @return A single string, or `NULL`.
-#' @keywords internal
+#' @noRd
 .vue_html_string <- function(x, arg = "html") {
   if (is.null(x)) {
     return(NULL)
@@ -67,7 +67,7 @@
 #' stylesheet so that leaving out a page's stylesheet cannot switch it off.
 #'
 #' @return A CSS declaration string.
-#' @keywords internal
+#' @noRd
 .vue_mount_style <- function() {
   "display: contents"
 }

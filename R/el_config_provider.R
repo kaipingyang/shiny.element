@@ -180,7 +180,7 @@ el_config_provider <- function(
 #' provider needs only the object the file defines, `ElementPlusLocaleZhCn`.
 #' @param code A locale code, `"zh-cn"`.
 #' @return An htmlDependency.
-#' @keywords internal
+#' @noRd
 .el_locale_file <- function(code) {
   dir <- .el_locale_dir(code)
   if (is.null(dir)) {

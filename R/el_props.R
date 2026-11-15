@@ -3,9 +3,9 @@
 #' Element Plus's props that keep its own default unless given: each has a
 #' field of its camelCase name holding the value, `NA` when unset (Element's
 #' default, `undefined` in the browser; `JS("null")` is a deliberate
-#' `null`), and an entry naming that field for the prop. [.el_bind_props()]
+#' `null`), and an entry naming that field for the prop. `.el_bind_props()`
 #' binds the entries on their tag as one group, `v-bind="$optional('<group>')"`
-#' ([.vue_optional_props()]); [el_widget()] does it for its root tag.
+#' (`.vue_optional_props()`); [el_widget()] does it for its root tag.
 #'
 #' @param values A named list, names in snake_case as the R arguments are.
 #' @param prefix A prefix for the fields' names, or `NULL`.
@@ -15,7 +15,7 @@
 #'   the prop, as an update function already sets it.
 #' @return A list of `data` (for the Vue data) and `entries` (`<prop-kebab>
 #'   = <field>`, or `list(field =, wrap =)`), not yet bound to a tag.
-#' @keywords internal
+#' @noRd
 .el_props <- function(values, prefix = NULL, rename = NULL, fields = NULL) {
   if (!length(values)) {
     return(list(data = list(), entries = list()))
@@ -66,11 +66,11 @@
 #' free name when a component folded into the same instance has taken it.
 #'
 #' @param tag The Element tag the props belong to.
-#' @param props Output of [.el_props()].
+#' @param props Output of `.el_props()`.
 #' @param taken Group names already used in the instance.
 #' @return `list(tag =, props =)`: the tag with its `v-bind`, and the props
 #'   with `groups` (`<group> = <entries>`) in place of `entries`.
-#' @keywords internal
+#' @noRd
 .el_bind_props <- function(tag, props, taken = character()) {
   if (!length(props$entries)) {
     return(list(tag = tag, props = props))
@@ -97,7 +97,7 @@
 #'
 #' @param values Named list, by the props' R names.
 #' @return The list, values prepared.
-#' @keywords internal
+#' @noRd
 .el_prop_values <- function(values) {
   arrays <- names(values) %in% .el_array_props & vapply(values, is.atomic, TRUE)
   values[arrays] <- lapply(values[arrays], function(v) {
@@ -113,10 +113,10 @@
 #' Props Element Plus takes only as arrays
 #'
 #' From its API tables: those typed `Array` with no string, number or boolean
-#' alternative. [.el_props()] keeps a length-one vector given for one of them
+#' alternative. `.el_props()` keeps a length-one vector given for one of them
 #' an array.
 #'
-#' @keywords internal
+#' @noRd
 .el_array_props <- c(
   "button_texts",
   "colors",
@@ -161,7 +161,7 @@
 #'   `.el_props(prefix =)` gave them -- a wrapper keeping its fields apart
 #'   from those of the component it folds in -- or `NULL`.
 #' @return A named list: field -> value.
-#' @keywords internal
+#' @noRd
 .el_update_props <- function(
   fn,
   dots,
@@ -210,7 +210,7 @@
 
 #' Send an update of a component's props
 #'
-#' For the components whose props are all bound through [.el_props()]: the
+#' For the components whose props are all bound through `.el_props()`: the
 #' fields are named as the component's own, prefix and renames included, so
 #' an update reaches what the UI declared.
 #'
@@ -218,9 +218,9 @@
 #' @param id The component's id.
 #' @param fn The UI function, whose arguments the values are checked against.
 #' @param values Named list of the arguments given; `NULL` ones are left out.
-#' @param prefix,rename As for [.el_props()].
+#' @param prefix,rename As for `.el_props()`.
 #' @return `NULL`, invisibly.
-#' @keywords internal
+#' @noRd
 .el_send_props_update <- function(
   session,
   id,

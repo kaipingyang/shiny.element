@@ -336,7 +336,7 @@ update_el_dialog <- function(
 #' @param destroy Whether it is destroyed on close.
 #' @param visible Whether the overlay starts open.
 #' @return Markup.
-#' @keywords internal
+#' @noRd
 .el_overlay_content <- function(content, destroy, visible) {
   if (!isTRUE(destroy)) {
     return(content)
@@ -354,7 +354,7 @@ update_el_dialog <- function(
 #' given ones as their camelCase fields, logical ones as `TRUE`/`FALSE`.
 #' @param values Named list; `NULL` ones are left out.
 #' @return A list of fields.
-#' @keywords internal
+#' @noRd
 .el_overlay_flags <- function(values) {
   values <- values[!vapply(values, is.null, logical(1))]
   out <- lapply(values, function(v) if (is.logical(v)) isTRUE(v) else v)

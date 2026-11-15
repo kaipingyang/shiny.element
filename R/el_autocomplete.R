@@ -266,7 +266,7 @@ el_autocomplete <- function(
 #'
 #' @param suggestions A character vector, or a list of objects.
 #' @return A list of objects, each with at least a `value`.
-#' @keywords internal
+#' @noRd
 .el_autocomplete_suggestions <- function(suggestions) {
   if (is.null(suggestions) || !length(suggestions)) {
     return(list())

@@ -154,7 +154,7 @@ el_descriptions <- function(
 #'
 #' @param items The items as given.
 #' @return A list of items, each with `label` and `content`.
-#' @keywords internal
+#' @noRd
 .el_descriptions_items <- function(items) {
   if (!length(items)) {
     return(list())
@@ -200,7 +200,7 @@ el_descriptions <- function(
 #'
 #' @param x A name.
 #' @return The same name in kebab-case.
-#' @keywords internal
+#' @noRd
 .el_kebab_case <- function(x) {
   tolower(gsub("([a-z0-9])([A-Z])", "\\1-\\2", x))
 }

@@ -118,7 +118,7 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @return `list(html =, deps =)`, or `list(patch = list(host =, fields =))`
 #'   with each changed field as JSON text; carrying the whole as attribute
 #'   `vue_whole`, for the cache.
-#' @keywords internal
+#' @noRd
 .vue_output_value <- function(session, name, tags) {
   whole <- .vue_output_whole(tags)
   value <- .vue_output_send(session, name, whole)

@@ -491,7 +491,7 @@ df_to_tree_data <- function(df, cols, sep = "/") {
 #' shaped into a named list of the node's `data`, its `key` and its `level`.
 #'
 #' @return A named list of JavaScript functions, one per event.
-#' @keywords internal
+#' @noRd
 .el_tree_event_shapes <- function() {
   node <- "function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }"
   list(
@@ -518,7 +518,7 @@ df_to_tree_data <- function(df, cols, sep = "/") {
 #'
 #' @param props A named list, or `NULL`.
 #' @return The full map.
-#' @keywords internal
+#' @noRd
 .el_tree_props <- function(props) {
   defaults <- list(
     label = "label",

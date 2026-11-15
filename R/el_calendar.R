@@ -533,7 +533,7 @@ update_el_calendar <- function(
 #' @param arg The update argument the rows came in, which must give ids.
 #' @return Rows, each with an `id` (the row's number when none is given),
 #'   days as `"YYYY-MM-DD"` and times as `"YYYY-MM-DD HH:MM"`.
-#' @keywords internal
+#' @noRd
 .el_calendar_events <- function(events, arg = NULL) {
   events <- .el_calendar_rows(
     events,

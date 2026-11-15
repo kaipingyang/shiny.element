@@ -71,7 +71,7 @@ width set on it would do nothing.}
 
 \item{slots}{Named list of slot contents, one entry per Element slot:
 \code{list(title = tags$b("Bold"))} fills the \code{title} slot. A component given
-here is absorbed like any other (\code{\link[=.el_absorb]{.el_absorb()}}). For a scoped slot,
+here is absorbed like any other (\code{.el_absorb()}). For a scoped slot,
 where Element hands the template its own data, write the template with
 \code{\link[=template]{template()}} and the value is used as it stands.}
 
@@ -116,7 +116,7 @@ whether beside the component rather than under it. Element's
 
 \item{props}{Optional props from \code{.el_props()}: bound on the root tag of
 \code{markup} as one group, \code{v-bind="$optional('<tag>')"}, with their fields
-added to \code{data}; or already bound on another tag (\code{\link[=.el_bind_props]{.el_bind_props()}}),
+added to \code{data}; or already bound on another tag (\code{.el_bind_props()}),
 whose groups are kept.}
 
 \item{absorbed}{The components folded into this one, by id: their fields

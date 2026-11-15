@@ -2,7 +2,7 @@
 #'
 #' @param data A data.frame or a row-shaped list.
 #' @return A list of `list(prop=, label=)` configs.
-#' @keywords internal
+#' @noRd
 .el_table_infer_columns <- function(data) {
   if (is.data.frame(data)) {
     nms <- names(data)
@@ -30,7 +30,7 @@
 #'
 #' @param columns A list of column configs.
 #' @return The same list with each `prop` sanitised.
-#' @keywords internal
+#' @noRd
 .el_table_sanitize_columns <- function(columns) {
   # a v_bind(): Element's el-table-column props, camelCase, as they are
   if (inherits(columns, "vue_binding")) {
@@ -103,7 +103,7 @@
 #'   or `"date"`.
 #' @param editor Props of the editor, `choices` for a select.
 #' @return Markup, the column's `cell`.
-#' @keywords internal
+#' @noRd
 .el_table_editor <- function(prop, editable, editor = NULL) {
   kinds <- c("input", "number", "select", "date")
   if (isTRUE(editable)) {
@@ -222,7 +222,7 @@
 #' column's `prop` rather than the column object.
 #'
 #' @return A named list of JavaScript functions, one per event.
-#' @keywords internal
+#' @noRd
 .el_table_event_shapes <- function() {
   idx <- "window.shinyElement.rowIndex(this, %s)"
   col <- "window.shinyElement.colProp(%s)"
@@ -310,7 +310,7 @@
 #' @param rownames `TRUE` or `FALSE` to force it; `NULL` keeps them only when
 #'   they are not the automatic ones.
 #' @return The data, with a `rowname` column first when kept.
-#' @keywords internal
+#' @noRd
 .el_table_rownames <- function(data, rownames = NULL) {
   if (!is.data.frame(data)) {
     return(data)
@@ -338,7 +338,7 @@
 #'
 #' @param id,data,columns The arguments as received by [el_table()].
 #' @return A list with elements `id`, `data` and `columns`.
-#' @keywords internal
+#' @noRd
 .el_table_args <- function(id, data, columns) {
   if (is.null(id) || (is.character(id) && length(id) == 1L)) {
     return(list(id = id, data = data, columns = columns))
@@ -379,7 +379,7 @@
 #'
 #' @return A list: `columns`, without `cell`, `cells`, a named list of
 #'   markup keyed by `cellKey`, and `depths`, the nesting level of each.
-#' @keywords internal
+#' @noRd
 .el_table_cells <- function(columns) {
   cells <- list()
   depths <- integer()
@@ -439,7 +439,7 @@
 #' @return A list: `rows`, `columns` (as written, possibly empty), `auto`
 #'   (inferred from `data`) and `cells` (the templates lifted out of
 #'   `columns`).
-#' @keywords internal
+#' @noRd
 .el_table_prep <- function(data = list(), columns = list()) {
   bound <- inherits(columns, "vue_binding")
   cells <- .el_table_cells(
@@ -1619,7 +1619,7 @@ update_el_table <- function(
 #'
 #' @param options A list named as [el_loading()]'s arguments, or `NULL`.
 #' @return A named list of attributes.
-#' @keywords internal
+#' @noRd
 .el_loading_attrs <- function(options) {
   if (!length(options)) {
     return(stats::setNames(list(), character()))

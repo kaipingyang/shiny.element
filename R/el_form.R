@@ -15,7 +15,7 @@
 #' Element Plus control tags by field type
 #'
 #' `option` is the child tag for the choice-based controls.
-#' @keywords internal
+#' @noRd
 .el_form_tags <- list(
   "input" = list(tag = "el-input"),
   # el-input's own `type`, which el_form_field()'s `type` cannot carry
@@ -57,9 +57,9 @@
 #'
 #' Picked so the initial model round-trips as the right JSON type, and so
 #' `resetFields()` has something sensible to reset to.
-#' @param type A field type from [.el_form_tags].
+#' @param type A field type from `.el_form_tags`.
 #' @return The type's empty value.
-#' @keywords internal
+#' @noRd
 .el_form_empty_value <- function(type) {
   switch(
     type,
@@ -81,7 +81,7 @@
 #'
 #' @param x A character vector of names.
 #' @return The names in camelCase.
-#' @keywords internal
+#' @noRd
 .el_camel <- function(x) {
   gsub("_(.)", "\\U\\1", x, perl = TRUE)
 }
@@ -92,11 +92,11 @@
 #' `el-radio` and `el-checkbox` take the display text as their default slot.
 #' Normalising here keeps one template able to render all three.
 #'
-#' @param choices Anything [.vue_choices()] accepts.
+#' @param choices Anything `.vue_choices()` accepts.
 #' @param option_tag The child tag this control uses.
 #' @return A list of `list(label=, value=, text=)` items, `label` only for
 #'   `el-option`.
-#' @keywords internal
+#' @noRd
 .el_form_options <- function(choices, option_tag) {
   if (is.null(choices)) {
     return(NULL)
@@ -115,7 +115,7 @@
 #'
 #' @param rules A single [el_rule()], a list of them, or `NULL`.
 #' @return An unnamed list of rules, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_normalize_rules <- function(rules) {
   if (is.null(rules) || !length(rules)) {
     return(NULL)
@@ -885,7 +885,7 @@ el_form <- function(
 #' @param fields The form's fields, flattened.
 #' @param ns_id The form's id.
 #' @return A named list of watchers, or `NULL`.
-#' @keywords internal
+#' @noRd
 .el_form_watch <- function(fields, ns_id) {
   reported <- .el_form_reported(fields, ns_id)
   if (!length(reported)) {
@@ -907,7 +907,7 @@ el_form <- function(
 #' @param fields The form's fields, flattened.
 #' @param ns_id The form's id.
 #' @return A named character vector: `model.<prop>` named `<id>_<prop>`.
-#' @keywords internal
+#' @noRd
 .el_form_reported <- function(fields, ns_id) {
   props <- unlist(lapply(fields, function(f) if (isTRUE(f$report)) f$prop))
   if (!length(props)) {
@@ -1103,7 +1103,7 @@ el_form_clear_validate <- function(
 #'
 #' @param fields Fields from [el_form_field()] and [el_form_item()].
 #' @return A flat list of the fields.
-#' @keywords internal
+#' @noRd
 .el_form_flatten <- function(fields) {
   unlist(
     lapply(fields, function(f) {
