@@ -1,4 +1,11 @@
-# shiny.element (development version)
+# shiny.element 0.3.2
+
+Components that follow one another in the browser: Vue's directives as R
+functions -- `v_bind()`, `v_model()`, `v_on()` for a component's
+arguments, `v_if()`, `v_for()` and the rest for templates -- with
+`vue_store()` (Pinia), `vue_router()`, `vue_ref()` and its kin, VueUse;
+an arguments registry saying what each argument can follow; and most of
+the site's examples running in the page, as upstream's.
 
 ## Breaking changes
 

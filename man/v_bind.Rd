@@ -18,6 +18,13 @@ v_model(path, arg = NULL, modifiers = NULL, ns = NULL)
 
 \item{path}{A store's field, \verb{$vueStore.<id>.<field>}, going on with
 \verb{.<name>}, \verb{['<name>']} or \verb{[<index>]}.}
+
+\item{arg}{In a template, the model's argument, as \code{v-model:title}
+writes it: \code{"title"}. A named attribute gives it too:
+\code{title = v_model("t")}.}
+
+\item{modifiers}{Vue's modifiers, as \code{v-model.trim.lazy} writes them:
+\code{c("trim", "lazy")}.}
 }
 \value{
 The binding, to give as an argument's value.

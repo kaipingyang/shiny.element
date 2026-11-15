@@ -79,6 +79,11 @@
 #'   `$route`, and in a template the component's own names.
 #' @param path A store's field, `$vueStore.<id>.<field>`, going on with
 #'   `.<name>`, `['<name>']` or `[<index>]`.
+#' @param arg In a template, the model's argument, as `v-model:title`
+#'   writes it: `"title"`. A named attribute gives it too:
+#'   `title = v_model("t")`.
+#' @param modifiers Vue's modifiers, as `v-model.trim.lazy` writes them:
+#'   `c("trim", "lazy")`.
 #' @param ns In a module, its namespace: the function [shiny::NS()] gives,
 #'   `session$ns`, or the module's id.
 #' @return The binding, to give as an argument's value.
